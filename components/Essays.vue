@@ -7,7 +7,7 @@
       <li :class="{ active: activeIndex == 3 }" @click="activate(3)" >热榜</li>
     </ul>
     <div ref="essaylist" class="content" >
-      <Essay v-for="(item, index) in homeData"
+      <Essay v-for="(item, index) in homeDatas"
        :key="index" :homeData="item" :index="index"/>
     </div>
   </div>
@@ -20,18 +20,13 @@ export default {
   components: {
     Essay,
   },
-  inject:["homeData"],
-  // props:{
-  //    homeData: {
-  //       type:Object,
-  //       author: String,
-  //       preview: String,
-  //       title: String,
-  //       snapshot: String,// 图片快照
-  //       required:false,
-  //       default(){return {}}
-  //   },
-  // },
+  props:{
+     homeDatas: {
+        type:Array,
+        required:false,
+        default(){return []}
+    },
+  },
   data() {
     return {
       // nav 栏激活 index

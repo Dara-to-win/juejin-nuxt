@@ -1,7 +1,7 @@
 <template>
   <div class="lh-container">
     <!-- 左边文章区 -->
-    <Essays :homeData="homeData"/>
+    <Essays :homeDatas="homeDatas"/>
     <!-- 右区广告区 -->
     
     <Adv class="ads"/>
@@ -16,10 +16,10 @@ export default {
   name: 'LowerHalf', 
   components: { Essays, Adv },
   props:{
-    homeData:{
-       type:Object,
+    homeDatas:{
+       type:Array,
        required:false,
-       default(){return {}},
+       default(){return []},
     }
   },
   data() {

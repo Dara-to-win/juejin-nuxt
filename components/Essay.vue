@@ -74,6 +74,13 @@ export default {
   mounted(){
   },
   methods: {
+     feedbackProcess(value) {
+      if (value >= 10000) {
+        return `${(value / 1000).toFixed(0) / 10}w`
+      } else {
+        return value
+      }
+    },
   },
 }
 </script>
