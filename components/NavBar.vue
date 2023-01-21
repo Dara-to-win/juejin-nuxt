@@ -59,7 +59,7 @@
         <!-- 主导航栏右半部分，包含搜索框、创作者中心按钮、消息提示和用户头像 -->
         <el-col :span="15" class="right">
           <!-- 输入框 -->
-          <el-input placeholder="探索掘金社区" class="input">
+          <el-input v-model="input" placeholder="探索掘金社区"  class="input"  >
             <i slot="suffix" class="el-icon-search"></i>
           </el-input>
 
@@ -261,7 +261,16 @@
 <script>
 export default {
   name: 'NavBar',
-  methods: {},
+  data(){
+    return {
+      input:'',
+    }
+  },
+  methods: {
+    navAnimation(){
+      console.log("nav放下，link收起")
+    }
+  },
 }
 </script>
 

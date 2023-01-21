@@ -103,7 +103,8 @@ export default {
 
   padding: 5px 10px;
   max-width: 700px;
-
+  content-visibility: auto;
+  contain-intrinsic-size: 124px;
   background-color: white;
   border-bottom: 1px solid #e1e1e1;
   box-shadow: rgb(0 0 0 / 0%) 0px 2px 1px -1px, rgb(0 0 0 / 1%) 0px 1px 1px 0px,

@@ -3,7 +3,7 @@
   <div ref="linkpop" :class="{ 'lk-container': true, isFixed: isFixed }" >
     <ul>
       <LinkPopItem v-for="item in lists" :key="item.id" :index="item.id" :info="item.info" />
-    </ul>
+        </ul>
   </div>
 </template>
 
@@ -115,7 +115,10 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('scroll', this.handleScroll)
+   this.item = window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed() {
+   window.removeEventListener('scroll',this.item)
   },
   methods: {
     handleScroll() {
@@ -123,6 +126,9 @@ export default {
       const scrollTop = document.documentElement.scrollTop
       this.isFixed = scrollTop >= 64 
     },
+    linkAnimation(){
+      console.log("nav收起，link放下")
+    }
   },
   
 }
@@ -137,6 +143,7 @@ export default {
   background-color: white;
   padding-left: 100px;
   padding-top: 0;
+  line-height: 36px;
   ul {
     display: flex;
     justify-content: flex-start;
