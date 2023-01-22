@@ -13,7 +13,7 @@ export default {
   name:'IndexPage',
   layout: 'nav',
   asyncData({ $axios }) {
-    return $axios.get('/article1.json').then((res) => {
+    return $axios.get('https://diandian210.top/article1.json').then((res) => {
       const atc = res.data
       for (const key in atc) {
         // 删除content文章详情，以及avatar头像属性
