@@ -23,7 +23,9 @@ export default {
     // vercel 默认80
     port: 80
   },
-
+  router:{
+    base:'/dist'
+  }，
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     'element-ui/lib/theme-chalk/index.css',
