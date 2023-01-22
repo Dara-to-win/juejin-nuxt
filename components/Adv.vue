@@ -170,6 +170,8 @@ export default {
   destroyed() {
     this.$bus.$off('slideHide')
     this.$bus.$off('slideAppear')
+    this.$bus.$off('slideUp')
+    this.$bus.$off('slideDown')
   },
   methods: {
     // 根据 Hour设置提示语
