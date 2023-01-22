@@ -25,7 +25,7 @@ export default {
   },
   router:{
     base:'/dist'
-  }，
+  },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     'element-ui/lib/theme-chalk/index.css',
