@@ -1,12 +1,13 @@
 <template>
   <div>
     <!-- <transition name="fade"> -->
-      <div class="ad main"> 
-        <!-- 提示信息 -->
-        <div class="tip">
-          <div class="left">
-            <!-- 一个日历小图标 -->
-            <!-- <svg width="60" height="30" viewBox="0 0 24 24" >
+    <div class="holder"></div>
+    <div class="ad main">
+      <!-- 提示信息 -->
+      <div class="tip">
+        <div class="left">
+          <!-- 一个日历小图标 -->
+          <!-- <svg width="60" height="30" viewBox="0 0 24 24" >
             <path fill="#FFCF8B" d="M8 2C8 1.72386 7.77614 1.5 7.5 1.5H6.5C6.22386 1.5 6 1.72386 6 2L5.9995 
             3H3C2.44772 3 2 3.47259 2 4.05556V7H22V4.05556C22 3.47259 21.5523 3 21 3H18V2C18 
             1.72386 17.7761 1.5 17.5 1.5H16.5C16.2239 1.5 16 1.72386 16 2V3H8V2ZM22 8.5H2V20
@@ -18,66 +19,79 @@
                 <rect x="16" y="12" width="3" height="2" rx="1" fill="#FF7D00" ></rect>
                 <rect x="16" y="16" width="3" height="2" rx="1" fill="#FF7D00" ></rect>
             </svg> -->
-            <h2 style="font-weight: 700">{{helloInfo}}</h2>
-            <p>点亮你在社区的每一天</p>
-          </div>
-          <div class="right">
-            <el-button type="primary" plain>去签到</el-button>
-          </div>
+          <h2 style="font-weight: 700">{{ helloInfo }}</h2>
+          <p>点亮你在社区的每一天</p>
         </div>
-        <!-- 广告组件 -->
-        <div class="ad">
-          <div v-for="(ad, index) in adInfo" :key="index" class="outsideDiv mt10">
-            <a :href="ad.adUrl"><img v-show="ad.isShow" :src="ad.imgUrl" alt="广告" ></a>
-            <i class="el-icon-close insideDiv"  @click="ad.isShow = !ad.isShow"></i>
-          </div>
-        </div>
-        <!-- 下载掘金 -->
-        <div class="download mt10">
-          <div class="left">
-            <img src="~/static/assets/QRCode.jpg" alt="">
-          </div>
-          <div class="right">
-            <h3 >下载掘金稀土APP</h3>
-            <p>一个帮助开发者成长的社区</p>
-          </div>
-        </div>
-        <!-- 作者榜 -->
-        <div class="authorRank mt10">
-          <h3>🎖️作者榜</h3>
-          <div v-for="(author,index) in authorInfo" :key="index" class="author">
-            <el-avatar :size="45" fit="fill" :src="author.avatarUrl"></el-avatar>
-            <div>
-              <h3 class="username">{{author.username}}<img :src="author.levelUrl" alt="level" class="level"></h3>
-              <p>{{author.introduce}}</p>
-            </div>
-          </div>
-          <div class="totalRank">
-            <a href="javascript:;">完整榜单 ></a>
-          </div>
+        <div class="right">
+          <el-button type="primary" plain>去签到</el-button>
         </div>
       </div>
+      <!-- 广告组件 -->
+      <div class="ad">
+        <div v-for="(ad, index) in adInfo" :key="index" class="outsideDiv mt10">
+          <a :href="ad.adUrl"
+            ><img v-show="ad.isShow" :src="ad.imgUrl" alt="广告"
+          /></a>
+          <i
+            class="el-icon-close insideDiv"
+            @click="ad.isShow = !ad.isShow"
+          ></i>
+        </div>
+      </div>
+      <!-- 下载掘金 -->
+      <div class="download mt10">
+        <div class="left">
+          <img src="~/static/assets/QRCode.jpg" alt="" />
+        </div>
+        <div class="right">
+          <h3>下载掘金稀土APP</h3>
+          <p>一个帮助开发者成长的社区</p>
+        </div>
+      </div>
+      <!-- 作者榜 -->
+      <div class="authorRank mt10">
+        <h3>🎖️作者榜</h3>
+        <div v-for="(author, index) in authorInfo" :key="index" class="author">
+          <el-avatar :size="45" fit="fill" :src="author.avatarUrl"></el-avatar>
+          <div>
+            <h3 class="username">
+              {{ author.username
+              }}<img :src="author.levelUrl" alt="level" class="level" />
+            </h3>
+            <p>{{ author.introduce }}</p>
+          </div>
+        </div>
+        <div class="totalRank">
+          <a href="javascript:;">完整榜单 ></a>
+        </div>
+      </div>
+    </div>
     <!-- </transition> -->
     <!-- <transition name="fade"> -->
-      <div class="slide">
-        <!-- 广告组件 -->
-        <div class="ad">
-          <div v-for="(ad, index) in adInfo" :key="index" class="outsideDiv mt10">
-            <a :href="ad.adUrl"><img v-show="ad.isShow" :src="ad.imgUrl" alt="广告" ></a>
-            <i class="el-icon-close insideDiv"  @click="ad.isShow = !ad.isShow"></i>
-          </div>
-        </div>
-        <!-- 下载掘金 -->
-        <div class="download mt10">
-          <div class="left">
-            <img src="~/static/assets/QRCode.jpg" alt="">
-          </div>
-          <div class="right">
-            <h3 >下载掘金稀土APP</h3>
-            <p>一个帮助开发者成长的社区</p>
-          </div>
+    <div id="slide" :class="slideClass" >
+      <!-- 广告组件 -->
+      <div class="ad">
+        <div v-for="(ad, index) in adInfo" :key="index" class="outsideDiv mt10">
+          <a :href="ad.adUrl"
+            ><img v-show="ad.isShow" :src="ad.imgUrl" alt="广告"
+          /></a>
+          <i
+            class="el-icon-close insideDiv"
+            @click="ad.isShow = !ad.isShow"
+          ></i>
         </div>
       </div>
+      <!-- 下载掘金 -->
+      <div class="download mt10">
+        <div class="left">
+          <img src="~/static/assets/QRCode.jpg" alt="" />
+        </div>
+        <div class="right">
+          <h3>下载掘金稀土APP</h3>
+          <p>一个帮助开发者成长的社区</p>
+        </div>
+      </div>
+    </div>
     <!-- </transition> -->
   </div>
 </template>
@@ -89,22 +103,25 @@ export default {
   name: 'Adv',
   data() {
     return {
+      slideClass:'',
+      bottom:'',
       adInfo: [
         {
           imgUrl: require('~/static/assets/adv1.jpg'),
           adUrl: '',
-          isShow: true
+          isShow: true,
         },
         {
           imgUrl: require('~/static/assets/adv2.jpg'),
-          adUrl: 'https://juejin.cn/pin/7129334097113006116?utm_source=slide&utm_medium=banner&utm_campaign=reading',
-          isShow: true
+          adUrl:
+            'https://juejin.cn/pin/7129334097113006116?utm_source=slide&utm_medium=banner&utm_campaign=reading',
+          isShow: true,
         },
-        {
-          imgUrl: require('~/static/assets/adv3.jpg'),
-          adUrl: 'https://juejin.cn/book/7126538479051210766?utm_source=web_banner&utm_medium=banner&utm_campaign=Book_SK_0817',
-          isShow: true
-        }
+        // {
+        //   imgUrl: require('~/static/assets/adv3.jpg'),
+        //   adUrl: 'https://juejin.cn/book/7126538479051210766?utm_source=web_banner&utm_medium=banner&utm_campaign=Book_SK_0817',
+        //   isShow: true
+        // }
       ],
       helloInfo: '',
       authorInfo: [
@@ -112,130 +129,103 @@ export default {
           avatarUrl: require('~/static/assets/avatar1.png'),
           username: 'YeeWang',
           levelUrl: require('~/static/assets/level6.png'),
-          introduce: '前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端'
+          introduce:
+            '前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端',
         },
         {
           avatarUrl: require('~/static/assets/avatar2.png'),
           username: 'YeeWang',
           levelUrl: require('~/static/assets/level6.png'),
-          introduce: '前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端'
+          introduce:
+            '前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端',
         },
         {
           avatarUrl: require('~/static/assets/avatar3.png'),
           username: 'YeeWang',
           levelUrl: require('~/static/assets/level6.png'),
-          introduce: '前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端'
+          introduce:
+            '前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端',
         },
       ],
       // adShow: true,
       // slideShow: false
     }
   },
-  mounted(){
+  mounted() {
     this.getHelloInfo()
-    // const ad = document.querySelector('.main');
-    // const slide = document.querySelector('.slide');
-    // const adTop = ad.clientHeight;
-    // const intersectionObserver = new IntersectionObserver(
-    //   function (entries) {
-    //     // 如果不可见，就返回
-    //     if (entries[0].intersectionRatio <= 0) {
-    //       ad.style.display = 'none'
-    //       slide.style.display = 'block'
-    //       slide.style.position = 'fixed'
-    //       // author.style.display = 'none'
-    //     }
-    //     if(window.pageYOffset < adTop){
-    //       console.log(window.pageYOffset)
-		// 			ad.style.display = 'block'
-    //       slide.style.display = 'none'
-    //       slide.style.position = 'none'
-		// 		}
-    //     // loadItems(10);
-    //     // console.log('Loaded new items');
-    // });
-
-    // // 开始观察
-    // intersectionObserver.observe(
-    //   document.querySelector('.main')
-    // );
-    const ad = document.querySelector('.main');
-    // const author = document.querySelector('.main .authorRank');
-    const slide = document.querySelector('.slide');
-    const adTop = ad.clientHeight;
-    // console.log('adTop: ' + adTop)
-    document.addEventListener('scroll', function() {
-				// console.log(window.pageYOffset);
-        if(window.pageYOffset < adTop){
-					ad.style.display = 'block'
-          slide.style.display = 'none'
-          slide.style.position = 'none'
-          // this.adShow = true
-          // this.slideShow = false
-				}else{
-          ad.style.display = 'none'
-          slide.style.display = 'block'
-          // this.adShow = false
-          // this.slideShow = true
-          slide.style.position = 'fixed'
-        }
-			});
+    const slide=document.getElementById('slide')
+    this.$bus.$on('slideHide', () => {// 为slide过渡
+      this.slideClass = 'slide' // 隐藏
+    })
+    this.$bus.$on('slideAppear', () => {
+      this.slideClass = 'slideFixed' // 出现
+    })
+    this.$bus.$on('slideDown', () => {
+      slide.style.bottom="50px" // 起
+    })
+    this.$bus.$on('slideUp', () => {
+      slide.style.bottom="5px"// 落
+    })
+  },
+  destroyed() {
+    this.$bus.$off('slideHide')
+    this.$bus.$off('slideAppear')
   },
   methods: {
     // 根据 Hour设置提示语
-    getHelloInfo(){
+    getHelloInfo() {
       const date = new Date()
       const hour = date.getHours()
-      if(hour<7){
+      if (hour < 6) {
         this.helloInfo = '凌晨好！'
-      }else if(hour<12){
+      } else if (hour < 12) {
         this.helloInfo = '早上好！'
-      }else if(hour<18){
+      } else if (hour < 18) {
         this.helloInfo = '中午好！'
-      }else{
+      } else {
         this.helloInfo = '晚上好！'
       }
     },
     // 获取广告信息
-    async asyncAdInfo(){
-        const {data} = await axios.get('https://api.myjson.com/bins/8gdmr')
-        return {adInfo: data}
+    async asyncAdInfo() {
+      const { data } = await axios.get('https://api.myjson.com/bins/8gdmr')
+      return { adInfo: data }
     },
     // 获取作者信息
-    async asyncAuthorInfo(){
-        const {data} = await axios.get('https://api.myjson.com/bins/8gdmr')
-        return {authorInfo: data}
-    }
-  }
+    async asyncAuthorInfo() {
+      const { data } = await axios.get('https://api.myjson.com/bins/8gdmr')
+      return { authorInfo: data }
+    },
+  },
 }
 </script>
 <style scoped>
-.ad{
+.ad {
   margin-top: 15px;
 }
-img{
-    height: 200px;
+img {
+  height: 200px;
 }
-i{
-    cursor: pointer;
+i {
+  cursor: pointer;
 }
 /* 提示信息部分 */
 .tip {
   display: flex;
   padding: 0 15px 0;
-  background-color:white;
-  width:240px;
+  background-color: white;
+  width: 240px;
   height: 100px;
   align-items: center;
 }
-.tip .left{
+.tip .left {
   flex: 2;
 }
 .tip .left p {
   margin-top: 5px;
   color: #666;
 }
-.tip .right{
+.tip .right {
   flex: 1;
 }
 .tip .right .el-button {
@@ -269,8 +259,8 @@ i{
 /* 下载部分 */
 .download {
   display: flex;
-  padding: 12px ;
-  background-color:white;
+  padding: 12px;
+  background-color: white;
   width: 240px;
   height: 74px;
   align-items: center;
@@ -291,7 +281,7 @@ i{
   width: 240px;
   background-color: white;
 }
-.authorRank>h3 {
+.authorRank > h3 {
   height: 42px;
   line-height: 42px;
   padding: 0 12px 0;
@@ -321,9 +311,9 @@ i{
 .author p {
   color: #666;
   margin-top: 3px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .authorRank .totalRank {
   height: 42px;
@@ -332,10 +322,22 @@ i{
   text-align: center;
   border-top: 1px #ccc solid;
 }
-.authorRank .totalRank a{
+.authorRank .totalRank a {
   color: #5a9df4;
 }
 .slide {
-  display: none;
+  opacity: 0;
+  pointer-events: all;
+  position: fixed;
+  transition: 0.2s;
+}
+.slideFixed {
+  position: fixed;
+  opacity: 1;
+  transition:0.2s;
+  bottom:0
+}
+.holder {
+  width: 240px;
 }
 </style>

@@ -1,7 +1,8 @@
 .bg-container {
   width: 100vw;
   background-color: #fff;
-  
+  z-index: 7;
+  position: fixed;
   .nav-container {
     margin: 0 auto;
     width: 100%;
@@ -137,4 +138,13 @@
       }
     }
   }
+}
+.nav-leave-active{
+  transition: 0.25s;
+}
+.nav-enter-active{
+  transition: 0.13s;
+}
+.nav-enter, .nav-leave-to  {
+  transform: translateY(-100%)
 }

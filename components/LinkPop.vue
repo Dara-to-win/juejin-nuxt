@@ -1,6 +1,6 @@
 <!-- 弹出框，被用在主导航栏的下半部分的弹出显示 -->
 <template>
-  <div ref="linkpop" :class="{ 'lk-container': true, isFixed: isFixed }" >
+  <div ref="linkpop" :class="linkPopClass" class="lk-container">
     <ul>
       <LinkPopItem v-for="item in lists" :key="item.id" :index="item.id" :info="item.info" />
         </ul>
@@ -18,6 +18,13 @@ export default {
     return {
       active_index: 1,
       isFixed: false,
+      linkPopClass:"",
+      up:[{
+        transform:"translateY(-64px)"
+      }],
+      down:[{
+        transform:"translateY(64px)"
+      }],
       // 测试数据，可发请求拿到
       lists: [
         {
@@ -115,20 +122,19 @@ export default {
     }
   },
   mounted() {
-   this.item = window.addEventListener('scroll', this.handleScroll)
+   this.$bus.$on("linPopDown",()=>{
+    this.linkPopClass=""
+   })
+   this.$bus.$on("linPopUp", ()=>{
+    this.linkPopClass="fixed"
+   })
+  
   },
   destroyed() {
-   window.removeEventListener('scroll',this.item)
+   this.$bus.$off("linPopDown");
+   this.$bus.$off("linPopUp");
   },
   methods: {
-    handleScroll() {
-      // 最上方下半部导航吸附在顶部
-      const scrollTop = document.documentElement.scrollTop
-      this.isFixed = scrollTop >= 64 
-    },
-    linkAnimation(){
-      console.log("nav收起，link放下")
-    }
   },
   
 }
@@ -136,6 +142,8 @@ export default {
 
 <style scoped lang="less">
 .lk-container {
+  position:fixed;
+  top:64px;
   display: flex;
   justify-content: flex-start;
   border-top: 1px solid #e6e6e6;
@@ -144,6 +152,8 @@ export default {
   padding-left: 100px;
   padding-top: 0;
   line-height: 36px;
+  z-index: 5;
+  transition:0.2s;
   ul {
     display: flex;
     justify-content: flex-start;
@@ -184,10 +194,9 @@ export default {
   }
 }
 
-.isFixed {
-  position: fixed;
+.fixed {
   top: 0;
-  z-index: 5;
+  transition:0.2s;
 }
 
 </style>

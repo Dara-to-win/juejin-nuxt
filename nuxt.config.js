@@ -27,6 +27,7 @@ export default {
   plugins: [
     '@/plugins/element-ui',
     '@/plugins/throttle',
+    '@/plugins/bus',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

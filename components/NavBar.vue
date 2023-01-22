@@ -1,6 +1,7 @@
 <!-- 上方主导航栏 -->
 <template>
-  <div class="bg-container">
+<transition name="nav">
+  <div v-show="navShow" class="bg-container" :class="navClass" >
     <div class="nav-container">
       <!-- 主导航栏上半部分 - 页面跳转 -->
       <el-row type="flex" class="nav-bar">
@@ -256,6 +257,7 @@
       </el-row>
     </div>
   </div>
+  </transition>
 </template>
 
 <script>
@@ -264,13 +266,42 @@ export default {
   data(){
     return {
       input:'',
+      scrolNumber:"",
+      navClass:'',
+      navShow:true,
     }
   },
-  methods: {
-    navAnimation(){
-      console.log("nav放下，link收起")
-    }
+  watch:{ 
+    scrolNumber: {
+      handler(newNumber, oldNumber) {
+        if (newNumber > oldNumber && newNumber>240) {
+          this.navShow=false
+          this.$bus.$emit('linPopUp')
+          this.$bus.$emit('slideDown')
+        }
+        if (newNumber < oldNumber && oldNumber>240) {
+          this.navShow=true
+          this.$bus.$emit('linPopDown')
+          this.$bus.$emit('slideUp') 
+        }
+        if(newNumber >1300){
+          this.$bus.$emit('slideAppear')
+        }else{
+          this.$bus.$emit('slideHide')
+        }
+      },
+    },
+  },
+  mounted() {
+   this.scroll = window.addEventListener("scroll", this.throttle(this.scrollToTop, 200));
+  },
+  destroyed() {
+    window.removeEventListener('scroll',this.scroll)
+  },
+  methods:{
+    scrollToTop() {
+      this.scrolNumber =window.pageYOffset ||document.documentElement.scrollTop ||document.body.scrollTop;
+    },
   },
 }
 </script>
-

@@ -68,7 +68,7 @@ li {
     width: 300px;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 4px;
+    border-radius: 2%;
     // border: 1px solid pink;
     z-index: 2;
     &::before {
@@ -88,7 +88,7 @@ li {
       li {
         height: 28px;
         line-height: 28px;
-        margin: 10px 10px;
+        margin: 4px 6px;
         font-size: 12px;
         color: #71777c;
         background-color: #e4e6eb;
