@@ -91,8 +91,9 @@ li {
         margin: 4px 6px;
         font-size: 12px;
         color: #71777c;
-        background-color: #e4e6eb;
+        background-color: #f4f5f5;
         border-radius: 14px;
+        
         &:hover {
           color: #1e80ff;
           cursor: pointer;

@@ -1,4 +1,3 @@
-import env from './env' 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -16,8 +15,12 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  experimental: {
+    writeEarlyHints: false,
+  },
   env:{
-    NODE_ENV: env[process.env.NODE_ENV].NODE_ENV,
+    NODE_ENV:process.env.NODE_ENV,
+    NODE_URL:process.env.NODE_URL,
   }, // 在组件中用process.env.NODE_ENV区分是生产环境还是开发环境
   server: {
     // 默认localhost 只能本地访问
@@ -30,8 +33,8 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     'element-ui/lib/theme-chalk/index.css',
-    '@/static/css.css',
-    '@/static/less.less',
+    '@/static/css/css.css',
+    '@/static/css/less.less',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -52,7 +55,8 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy',
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

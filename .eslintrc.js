@@ -20,5 +20,8 @@ module.exports = {
     "vue/multi-word-component-names":0,
     "vue/first-attribute-linebreak":0,
     "vue/attribute-hyphenation":0,
+    'vue/no-template-shadow':0,
+    'vue/no-v-html':0,
+    'vue/order-in-components':0,
   }
 }

@@ -8,7 +8,8 @@
     </ul>
     <div ref="essaylist" class="content" >
       <Essay v-for="(item, index) in homeDatas"
-       :key="index" :homeData="item" :index="index"/>
+       :key="item.article_id" :homeData="item" :index="index"
+       @click.native="jumpToDetail(item)"/>
     </div>
   </div>
 </template>
@@ -154,18 +155,9 @@ export default {
     //   }, 1000)
     // },
     // 点击文章跳转到详情页
-    // jump2Atc(pageName,index) {
-    //   // 路由跳转之前校验是否重复跳转到当前路由，是的话则不跳转
-    //   if (this.$route.name !== pageName) {
-    //   //  window.localStorage.setItem("index",0)
-    //   //  window.localStorage["index"] = index;
-    //     const newRoute = this.$router.resolve({
-    //       name: pageName,
-    //     })
-    //     window.open(newRoute.href, '_blank')
-    //   }
-    // },
-
+   jumpToDetail(item) {
+      this.$router.push({name:"Detail",params:{atcData:item}})
+   }
     // getEssays(){
     //   // 发送 ajax 请求获取 essays
     // }

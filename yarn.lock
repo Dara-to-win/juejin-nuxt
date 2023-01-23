@@ -1437,7 +1437,7 @@
 
 "@nuxtjs/proxy@^2.1.0":
   version "2.1.0"
-  resolved "https://registry.npmmirror.com/@nuxtjs/proxy/-/proxy-2.1.0.tgz"
+  resolved "https://registry.npmmirror.com/@nuxtjs/proxy/-/proxy-2.1.0.tgz#fa7715a11d237fa1273503c4e9e137dd1bf5575b"
   integrity sha512-/qtoeqXgZ4Mg6LRg/gDUZQrFpOlOdHrol/vQYMnKu3aN3bP90UfOUB3QSDghUUK7OISAJ0xp8Ld78aHyCTcKCQ==
   dependencies:
     http-proxy-middleware "^1.0.6"
@@ -9234,6 +9234,11 @@ vue-loader@^15.9.7:
     loader-utils "^1.1.0"
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
+
+vue-meditor@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.npmmirror.com/vue-meditor/-/vue-meditor-2.1.2.tgz#6e772c01082f7d6d068109a624a6622ff47a1fc5"
+  integrity sha512-Jg4n1DUvMbVW9zoLonG/GnFOGgIFdt6P5uuJ7EkdCKWZkSiS0tjT6TpxJyeQji3pFb7h6YnDC/BGWs8UynbuPg==
 
 vue-meta@^2.4.0:
   version "2.4.0"

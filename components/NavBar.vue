@@ -11,7 +11,7 @@
         <el-col :span="9" class="left">
           <!-- 屏幕较窄时的下拉链接列表 -->
           <el-dropdown trigger="click" class="nav-link-dropdown">
-            <span class="el-dropdown-link">
+            <span class="el-dropdown-link" @click="jumpToIndex()">
               首页
               <i class="el-icon-caret-bottom"></i>
             </span>
@@ -26,7 +26,7 @@
           </el-dropdown>
           <!-- 完整的导航链接 -->
           <el-menu default-active="1" class="nav-link" mode="horizontal">
-            <el-menu-item index="1"><el-link>首页</el-link></el-menu-item>
+            <el-menu-item index="1" @click="jumpToIndex()"><el-link>首页</el-link></el-menu-item>
             <el-menu-item index="2"
               ><el-link href="https://juejin.cn/pins" target="_blank"
                 >沸点</el-link
@@ -302,6 +302,9 @@ export default {
     scrollToTop() {
       this.scrolNumber =window.pageYOffset ||document.documentElement.scrollTop ||document.body.scrollTop;
     },
+    jumpToIndex(){
+      this.$router.replace({name:"index"})
+    }
   },
 }
 </script>
