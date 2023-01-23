@@ -13,7 +13,8 @@ export default {
   name:'IndexPage',
   layout: 'nav',
   asyncData({ $axios }) {
-    return $axios.get('http://localhost:80/article1.json').then((res) => {
+   const agreement=(process.env.NODE_ENV==='development')?"http":"https" // 开发环境用http,线上用https
+    return $axios.get(`${agreement}://localhost:80/article1.json`).then((res) => {
       const atc = res.data
       for (const key in atc) {
         // 删除content文章详情，以及avatar头像属性

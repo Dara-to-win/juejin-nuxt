@@ -1,3 +1,4 @@
+import env from './env' 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -15,13 +16,16 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  env:{
+    NODE_ENV: env[process.env.NODE_ENV].NODE_ENV,
+  }, // 在组件中用process.env.NODE_ENV区分是生产环境还是开发环境
   server: {
     // 默认localhost 只能本地访问
     // 若想要对外访问，要配置为 0.0.0.0
     host: '0.0.0.0',
     // nuxtjs 默认 3000
     // vercel 默认80
-    port: 80
+    port: 80,
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
