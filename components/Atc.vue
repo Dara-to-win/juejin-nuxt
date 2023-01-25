@@ -38,7 +38,7 @@
       </div>
       <!-- 广告 -->
       <!-- 目录 -->
-      <div class="catalog-box">
+      <div class="catalog-box" :class="fixed">
         <div
           class="mulu"
           style="font-size: 18px; font-weight: bold; padding: 16px"
@@ -84,21 +84,28 @@ export default {
       atcData: "",
       index: 5,
       catalogue: false,
+      fixed:'',
     };
-  },
-  watch: {
-    scroll: function () {
-      this.loadScroll();
-    },
   },
   created() {},
   mounted() {
     setTimeout(() => {
       this.selectAllTitle();
-    }, 2000); // 只能使用定时器,不然获取不到dom元素
+    }, 500); // 使用定时器,不然获取不到dom元素
     this.atcData = JSON.parse(window.sessionStorage.getItem("atcData"))
-    //  scroll代表滚动条距离页面顶部距离
-    this.scrollListener= window.addEventListener("scroll", this.throttle(this.dataScroll, 200));
+    this.$bus.$on('scrolNumberChange', (newNumber,oldNumber) => {
+      this.loadScroll()
+      this.scroll=newNumber
+    //  if (newNumber > oldNumber && newNumber>240) {
+    //     }
+    //     if (newNumber < oldNumber && oldNumber>240) {
+    //     }
+    if(newNumber>300){
+      this.fixed='fixed'
+    }else {
+      this.fixed=''
+    }
+    })
     this.$nextTick(() => {
       setTimeout(() => {
         const navs = document.querySelectorAll(".el-tabs__item");
@@ -124,14 +131,10 @@ export default {
     });
   },
   destroyed() {
-    window.removeEventListener('scroll',this.scrollListener)
   },
   methods: {
-    handleClick(tab, event) {
+    handleClick(tab) {
       this.jump(tab.index);
-    },
-    dataScroll: function () {
-      this.scroll =window.pageYOffset ||document.documentElement.scrollTop ||document.body.scrollTop
     },
     jump(index) {
       const jump = document.querySelectorAll("h1,h2,h3,h4,h5,h6");
@@ -147,7 +150,7 @@ export default {
       //  'scrollTop': total
       //  }, 400);
     },
-    loadScroll: function () {
+    loadScroll() {
       const self = this;
       // const navs = document.querySelectorAll(".el-tabs__item");
       //  var sections = document.getElementsByClassName('section');
@@ -161,9 +164,7 @@ export default {
     selectAllTitle() {
       // 获取h1-6标题
       const title = document.querySelectorAll("h1,h2,h3,h4,h5,h6");
-      if (!title.length === 0) {
-        this.catalogue = true;
-      } // 如果找不到页面的目录，干脆就不显示目录了
+      this.catalogue = true
       this.navList = Array.from(title); // 将获取的title存储到navList数组中
       this.navList.forEach((item) => {
         // 遍历navList数组，将每个title存储为item.name
@@ -284,7 +285,7 @@ h1,h2,h3,h4,h5,h6 {
   height: auto;
   border-radius: 5px;
   margin-right: 50px ;
-  width: 400px;
+  width: 300px;
 }
 
 .app-link {
@@ -294,6 +295,7 @@ h1,h2,h3,h4,h5,h6 {
   background-color: white;
   padding: 10px;
   border-radius: 5px;
+  width: 300px;
 }
 
 .app-card {
@@ -331,6 +333,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 .catalogue {
   float: left;
+  height:380px;
 }
 @media screen and (max-width: 1250px) {
   .suspended-panel {
@@ -345,5 +348,10 @@ h1,h2,h3,h4,h5,h6 {
   .atc-main {
   margin: 0px 5px 50px 5px;
 }
+}
+.fixed{
+  position: fixed;
+  top: 80px;
+  width: 300px;
 }
 </style>

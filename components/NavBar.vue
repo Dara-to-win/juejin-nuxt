@@ -274,6 +274,7 @@ export default {
   watch:{ 
     scrolNumber: {
       handler(newNumber, oldNumber) {
+        this.$bus.$emit('scrolNumberChange',newNumber,oldNumber)
         if (newNumber > oldNumber && newNumber>240) {
           this.navShow=false
           this.$bus.$emit('linPopUp')
@@ -300,7 +301,7 @@ export default {
   },
   methods:{
     scrollToTop() {
-      this.scrolNumber =window.pageYOffset ||document.documentElement.scrollTop ||document.body.scrollTop;
+      this.scrolNumber = document.body.scrollTop || document.documentElement.scrollTop ||window.pageYOffset ;
     },
     jumpToIndex(){
       window.location.href = "/"
