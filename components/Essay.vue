@@ -24,15 +24,15 @@
           <ul>
             <li>
               <img src="@/static/assets/view.png" />
-              <span>{{ feedbackProcess(100) }}</span>
+              <span>{{ homeData.view_count }}</span>
             </li>
             <li>
               <img src="@/static/assets/like.png" />
-              <span>{{ feedbackProcess(100) }}</span>
+              <span>{{ homeData.collect_count }}</span>
             </li>
             <li>
               <img src="@/static/assets/comments.png" />
-              <span>{{ feedbackProcess(100) }}</span>
+              <span>{{ homeData.comment_count }}</span>
             </li>
           </ul>
         </div>
@@ -73,15 +73,6 @@ export default {
   },
   mounted(){
   },
-  methods: {
-     feedbackProcess(value) {
-      if (value >= 10000) {
-        return `${(value / 1000).toFixed(0) / 10}w`
-      } else {
-        return value
-      }
-    },
-  },
 }
 </script>
 
@@ -111,7 +102,7 @@ export default {
     rgb(0 0 0 / 12%) 0px 1px 3px 0px;
 
   &:hover {
-    background-color: #ededed;
+    background-color: #fafafa;
     cursor: pointer;
   }
 

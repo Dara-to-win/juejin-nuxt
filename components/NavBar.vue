@@ -47,12 +47,8 @@
                 >活动</el-link
               ></el-menu-item
             >
-            <el-menu-item index="6"><el-link>商城</el-link></el-menu-item>
-            <el-menu-item index="7"
-              ><el-link href="" target="_blank">APP</el-link></el-menu-item
-            >
-            <el-menu-item index="8"
-              ><el-link href="" target="_blank">插件</el-link></el-menu-item
+            <el-menu-item index="6"><el-link>竞赛</el-link></el-menu-item>
+            <el-menu-item index="7"><el-link >商城</el-link></el-menu-item
             >
           </el-menu>
         </el-col>
@@ -65,7 +61,7 @@
           </el-input>
 
           <!-- 创作者中心按钮 -->
-          <el-badge :value="1" class="badge" type="danger">
+          <el-badge :value="1" class="badge" type="danger" >
             <el-dropdown
               split-button
               type="primary"
@@ -110,14 +106,12 @@
                         src="@/static/assets/info/head protrait.jpg"
                         alt=""
                         class="lazy avatar"
-                        width="40px"
-                      />
+                        style="width:48px">
                     </div>
                     <div class="user-detail">
-                      <p class="name"></p>
-                      <div class="ore">
-                        矿石:
-                        <span>2.8w</span>
+                      <p class="name">用户12345678</p>
+                      <div class="ore" >
+                        <span style="font-size:12px;">矿石:2.8w</span>
                         <img
                           src="@/static/assets/info/unfold.jpg"
                           alt=""
@@ -162,6 +156,7 @@
                       <div class="item-name">收藏</div>
                     </li>
                   </ul>
+                   <hr style="opacity:25%" />
                 </div>
                 <ul class="drop-down list box">
                   <li class="drop-down">
@@ -170,6 +165,7 @@
                         src="@/static/assets/info/homepage.jpg"
                         alt=""
                         ip="image"
+                        style="width:20px"
                       />
                       <el-link :underline="false">我的主页</el-link>
                     </div>
@@ -180,6 +176,7 @@
                         src="@/static/assets/info/welfare.jpg"
                         alt=""
                         ip="image"
+                        style="width:20px"
                       />
                       <el-link :underline="false">成长福利</el-link>
                     </div>
@@ -190,6 +187,7 @@
                         src="@/static/assets/info/member.jpg"
                         alt=""
                         ip="image"
+                        style="width:20px"
                       />
                       <el-link :underline="false">会员中心</el-link>
                     </div>
@@ -200,6 +198,7 @@
                         src="@/static/assets/info/course.jpg"
                         alt=""
                         ip="image"
+                        style="width:20px"
                       />
                       <el-link :underline="false">我的课程</el-link>
                     </div>
@@ -210,6 +209,7 @@
                         src="@/static/assets/info/discounts.jpg"
                         alt=""
                         ip="image"
+                        style="width:20px"
                       />
                       <el-link :underline="false">我的优惠</el-link>
                     </div>
@@ -220,6 +220,7 @@
                         src="@/static/assets/info/apply.jpg"
                         alt=""
                         ip="image"
+                        style="width:20px"
                       />
                       <el-link :underline="false">我的报名</el-link>
                     </div>
@@ -230,12 +231,14 @@
                         src="@/static/assets/info/footprint.jpg"
                         alt=""
                         ip="image"
+                        style="width:20px"
                       />
                       <el-link :underline="false">我的足迹</el-link>
                     </div>
                   </li>
                 </ul>
-                <div style="display: flex">
+                 <hr style="opacity:25%" />
+                <div style="display:flex; margin-top:10px">
                   <el-link :underline="false">我的设置</el-link>
                   <div class="hide"></div>
                   <el-link :underline="false">退出登录</el-link>

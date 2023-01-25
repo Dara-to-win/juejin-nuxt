@@ -85,11 +85,14 @@ li {
       align-items: center;
       flex-wrap: wrap;
       list-style: none;
+      padding: 10px;
       li {
         height: 28px;
         line-height: 28px;
-        margin: 4px 6px;
-        font-size: 12px;
+        margin-left: 8px;
+        margin-top: 6px;
+        margin-bottom: 6px;
+        font-size: 13px;
         color: #71777c;
         background-color: #f4f5f5;
         border-radius: 14px;

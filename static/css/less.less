@@ -53,6 +53,7 @@
         // 完整的导航链接部分
         .nav-link {
           border-bottom: 1px solid white;
+          margin-left: 20px;
           .el-menu-item {
             width: 50px;
             font-size: 16px;
@@ -106,10 +107,12 @@
         // 创作者中心下拉按钮和消息气泡
         .badge {
           right: 72px;
+          z-index:100;
           .originator-drop {
             right: -62px;
             min-width: 140px;
             margin: 0 12px;
+            z-index: 0;
             &:hover {
               z-index: 0;
             }
@@ -131,19 +134,14 @@
         }
         // border: 1px solid skyblue;
       }
-      .landButton {
-        border-color: #1e80ff;
-        background-color: #cde1f84f;
-        color: #1e80ff;
-      }
     }
   }
 }
 .nav-leave-active{
-  transition: 0.25s;
+  transition: 0.2s;
 }
 .nav-enter-active{
-  transition: 0.13s;
+  transition: 0.15s;
 }
 .nav-enter, .nav-leave-to  {
   transform: translateY(-100%)

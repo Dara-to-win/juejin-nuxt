@@ -5,9 +5,9 @@
       <div class="author-info flex">
         <el-avatar><img :src="atcData.avatar" /> </el-avatar>
         <div class="author-info-box">
-          <div class="author-name">{{ atcData.author }}</div>
+          <div class="author-name" >{{ atcData.author }}</div>
           <div class="meta-box">
-            <time>2022年08月26日 22:41</time><span>·&nbsp;&nbsp;阅读 1111</span>
+            <span style="font-weight:normal;font-size: 14px;letter-spacing:1px">2022年08月26日 22:41 · 阅读 {{atcData.view_count}}</span>
           </div>
         </div>
         <button class="follow-button">+ 关注</button>
@@ -38,7 +38,7 @@
       </div>
       <!-- 广告 -->
       <!-- 目录 -->
-      <div class="catalog-box" :class="fixed">
+      <div class="catalog-box" :class="fixed" :style="{top:top}">
         <div
           class="mulu"
           style="font-size: 18px; font-weight: bold; padding: 16px"
@@ -85,6 +85,7 @@ export default {
       index: 5,
       catalogue: false,
       fixed:'',
+      top:'',
     };
   },
   created() {},
@@ -96,10 +97,12 @@ export default {
     this.$bus.$on('scrolNumberChange', (newNumber,oldNumber) => {
       this.loadScroll()
       this.scroll=newNumber
-    //  if (newNumber > oldNumber && newNumber>240) {
-    //     }
-    //     if (newNumber < oldNumber && oldNumber>240) {
-    //     }
+     if (newNumber > oldNumber && newNumber>300) {
+          this.top="20px"
+        }
+        if (newNumber < oldNumber && oldNumber>300) {
+          this.top="84px"
+        }
     if(newNumber>300){
       this.fixed='fixed'
     }else {
@@ -175,25 +178,6 @@ export default {
         el.lev = "lev" + el.localName.substring(index + 1, el.localName.length); // 截取下标，获取title的级别
       });
     },
-    logScrollHeight() {
-      // 获取catalog元素
-      const catalog = document.getElementsByClassName("catalog");
-      // 获取catalog-box元素
-      const catalogBox = document.getElementsByClassName("catalog-box");
-      // 获取catalog距离浏览器顶部的高度
-      const cTop = catalog[0].offsetTop;
-      //  console.log(window.pageYOffset)
-      // 如果浏览器页面滚动高度大于目录距离页面顶部的高度，将外部box的position设置为fixed
-      if (window.pageYOffset > cTop) {
-        catalogBox[0].style.position = "fixed";
-        // 调整box的宽度
-        catalogBox[0].style.width = "20%";
-      } else if (window.pageYOffset < cTop) {
-        //  当鼠标滚轮网上滚，页面滚动高度小于目录距离页面顶部的高度时，重置外部box的position跟width
-        catalogBox[0].style.position = "";
-        catalogBox[0].style.width = "";
-      }
-    },
   },
 };
 </script>
@@ -243,6 +227,7 @@ h1,h2,h3,h4,h5,h6 {
 .author-name {
   font-size: 16px;
   cursor: pointer;
+  font-weight:normal
 }
 
 .meta-box {
@@ -351,7 +336,10 @@ h1,h2,h3,h4,h5,h6 {
 }
 .fixed{
   position: fixed;
-  top: 80px;
   width: 300px;
+  transition:0.15s;
+}
+.catalog-box{
+  transition:0.2s;
 }
 </style>

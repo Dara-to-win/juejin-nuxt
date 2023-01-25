@@ -149,7 +149,7 @@ export default {
   border-top: 1px solid #e6e6e6;
   width: 100vw;
   background-color: white;
-  padding-left: 100px;
+  padding-left: 150px;
   padding-top: 0;
   line-height: 36px;
   z-index: 5;
