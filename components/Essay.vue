@@ -1,11 +1,12 @@
 <!-- 内容区的每一项 -->
 <!-- 数据有：发稿人、发稿时间、分类、文章标题、文章内容前 x 个字、点赞、评论、查看 -->
 <template>
+<div>
   <div class="e-container">
     <!-- 稿件信息 -->
     <div class="info">
       <div>
-        <span>{{ homeData.author }}</span>
+        <span >{{ homeData.author }}</span>
       </div>
       <!-- <div>{{ dateFromNow }}</div> -->
       <!-- <div>
@@ -23,15 +24,15 @@
         <div class="feedback">
           <ul>
             <li>
-              <img src="@/static/assets/view.png" />
+              <img src="@/static/assets/view.png" style="height:16px;width:16px"/>
               <span>{{ homeData.view_count }}</span>
             </li>
             <li>
-              <img src="@/static/assets/like.png" />
+              <img src="@/static/assets/like.png" style="height:16px;width:16px"/>
               <span>{{ homeData.collect_count }}</span>
             </li>
             <li>
-              <img src="@/static/assets/comments.png" />
+              <img src="@/static/assets/comments.png" style="height:16px;width:16px"/>
               <span>{{ homeData.comment_count }}</span>
             </li>
           </ul>
@@ -41,6 +42,8 @@
       <img v-if="homeData.snapshot" :src="homeData.snapshot" class="snapshot" />
     </div>
   </div>
+  <hr style="opacity:0" size="1"/>
+</div>
 </template>
 
 <script>
@@ -91,16 +94,12 @@ export default {
   justify-content: start;
   // // 网格内的内容水平方向从头开始
   // justify-items: start;
-
-  padding: 5px 10px;
+  padding-left:10px;
+  padding-top:10px;
   max-width: 700px;
   content-visibility: auto;
   contain-intrinsic-size: 124px;
   background-color: white;
-  border-bottom: 1px solid #e1e1e1;
-  box-shadow: rgb(0 0 0 / 0%) 0px 2px 1px -1px, rgb(0 0 0 / 1%) 0px 1px 1px 0px,
-    rgb(0 0 0 / 12%) 0px 1px 3px 0px;
-
   &:hover {
     background-color: #fafafa;
     cursor: pointer;
@@ -109,14 +108,13 @@ export default {
   // 信息区
   .info {
     grid-column-start: span 2;
-
     display: flex;
     justify-content: flex-start;
     align-items: center;
-
     font-size: 13px;
     color: #869093;
     white-space: nowrap;
+    // border-right: 1px solid hsla(0,0%,59.2%,.2);
     & > div:first-child {
       color: #4e5969;
     }
@@ -124,7 +122,7 @@ export default {
     div {
       margin: 7px 0;
       padding: 0 7px;
-      border-right: 1px solid rgb(163, 163, 148);
+      border-right: 1px solid hsla(0,0%,59.2%,.2);
       span:hover {
         color: #1e80ff;
       }

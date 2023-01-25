@@ -5,8 +5,8 @@
     <div class="nav-container">
       <!-- 主导航栏上半部分 - 页面跳转 -->
       <el-row type="flex" class="nav-bar">
-        <img src="@/static/assets/logo-text.svg" alt class="logo-text" />
-        <img src="@/static/assets/logo.svg" alt class="logo-img" />
+        <img src="@/static/assets/logo-text.svg" alt class="logo-text" style="width:107px"/>
+        <img src="@/static/assets/logo.svg" alt class="logo-img"  />
         <!-- 主导航栏左半部分，包含链接 -->
         <el-col :span="9" class="left">
           <!-- 屏幕较窄时的下拉链接列表 -->

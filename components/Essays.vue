@@ -2,10 +2,11 @@
 <template>
   <div class="es-container">
     <ul class="nav">
-      <li :class="{ active: activeIndex == 1 }" @click="activate(1)" >推荐</li>
-      <li :class="{ active: activeIndex == 2 }" @click="activate(2)" >最新</li>
+      <li :class="{ active: activeIndex == 1 }" style="border-right: 1px solid hsla(0,0%,59.2%,.2);" @click="activate(1)" >推荐</li>
+      <li :class="{ active: activeIndex == 2 }" style="border-right: 1px solid hsla(0,0%,59.2%,.2);" @click="activate(2)" >最新</li>
       <li :class="{ active: activeIndex == 3 }" @click="activate(3)" >热榜</li>
     </ul>
+    <hr style="opacity:0" size="1" />
     <div ref="essaylist" class="content" >
       <Essay v-for="(item, index) in homeDatas"
        :key="item.article_id" :homeData="item" :index="index"
@@ -107,9 +108,7 @@ export default {
     justify-content: flex-start;
     align-items: center;
     list-style: none;
-
-    padding: 20px;
-
+    padding: 10px;
     background-color: white;
     color: #909090;
     font-size: 14px;

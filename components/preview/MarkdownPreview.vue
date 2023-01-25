@@ -1,5 +1,5 @@
 <template>
-    <div ref="preview">
+    <div ref="preview" style="max-width: 750px;">
         <div
             :class="`markdown-preview ${'markdown-theme-' + theme}`"
             v-html="html"
