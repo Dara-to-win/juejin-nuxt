@@ -303,7 +303,7 @@ export default {
       this.scrolNumber =window.pageYOffset ||document.documentElement.scrollTop ||document.body.scrollTop;
     },
     jumpToIndex(){
-      this.$router.replace({name:"index"})
+      window.location.href = "/"
     }
   },
 }

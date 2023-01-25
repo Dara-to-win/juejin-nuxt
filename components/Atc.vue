@@ -1,7 +1,5 @@
 <template>
   <div class="container">
-    <div class="suspended-panel"></div>
-    <div class="suspended-panel"></div>
     <div class="atc-main">
       <div class="article-title">{{ atcData.title }}</div>
       <div class="author-info flex">
@@ -68,6 +66,8 @@
     </div>
     <el-backtop :bottom="100" :visibility-height="50"></el-backtop>
     <el-backtop :bottom="100" :visibility-height="50"></el-backtop>
+    <div class="suspended-panel"></div>
+    <div class="suspended-panel"></div>
   </div>
 </template>
 <script>
@@ -79,7 +79,7 @@ export default {
     return {
       activeName: "tab0",
       tabPosition: "right",
-      scroll: "",
+      scroll: 0,
       navList: [],
       atcData: "",
       index: 5,
@@ -95,12 +95,10 @@ export default {
   mounted() {
     setTimeout(() => {
       this.selectAllTitle();
-    }, 1000); // 只能使用定时器,不然获取不到dom元素
-    this.atcData = this.$route.params.atcData || JSON.parse(window.sessionStorage.getItem("atcData"))
-    window.sessionStorage.setItem("atcData",JSON.stringify(this.atcData));
+    }, 2000); // 只能使用定时器,不然获取不到dom元素
+    this.atcData = JSON.parse(window.sessionStorage.getItem("atcData"))
     //  scroll代表滚动条距离页面顶部距离
-    window.addEventListener("scroll", this.dataScroll);
-    window.addEventListener("scroll", this.logScrollHeight);
+    this.scrollListener= window.addEventListener("scroll", this.throttle(this.dataScroll, 200));
     this.$nextTick(() => {
       setTimeout(() => {
         const navs = document.querySelectorAll(".el-tabs__item");
@@ -125,13 +123,15 @@ export default {
       });
     });
   },
+  destroyed() {
+    window.removeEventListener('scroll',this.scrollListener)
+  },
   methods: {
     handleClick(tab, event) {
       this.jump(tab.index);
     },
     dataScroll: function () {
-      this.scroll =
-        document.documentElement.scrollTop || document.body.scrollTop;
+      this.scroll =window.pageYOffset ||document.documentElement.scrollTop ||document.body.scrollTop
     },
     jump(index) {
       const jump = document.querySelectorAll("h1,h2,h3,h4,h5,h6");
@@ -268,10 +268,11 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .atc-main {
-  width: 50%;
-  margin: 0px 15px 200px 200px;
+  width: 100%;
+  margin: 5px 20px 50px 100px;
   background-color: white;
   padding: 25px 20px 20px 20px;
+  border-radius: 5px;
 }
 
 .el-tabs__header.is-right {
@@ -280,12 +281,10 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .aside {
-  width: 20%;
-  right: 15%;
-  top: 18.75rem;
   height: auto;
-  border: 20px;
   border-radius: 5px;
+  margin-right: 50px ;
+  width: 400px;
 }
 
 .app-link {
@@ -294,6 +293,7 @@ h1,h2,h3,h4,h5,h6 {
   display: inline-block;
   background-color: white;
   padding: 10px;
+  border-radius: 5px;
 }
 
 .app-card {
@@ -312,6 +312,7 @@ h1,h2,h3,h4,h5,h6 {
 
 .mulu {
   background-color: white;
+  border-radius: 5px;
 }
 
 .catalog {
@@ -320,7 +321,6 @@ h1,h2,h3,h4,h5,h6 {
   overflow: hidden;
   border-radius: 5px;
 }
-
 .container {
   display: flex;
   width: 100%;
@@ -331,17 +331,19 @@ h1,h2,h3,h4,h5,h6 {
 }
 .catalogue {
   float: left;
-  height: 350px;
 }
-@media screen and (max-width: 1000px) {
-  .aside {
+@media screen and (max-width: 1250px) {
+  .suspended-panel {
     display: none;
   }
 }
 
 @media screen and (max-width: 1140px) {
-  .suspended-panel {
+  .aside {
     display: none;
   }
+  .atc-main {
+  margin: 0px 5px 50px 5px;
+}
 }
 </style>

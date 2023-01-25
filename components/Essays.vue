@@ -56,75 +56,7 @@ export default {
       //   }
       // ),
       // 测试无限滚动，用来新增的新文章数据
-      newEssays: [
-        {
-          info: {
-            author: '湖人科比',
-            date: '2022-03-10',
-            category: ['前端', '面试', '瞎玩'],
-          },
-          content: {
-            title: '如何打破 2-3 联防',
-            preview: '本篇带来 XMLHttpRequest、Fetch 和 axios 分别是怎样“投篮”的。闲话少说，冲就完事了啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
-          },
-          feedback: {
-            view: 9364,
-            like: 527,
-            comments: 337,
-          },
-        },
-        {
-          info: {
-            author: '大鲨鱼',
-            date: '2022-11-27',
-            category: ['前端', 'JavaScript', 'TypeScript'],
-          },
-          content: {
-            title: ' 学习指南',
-            preview: '前言 Hello 大家好 我是鲨鱼哥 这次给大家带来的是我曾经非常嫌弃 如今却爱不释手的 TS 技术 哈哈',
-          },
-          feedback: {
-            view: 61407,
-            like: 1428,
-            comments: 87,
-          },
-          snapshot: 'https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0e15e04fd93f4eb18d310e19526ce181~tplv-k3u1fbpfcp-no-mark:240:240:240:160.awebp?',
-        },
-        {
-          info: {
-            author: '骑士詹姆斯',
-            date: '2022-09-10',
-            category: ['前端', '面试'],
-          },
-          content: {
-            title: 'JavaScript 中如何取消请求',
-            preview: '本篇带来 XMLHttpRequest、Fetch 和 axios 分别是怎样“取消请求”的。闲话少说，冲就完事了啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
-          },
-          feedback: {
-            view: 9364,
-            like: 527,
-            comments: 337,
-          },
-        },
-        {
-          info: {
-            author: 'Big shark@LX',
-            date: '2021-11-27',
-            category: ['前端', 'JavaScript', 'TypeScript'],
-          },
-          content: {
-            title: '最全的 TypeScript 学习指南',
-            preview: '前言 Hello 大家好 我是鲨鱼哥 这次给大家带来的是我曾经非常嫌弃 如今却爱不释手的 TS 技术 哈哈',
-          },
-          feedback: {
-            view: 61407,
-            like: 1428,
-            comments: 87,
-          },
-          snapshot: 'https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0e15e04fd93f4eb18d310e19526ce181~tplv-k3u1fbpfcp-no-mark:240:240:240:160.awebp?',
-        },
-      ],
-      
+      newEssays:'',
     }
   },
   computed: {
@@ -156,7 +88,9 @@ export default {
     // },
     // 点击文章跳转到详情页
    jumpToDetail(item) {
-      this.$router.push({name:"Detail",params:{atcData:item}})
+    window.sessionStorage.setItem("atcData",JSON.stringify(item));
+     const newRoute = this.$router.resolve({name:"Detail",query:{article_id:item.article_id}})
+     window.open(newRoute.href, '_blank')
    }
     // getEssays(){
     //   // 发送 ajax 请求获取 essays

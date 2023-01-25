@@ -329,12 +329,13 @@ i {
 }
 .slide {
   opacity: 0;
-  pointer-events: all;
+  pointer-events: none;
   position: fixed;
   transition: 0.2s;
 }
 .slideFixed {
   position: fixed;
+  pointer-events: all;
   opacity: 1;
   transition:0.2s;
   bottom:0
