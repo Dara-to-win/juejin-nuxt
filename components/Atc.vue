@@ -88,7 +88,6 @@ export default {
       top:'',
     };
   },
-  created() {},
   mounted() {
     setTimeout(() => {
       this.selectAllTitle();
@@ -97,13 +96,13 @@ export default {
     this.$bus.$on('scrolNumberChange', (newNumber,oldNumber) => {
       this.loadScroll()
       this.scroll=newNumber
-     if (newNumber > oldNumber && newNumber>300) {
+     if (newNumber > oldNumber && newNumber>400) {
           this.top="20px"
         }
-        if (newNumber < oldNumber && oldNumber>300) {
+        if (newNumber < oldNumber && oldNumber>400) {
           this.top="84px"
         }
-    if(newNumber>300){
+    if(newNumber>400){
       this.fixed='fixed'
     }else {
       this.fixed=''
@@ -134,6 +133,7 @@ export default {
     });
   },
   destroyed() {
+    this.$bus.$off('scrolNumberChange')
   },
   methods: {
     handleClick(tab) {

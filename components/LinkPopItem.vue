@@ -1,18 +1,18 @@
 <!-- 副导航栏中的每一项（可以有弹出卡片） -->
 <template>
   <div>
-    <li @mouseenter="isShow = !isShow" @mouseleave="isShow = !isShow">
-      <span>{{info.main}}</span>
-      <!-- 弹出卡片 -->
-      <template v-if="info.sub && isShow">
+    <li @mouseenter="actived()" @mouseleave="deActived()">
+      <span class="tag">{{info.main}}</span>
+      <!-- 弹出卡片 --> 
+      <transition name="fade">
         <!-- 如果没有副标题 sub，则 sub 为 undefined -->
-        <div class="card">
+        <div v-show="info.sub && isShow" class="card" >
           <!-- 弹出卡片里的子项目，数据来自父组件 -->
           <ul>
             <li v-for="(item, index) in info.sub" :key="index">{{item}}</li>
           </ul>
         </div>
-      </template>
+      </transition>
     </li>
   </div>
 </template>
@@ -20,7 +20,6 @@
 <script>
 export default {
   name: "LinkPopItem",
- 
   props: {
     info: {
        type:Object,
@@ -31,16 +30,20 @@ export default {
   },
    data() {
     return {
-      isShow: false
+      isShow: false,
     };
   },
   methods: {
-    // showCard(){
-    //   this.isShow = true
-    // },
-    // hideCard(){
-    //   this.isShow = false
-    // }
+    actived(){
+     this.time= setTimeout(() => {
+      if(this.isShow===false){
+        this.isShow=true
+        }},500)
+    },
+    deActived(){
+      clearTimeout(this.time)
+      this.isShow=false
+    }
   }
 };
 </script>
@@ -56,8 +59,8 @@ li {
   padding: 0 10px;  
   white-space: nowrap;
   cursor: pointer;
-  &:hover {
-    color: #1e80ff;
+  :hover {
+    color: #1e80ff !important;
   }
   // 按钮弹出卡片
   .card {
@@ -104,5 +107,14 @@ li {
       }
     }
   }
+}
+.fade-leave-active{
+  transition:0.2s;
+}
+.fade-enter-active  {
+  transition:0.5s;
+}
+.fade-enter, .fade-leave-to  {
+  opacity: 0;
 }
 </style>

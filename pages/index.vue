@@ -15,7 +15,7 @@ export default {
   asyncData({ $axios }) {
   //  const URL=(process.env.NODE_ENV==='dev')?"http://localhost/article1.json":"https://diandian210.top/article1.json"
     return $axios.get(`${process.env.BASE_URL}/article1.json`).then((res) => {
-      const atc = res.data
+      const atc =res.data
       return { atc }
     })
   },

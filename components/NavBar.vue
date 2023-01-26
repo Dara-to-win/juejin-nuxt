@@ -278,12 +278,12 @@ export default {
     scrolNumber: {
       handler(newNumber, oldNumber) {
         this.$bus.$emit('scrolNumberChange',newNumber,oldNumber)
-        if (newNumber > oldNumber && newNumber>240) {
+        if (newNumber > oldNumber && newNumber>400) {
           this.navShow=false
           this.$bus.$emit('linPopUp')
           this.$bus.$emit('slideDown')
         }
-        if (newNumber < oldNumber && oldNumber>240) {
+        if (newNumber < oldNumber && oldNumber>400) {
           this.navShow=true
           this.$bus.$emit('linPopDown')
           this.$bus.$emit('slideUp') 
@@ -304,7 +304,7 @@ export default {
   },
   methods:{
     scrollToTop() {
-      this.scrolNumber = document.body.scrollTop || document.documentElement.scrollTop ||window.pageYOffset ;
+      this.scrolNumber = document.body.scrollTop || document.documentElement.scrollTop 
     },
     jumpToIndex(){
       window.location.href = "/"
