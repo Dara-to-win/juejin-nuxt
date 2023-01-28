@@ -29,13 +29,13 @@
       <!-- 广告组件 -->
       <div class="ad">
         <div v-for="(ad, index) in adInfo" :key="index" class="outsideDiv mt10">
-          <a :href="ad.adUrl"
-            ><img v-show="ad.isShow" :src="ad.imgUrl" alt="广告"
-          /></a>
-          <i
-            class="el-icon-close insideDiv"
-            @click="ad.isShow = !ad.isShow"
-          ></i>
+          <div v-show="ad.isShow">
+            <a :href="ad.adUrl"><img :src="ad.imgUrl" alt="广告" /> </a>
+            <i
+              class="el-icon-close insideDiv"
+              @click="ad.isShow = !ad.isShow"
+            ></i>
+          </div>
         </div>
       </div>
       <!-- 下载掘金 -->
@@ -68,17 +68,17 @@
     </div>
     <!-- </transition> -->
     <!-- <transition name="fade"> -->
-    <div id="slide" :class="slideClass" >
+    <div id="slide" :class="slideClass">
       <!-- 广告组件 -->
       <div class="ad">
         <div v-for="(ad, index) in adInfo" :key="index" class="outsideDiv mt10">
-          <a :href="ad.adUrl"
-            ><img v-show="ad.isShow" :src="ad.imgUrl" alt="广告"
-          /></a>
-          <i
-            class="el-icon-close insideDiv"
-            @click="ad.isShow = !ad.isShow"
-          ></i>
+          <div v-show="ad.isShow">
+            <a :href="ad.adUrl"><img :src="ad.imgUrl" alt="广告" /> </a>
+            <i
+              class="el-icon-close insideDiv"
+              @click="ad.isShow = !ad.isShow"
+            ></i>
+          </div>
         </div>
       </div>
       <!-- 下载掘金 -->
@@ -103,25 +103,26 @@ export default {
   name: 'Adv',
   data() {
     return {
-      slideClass:'',
-      bottom:'',
+      slideClass: '',
+      bottom: '',
       adInfo: [
-        {
-          imgUrl: require('~/static/assets/adv1.jpg'),
-          adUrl: '',
-          isShow: true,
-        },
+        // {
+        //   imgUrl: require('~/static/assets/adv1.jpg'),
+        //   adUrl:
+        //     '',
+        //   isShow: true,
+        // },
         {
           imgUrl: require('~/static/assets/adv2.jpg'),
           adUrl:
             'https://juejin.cn/pin/7129334097113006116?utm_source=slide&utm_medium=banner&utm_campaign=reading',
           isShow: true,
         },
-        // {
-        //   imgUrl: require('~/static/assets/adv3.jpg'),
-        //   adUrl: 'https://juejin.cn/book/7126538479051210766?utm_source=web_banner&utm_medium=banner&utm_campaign=Book_SK_0817',
-        //   isShow: true
-        // }
+        {
+          imgUrl: require('~/static/assets/adv3.jpg'),
+          adUrl: 'https://juejin.cn/book/7126538479051210766?utm_source=web_banner&utm_medium=banner&utm_campaign=Book_SK_0817',
+          isShow: true
+        }
       ],
       helloInfo: '',
       authorInfo: [
@@ -153,18 +154,19 @@ export default {
   },
   mounted() {
     this.getHelloInfo()
-    const slide=document.getElementById('slide')
-    this.$bus.$on('slideHide', () => {// 为slide过渡
+    const slide = document.getElementById('slide')
+    this.$bus.$on('slideHide', () => {
+      // 为slide过渡
       this.slideClass = 'slide' // 隐藏
     })
     this.$bus.$on('slideAppear', () => {
       this.slideClass = 'slideFixed' // 出现
     })
     this.$bus.$on('slideDown', () => {
-      slide.style.bottom="50px" // 起
+      slide.style.bottom = '50px' // 起
     })
     this.$bus.$on('slideUp', () => {
-      slide.style.bottom="5px"// 落
+      slide.style.bottom = '5px' // 落
     })
   },
   destroyed() {
@@ -235,6 +237,7 @@ i {
   text-align: center;
   width: 74px;
   height: 36px;
+  line-height: 36px;
   padding: 0;
 }
 .tip .right .el-button:hover {
@@ -337,8 +340,8 @@ i {
   position: fixed;
   pointer-events: all;
   opacity: 1;
-  transition:0.2s;
-  bottom:0
+  transition: 0.2s;
+  bottom: 0;
 }
 .holder {
   width: 240px;
