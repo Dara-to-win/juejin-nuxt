@@ -75,13 +75,19 @@ import MarkdownPreview from './preview/MarkdownPreview'
 export default {
   name: "Atc",
   components:{MarkdownPreview},
+  props:{
+    atcData:{
+       type:Object,
+       required:false,
+       default(){return {}},
+    }
+  },
   data() {
     return {
       activeName: "tab0",
       tabPosition: "right",
       scroll: 0,
       navList: [],
-      atcData: "",
       index: 5,
       catalogue: false,
       fixed:'',
@@ -91,8 +97,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.selectAllTitle();
-    }, 500); // 使用定时器,不然获取不到dom元素
-    this.atcData = JSON.parse(window.sessionStorage.getItem("atcData"))
+    }, 1000); // 使用定时器,不然获取不到dom元素
     this.$bus.$on('scrolNumberChange', (newNumber,oldNumber) => {
       this.loadScroll()
       this.scroll=newNumber

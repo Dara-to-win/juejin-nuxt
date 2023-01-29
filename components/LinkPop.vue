@@ -236,6 +236,8 @@ export default {
       }
       tag[id - 1].style.color = '#1e80ff'
       // 然后发请求，改数据
+      this.$bus.$emit('initCurrent',1) //初始化页数
+      this.$bus.$emit('getAtc',1,tag[id - 1].innerText,true)
     },
   },
 }
