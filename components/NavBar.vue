@@ -272,24 +272,36 @@ export default {
       scrolNumber:"",
       navClass:'',
       navShow:true,
+      // 广告组件高度
+      adHeight: '',
     }
   },
   watch:{ 
     scrolNumber: {
       handler(newNumber, oldNumber) {
+        // console.log(newNumber, oldNumber)
+        // console.log('adHeight: ', this.adHeight)
         this.$bus.$emit('scrolNumberChange',newNumber,oldNumber)
-        if (newNumber > oldNumber && newNumber>400) {
+        if (newNumber > oldNumber && newNumber > 400) {
           this.navShow=false
           this.$bus.$emit('linPopUp')
-          this.$bus.$emit('slideDown')
         }
-        if (newNumber < oldNumber && oldNumber>400) {
+        if (newNumber < oldNumber && oldNumber > 400) {
           this.navShow=true
           this.$bus.$emit('linPopDown')
-          this.$bus.$emit('slideUp') 
         }
-        if(newNumber >1300){
+        // if(newNumber > oldNumber && newNumber > this.adHeight){
+        //   this.$bus.$emit('slideDown')
+        // }
+        // if(newNumber < oldNumber && newNumber > this.adHeight){
+        //   this.$bus.$emit('slideUp') 
+        // }
+        if(newNumber > this.adHeight){
           this.$bus.$emit('slideAppear')
+          if(newNumber > oldNumber)
+            this.$bus.$emit('slideDown')
+          else
+            this.$bus.$emit('slideUp') 
         }else{
           this.$bus.$emit('slideHide')
         }
@@ -298,13 +310,18 @@ export default {
   },
   mounted() {
    this.scroll = window.addEventListener("scroll", this.throttle(this.scrollToTop, 200));
+   this.$bus.$on('getAdHeight', (data) => {
+      this.adHeight = data;
+   })
   },
-  destroyed() {
+  beforeDestroy() {
     window.removeEventListener('scroll',this.scroll)
+    this.$bus.$off('getAdHeight')
   },
   methods:{
     scrollToTop() {
-      this.scrolNumber = document.body.scrollTop || document.documentElement.scrollTop 
+      // this.scrolNumber = document.body.scrollTop || document.documentElement.scrollTop 
+      this.scrolNumber = window.pageYOffset 
     },
     jumpToIndex(){
       window.location.href = "/"

@@ -103,7 +103,7 @@ export default {
   name: 'Adv',
   data() {
     return {
-      slideClass: '',
+      slideClass: 'slide',
       bottom: '',
       adInfo: [
         // {
@@ -148,12 +148,23 @@ export default {
             '前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端',
         },
       ],
+      adHeight: '',
       // adShow: true,
       // slideShow: false
     }
   },
+  watch:{ 
+    adHeight: {
+      immediate: true,
+      handler(newNumber, oldNumber) {
+        this.$bus.$emit('getAdHeight', newNumber)
+      },
+    },
+  },
   mounted() {
     this.getHelloInfo()
+    this.getAdHeight()
+    window.addEventListener("scroll", this.throttle(this.getAdHeight, 200));
     const slide = document.getElementById('slide')
     this.$bus.$on('slideHide', () => {
       // 为slide过渡
@@ -169,7 +180,7 @@ export default {
       slide.style.bottom = '5px' // 落
     })
   },
-  destroyed() {
+  beforeDestroy() {
     this.$bus.$off('slideHide')
     this.$bus.$off('slideAppear')
     this.$bus.$off('slideUp')
@@ -182,10 +193,12 @@ export default {
       const hour = date.getHours()
       if (hour < 6) {
         this.helloInfo = '凌晨好！'
-      } else if (hour < 12) {
-        this.helloInfo = '早上好！'
-      } else if (hour < 18) {
+      } else if (hour < 11) {
+        this.helloInfo = '上午好！'
+      } else if (hour < 13) {
         this.helloInfo = '中午好！'
+      } else if (hour < 18) {
+        this.helloInfo = '下午好！'
       } else {
         this.helloInfo = '晚上好！'
       }
@@ -200,6 +213,11 @@ export default {
       const { data } = await axios.get('https://api.myjson.com/bins/8gdmr')
       return { authorInfo: data }
     },
+    // 获取广告组件的高度
+    getAdHeight(){
+      const main = document.querySelector('.main')
+      this.adHeight = main.clientHeight
+    }
   },
 }
 </script>
