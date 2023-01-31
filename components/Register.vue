@@ -2,14 +2,14 @@
   <div class="login-section">
     <el-form ref="ruleForm" label-position="top" label-width="100px" class="demo-ruleForm" :rules="rules" :model="rulesForm" status-icon >
       <h2>注册新用户</h2>
-      <el-form-item label="账号" prop="mobile">
-        <el-input v-model.number="rulesForm.name" ></el-input>
+      <el-form-item label="账号" prop="name">
+        <el-input v-model="rulesForm.name" type="text"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
         <el-input v-model="rulesForm.password" type="password" ></el-input>
       </el-form-item>
       <el-form-item class="register-buttons">
-        <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
+        <el-button type="primary" @click="submitForm()">注册</el-button>
         <el-button @click="closeRegisterDialog">取消</el-button>
       </el-form-item>
     </el-form>
@@ -25,30 +25,26 @@ export default {
         password: '',
       },
       rules: {
-        mobile: [
-          { required: true, message: '手机号', trigger: 'change' },
-          { pattern: /^1[3-9]\d{9}$/, message: '手机号码格式不正确', trigger: 'change' }
-        ],
         name: [
-          { required: true, message: '账号', trigger: 'change' },
-          { min: 3, max: 9, message: '长度在3到9', trigger: 'change' },
+          { required: true, message: '手机号', trigger: 'change' },
+          { pattern: /^1[3-9]\d{9}$/, message: '请输入手机号', trigger: 'change' },
         ],
         password: [
           { required: true, message: '密码', trigger: 'change' },
-          { min: 3, max: 16, message: '长度在3到16', trigger: 'change' },
+          { min: 5, max: 15, message: '长度在5到15', trigger: 'change' },
         ],
       },
     }
   },
   methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
+    submitForm() {
           // 如果校检通过，在这里向后端发送用户名和密码
-          this.$store.dispatch('register/register', this.rulesForm)
-        }
-      })
-    },
+          const namereg=/^1[3-9]\d{9}$/
+          const passwordreg=/^(\w){5,15}$/
+          if(namereg.test(this.rulesForm.name)&& passwordreg.test(this.rulesForm.name)){
+            // this.$store.dispatch('register/register', this.rulesForm)
+          }
+        },
     ...mapMutations('register', {closeRegisterDialog: 'CLOSE_REGISTER_DIALOG'})
   },
 }

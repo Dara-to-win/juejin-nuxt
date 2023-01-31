@@ -10,7 +10,7 @@
         <el-input v-model="userInfo.password" type="password"  placeholder="请输入密码"></el-input>
       </el-form-item>
       <el-form-item class="login-buttons">
-        <el-button type="primary" @click="login(userInfo)">登录</el-button>
+        <el-button type="primary" @click="login()">登录</el-button>
         <el-button @click="closeLoginDialog">取消</el-button>
       </el-form-item>
       <!-- 注册链接，点击打开注册页面 -->
@@ -26,12 +26,12 @@ export default {
       // 存储数据的对象
       rules: {
         username: [
-          { required: true, message: '名字',trigger: 'change'},
-          { min: 1, max: 9, message: '长度在1到9',trigger: 'change'},
+          { required: true, message: '手机号', trigger: 'change' },
+          { pattern: /^1[3-9]\d{9}$/, message: '请输入手机号', trigger: 'change' },
         ],
         password: [
           { required: true, message: '密码',trigger: 'change'},
-          { min: 3, max: 16, message: '长度在3到16',trigger: 'change'},
+          { min: 5, max: 15, message: '长度在5到15',trigger: 'change'},
         ],
       },
     }

@@ -1,4 +1,4 @@
-const REGISTER_URL_TEST = ''
+const REGISTER_URL= ''
 export const state = () => ({
   isRegisterDialogShow: false,
 })
@@ -9,16 +9,8 @@ export const actions = {
     console.log('register-actions:', context)
     let username = value.name
     let password = value.password
-    if (!username.trim().length) {
-      alert('用户名不能为空！')
-      return
-    }
-    if (!password.trim().length) {
-      alert('密码不能为空！')
-      return
-    }
     // 向服务端发送请求，进行登录
-    fetch(REGISTER_URL_TEST, {
+    fetch(REGISTER_URL, {
       method: 'post',
       body: JSON.stringify({
         username,
