@@ -65,7 +65,6 @@
       </div>
     </div>
     <el-backtop :bottom="100" :visibility-height="50"></el-backtop>
-    <el-backtop :bottom="100" :visibility-height="50"></el-backtop>
     <div class="suspended-panel"></div>
     <div class="suspended-panel"></div>
   </div>
@@ -99,8 +98,8 @@ export default {
       this.selectAllTitle();
     }, 1000); // 使用定时器,不然获取不到dom元素
     this.$bus.$on('scrolNumberChange', (newNumber,oldNumber) => {
-      this.loadScroll()
       this.scroll=newNumber
+      this.loadScroll()
      if (newNumber > oldNumber && newNumber>400) {
           this.top="20px"
         }
@@ -147,7 +146,7 @@ export default {
     jump(index) {
       const jump = document.querySelectorAll("h1,h2,h3,h4,h5,h6");
       //  获取需要滚动的距离
-      const total = jump[index].offsetTop - 80;
+      const total = jump[index].offsetTop - 100;
       //  Chrome
       document.body.scrollTop = total;
       //  Firefox

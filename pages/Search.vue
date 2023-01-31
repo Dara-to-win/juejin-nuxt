@@ -1,24 +1,21 @@
 <template>
   <div>
     <div class="holder"></div>
-    <Atc :atcData="Atc"/>
   </div>
 </template>
 <script>
 export default {
-  name: 'Detail',
+  name: 'Search',
   layout: 'nav',
   data(){
     return {
-      Atc:{}
     }
   },
   mounted(){
-    this.getAct(this.$route.query.article_id)
   },
   methods:{
-    getAct(id){
-    this.$axios.post("http://jj.hanbing777.top:80/api/article/current",{id}).then(res=>{
+    searchAct(content){
+    this.$axios.post("http://jj.hanbing777.top:80/api/article/current",{content}).then(res=>{
        this.Atc=res.data.data
         });
     }

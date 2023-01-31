@@ -299,6 +299,8 @@ export default {
   mounted() {
    this.scroll = window.addEventListener("scroll", this.throttle(this.scrollToTop, 200));
   },
+  updated(){
+  },
   destroyed() {
     window.removeEventListener('scroll',this.scroll)
   },

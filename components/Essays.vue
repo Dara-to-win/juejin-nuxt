@@ -7,7 +7,8 @@
       <li :class="{ active: activeIndex == 3 }" @click="activate(3)" >热榜</li>
     </ul>
     <hr style="opacity:0" size="1" />
-    <div ref="essaylist" class="content" >
+    <el-skeleton v-show="loading" class="skeleton" animated :throttle="300" :loading="loading"/>
+    <div v-show="!loading" ref="essaylist" class="content" >
       <Essay v-for="(item, index) in homeDatas"
        :key="item.article_id" :homeData="item" :index="index"
        @click.native="jumpToDetail(item.article_id)"/>
@@ -29,6 +30,11 @@ export default {
         required:false,
         default(){return []}
     },
+    loading:{
+       type:Boolean,
+       required:false,
+       default(){return false},
+    }
   },
   data() {
     return {
@@ -40,7 +46,8 @@ export default {
     let current=2
     this.io=new IntersectionObserver((e)=>{
       if(e[0].isIntersecting){
-       this.debounce(this.$bus.$emit('getAtc',current,'',false),2000)
+       const tag= window.sessionStorage.getItem('tag')
+       this.debounce(this.$bus.$emit('getAtc',current,tag,false),2000)
        current+=1
       }
     })
@@ -71,7 +78,7 @@ export default {
     justify-content: flex-start;
     align-items: center;
     list-style: none;
-    padding: 10px;
+    padding: 13px;
     background-color: white;
     color: #909090;
     font-size: 14px;
@@ -100,5 +107,11 @@ export default {
 }
 .io{
   height: 20px;
+}
+.skeleton{
+  width: 700px;
+  margin:1px;
+  padding:15px;
+  background-color:white;
 }
 </style>
