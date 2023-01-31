@@ -2,6 +2,9 @@
   "name": "juejin-nuxt",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "<=16"
+  },
   "scripts": {
     "dev": "SET NODE_OPTIONS=--openssl-legacy-provider &&cross-env NODE_ENV=dev BASE_URL=http://localhost:80 && nuxt --exec babel-node ",
     "build": "SET NODE_OPTIONS=--openssl-legacy-provider &&cross-env NODE_ENV=pro BASE_URL=https://diandian210.top && nuxt build ",
