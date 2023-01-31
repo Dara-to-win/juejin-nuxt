@@ -1,7 +1,7 @@
 .bg-container {
   width: 100vw;
   background-color: #fff;
-  z-index: 100;
+  z-index: 90;
   position: fixed;
   .nav-container {
     margin: 0 auto;
@@ -121,16 +121,18 @@
             }
           }
         }
+        // 消息按钮
+        .message-btn {
+          height: 100%;
+          margin: 0 10px;
+        }
         @media (max-width: 799px) {
           .badge {
             display: none;
           }
-        }
-
-        // 消息按钮
-        .message-btn {
-          height: 100%;
-          margin: 0 20px;
+          .message-btn{
+            display: none;
+          }
         }
         // border: 1px solid skyblue;
       }
@@ -145,4 +147,16 @@
 }
 .nav-enter, .nav-leave-to  {
   transform: translateY(-100%)
+}
+.landButton{
+  border-color:#1e80ff;
+  background-color:#cde1f84f;
+  color:#1e80ff;
+  margin-right:10px;
+}
+@media (max-width: 799px) {
+  .landButton{
+    margin-right:0px;
+    
+  }
 }

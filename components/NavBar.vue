@@ -84,7 +84,7 @@
           </el-badge>
 
           <!-- vip 图标 -->
-          <img src="@/static/assets/logo-vip.svg" />
+          <img src="@/static/assets/logo-vip.svg" style="margin:0 10px 0 10px;"/>
 
           <!-- 消息图标 -->
           <el-button
@@ -96,7 +96,7 @@
           <!-- 用户menu -->
           <div>
             <!-- 登录后 -->
-            <el-popover placement="bottom" trigger="click">
+            <el-popover v-if="isLogin" placement="bottom" trigger="click">
               <!-- 信息框 -->
               <div class="infobox">
                 <div class="user-card">
@@ -255,6 +255,8 @@
                 />
               </div>
             </el-popover>
+            <!-- 登录前 -->
+            <el-button v-if="!isLogin" class="landButton" size="small" @click="login()"  >登录</el-button>
           </div>
         </el-col>
       </el-row>
@@ -264,6 +266,7 @@
 </template>
 
 <script>
+import { mapMutations,mapState} from 'vuex';
 export default {
   name: 'NavBar',
   data(){
@@ -273,6 +276,9 @@ export default {
       navClass:'',
       navShow:true,
     }
+  },
+  computed: {
+    ...mapState('login', ['isLogin', 'isLoginDialogShow', 'userInput']),
   },
   watch:{ 
     scrolNumber: {
@@ -305,6 +311,9 @@ export default {
     window.removeEventListener('scroll',this.scroll)
   },
   methods:{
+    ...mapMutations({
+        login:'login/OPEN_LOGIN_DIALOG'
+      }),
     scrollToTop() {
       this.scrolNumber = document.body.scrollTop || document.documentElement.scrollTop 
     },

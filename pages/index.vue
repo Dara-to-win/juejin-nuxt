@@ -44,7 +44,7 @@ export default {
     }
   },
   mounted(){
-    this.$bus.$on('getAtc', (current,category,isInit) => {
+    this.$bus.$on('getAtc', (current,category,isInit) => {// 页数，标签，是否重新加载
       if(isInit){
         this.loading=true
       }
