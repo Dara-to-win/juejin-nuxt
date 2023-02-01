@@ -31,7 +31,7 @@ export default {
         ],
         password: [
           { required: true, message: '密码',trigger: 'change'},
-          { min: 5, max: 15, message: '长度在5到15',trigger: 'change'},
+          { min: 8, max: 15, message: '长度在5到15',trigger: 'change'},
         ],
       },
     }

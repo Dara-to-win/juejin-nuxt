@@ -31,7 +31,7 @@ export default {
         ],
         password: [
           { required: true, message: '密码', trigger: 'change' },
-          { min: 5, max: 15, message: '长度在5到15', trigger: 'change' },
+          { min: 8, max: 15, message: '长度在5到15', trigger: 'change' },
         ],
       },
     }
@@ -40,7 +40,7 @@ export default {
     submitForm() {
           // 如果校检通过，在这里向后端发送用户名和密码
           const namereg=/^1[3-9]\d{9}$/
-          const passwordreg=/^(\w){5,15}$/
+          const passwordreg=/^(\w){8,15}$/
           if(namereg.test(this.rulesForm.name)&& passwordreg.test(this.rulesForm.name)){
             // this.$store.dispatch('register/register', this.rulesForm)
           }

@@ -10,8 +10,8 @@
     <el-skeleton v-show="loading" class="skeleton" animated :throttle="300" :loading="loading"/>
     <div v-show="!loading" ref="essaylist" class="content" >
       <Essay v-for="(item, index) in homeDatas"
-       :key="item.article_id" :homeData="item" :index="index"
-       @click.native="jumpToDetail(item.article_id)"/>
+       :key="item.articleID" :homeData="item" :index="index"
+       @click.native="jumpToDetail(item.articleID)"/>
        <div class='io'></div>
     </div>
   </div>

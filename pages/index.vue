@@ -13,7 +13,7 @@ export default {
   layout: 'nav',
   asyncData({ $axios }) {
     const postData = {
-      articleStatus:2,// 根据文章状态查询0-草稿箱1-待审核2-已发布  
+      articleStatus:0,// 根据文章状态查询0-草稿箱1-待审核2-已发布  
       category: '',// 不传默认不根据分类查询,传具体的分类名称
       content:'',// 搜索字段(可搜索内容、标题、快照)模糊查询
       current: 1,// 当前页数
@@ -23,7 +23,7 @@ export default {
       sortOrder: '',// 默认升序排序
     }
     return $axios.post('http://jj.hanbing777.top/api/article/current_list',postData).then((res) => {
-        const atc = res.data.data
+        const atc = res.data.data.list
         return { atc }
       })
   },
@@ -32,7 +32,7 @@ export default {
       loading:false,
       atc:'',
       postData:{
-      articleStatus:2,// 根据文章状态查询0-草稿箱1-待审核2-已发布  
+      articleStatus:0,// 根据文章状态查询0-草稿箱1-待审核2-已发布  
       category: '',// 不传默认不根据分类查询,传具体的分类名称
       content:'',// 搜索字段(可搜索内容、标题、快照)模糊查询
       current: 1,// 当前页数
@@ -53,8 +53,8 @@ export default {
         this.postData.category=category}else{ this.postData.category=''}
       this.$axios.post('http://jj.hanbing777.top/api/article/current_list',this.postData).then((res) => {
         if(isInit) {
-          this.atc=res.data.data
-        }else{this.atc=[...this.atc,...res.data.data]}
+          this.atc=res.data.data.list
+        }else{this.atc=[...this.atc,...res.data.data.list]}
         this.loading=false
       })
     })

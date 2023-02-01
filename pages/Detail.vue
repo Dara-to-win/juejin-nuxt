@@ -18,7 +18,7 @@ export default {
   },
   methods:{
     getAct(id){
-    this.$axios.post("http://jj.hanbing777.top:80/api/article/current",{id}).then(res=>{
+    this.$axios.get("http://jj.hanbing777.top:80/api/article/current",{params:{id:id}}).then(res=>{
        this.Atc=res.data.data
         });
     }

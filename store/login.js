@@ -16,7 +16,7 @@ export const actions = {
     let username = context.state.userInfo.username
     let password = context.state.userInfo.password
     const namereg=/^1[3-9]\d{9}$/
-    const passwordreg=/^(\w){5,15}$/
+    const passwordreg=/^(\w){8,15}$/
     if(namereg.test(username)&& passwordreg.test(password)){
       fetch(LOGIN_URL, {
         // 向服务端发送请求，进行登录
