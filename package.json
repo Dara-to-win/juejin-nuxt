@@ -6,9 +6,9 @@
     "node": "<=16"
   },
   "scripts": {
-    "dev": "SET NODE_OPTIONS=--openssl-legacy-provider &&cross-env NODE_ENV=dev BASE_URL=http://localhost:80 && nuxt --exec babel-node ",
-    "build": "SET NODE_OPTIONS=--openssl-legacy-provider &&cross-env NODE_ENV=pro BASE_URL=https://diandian210.top && nuxt build ",
-    "start": "SET NODE_OPTIONS=--openssl-legacy-provider &&cross-env NODE_ENV=pro BASE_URL=https://diandian210.top && nuxt start --exec babel-node ",
+    "dev": "cross-env NODE_ENV=dev BASE_URL=http://localhost:80 && nuxt --exec babel-node ",
+    "build": "cross-env NODE_ENV=pro BASE_URL=https://diandian210.top && nuxt build ",
+    "start": "cross-env NODE_ENV=pro BASE_URL=https://diandian210.top && nuxt start --exec babel-node ",
     "generate": "cross-env NODE_ENV=pro BASE_URL=https://diandian210.top nuxt generate ",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint:prettier": "prettier --check .",
