@@ -67,7 +67,7 @@ h2{
   width: 100%;
   height: 100%;
   background-color: hsla(120, 0%, 30%, 0.3);
-  z-index: 98;
+  z-index: 101;
 }
 .el-form {
   position: fixed; /*固定定位*/
@@ -89,8 +89,6 @@ h2{
 /* 注册 */
 a{
   text-decoration: none;
-
-
 }
 a:link{
   color: black;

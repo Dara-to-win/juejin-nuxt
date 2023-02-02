@@ -2,8 +2,21 @@
   <div class="login-section">
     <el-form ref="ruleForm" label-position="top" label-width="100px" class="demo-ruleForm" :rules="rules" :model="rulesForm" status-icon >
       <h2>注册新用户</h2>
-      <el-form-item label="账号" prop="name">
-        <el-input v-model="rulesForm.name" type="text"></el-input>
+      <h3 style="margin-left:10px">头像</h3>
+      <el-upload
+          class="avatar-uploader"
+          action="#"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload">
+          <img v-if="img" :src="img" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+        <el-form-item label="用户名" prop="nickname">
+        <el-input v-model="rulesForm.nickname" type="text"></el-input>
+      </el-form-item>
+      <el-form-item label="账号" prop="userAccount">
+        <el-input v-model="rulesForm.userAccount" type="text"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
         <el-input v-model="rulesForm.password" type="password" ></el-input>
@@ -21,31 +34,62 @@ export default {
   data() {
     return {
       rulesForm: {
-        name: '',
+        nickname: '',
         password: '',
+        userAccount:'',
       },
       rules: {
-        name: [
+        nickname: [
+          { required: true, message: '用户名', trigger: 'change' },
+          { min: 2, max: 10, message: '长度在2到10', trigger: 'change' },
+        ],
+        userAccount: [
           { required: true, message: '手机号', trigger: 'change' },
           { pattern: /^1[3-9]\d{9}$/, message: '请输入手机号', trigger: 'change' },
         ],
         password: [
           { required: true, message: '密码', trigger: 'change' },
-          { min: 8, max: 15, message: '长度在5到15', trigger: 'change' },
+          { min: 5, max: 15, message: '长度在5到15', trigger: 'change' },
         ],
       },
+      img: ''
     }
   },
   methods: {
     submitForm() {
           // 如果校检通过，在这里向后端发送用户名和密码
-          const namereg=/^1[3-9]\d{9}$/
-          const passwordreg=/^(\w){8,15}$/
-          if(namereg.test(this.rulesForm.name)&& passwordreg.test(this.rulesForm.name)){
-            // this.$store.dispatch('register/register', this.rulesForm)
+          const namereg=/^[\u4E00-\u9FA5\uF900-\uFA2D|\w]{2,10}$/
+          const phonereg=/^1[3-9]\d{9}$/
+          const passwordreg=/^(\w){5,15}$/
+          if(phonereg.test(this.rulesForm.userAccount)&& 
+             passwordreg.test(this.rulesForm.password) &&
+             namereg.test(this.rulesForm.nickname)){
+              const form=this.rulesForm
+              form.userAvatar=this.img
+            this.$store.dispatch('register/register', this.rulesForm)
+          }else{
+            alert("输入不符合要求")
           }
         },
-    ...mapMutations('register', {closeRegisterDialog: 'CLOSE_REGISTER_DIALOG'})
+    ...mapMutations('register', {closeRegisterDialog: 'CLOSE_REGISTER_DIALOG'}),
+        handleAvatarSuccess(res, file) {
+        const reader  = new FileReader()
+        reader.readAsDataURL(file.raw)
+        reader.onload = (res)=>{
+        this.img =res.target.result
+         }
+      },
+      beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
+      }
   },
 }
 </script>
@@ -62,7 +106,7 @@ h2{
   width: 100%;
   height: 100%;
   background-color: hsla(120, 0%, 30%, 0.3);
-  z-index: 98;
+  z-index: 101;
 }
 .el-form {
   position: fixed; /*固定定位*/
@@ -81,4 +125,29 @@ h2{
   justify-content: center;
   align-items: center;
 }
+.avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .avatar {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: block;
+  }
 </style>
