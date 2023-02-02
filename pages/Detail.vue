@@ -20,7 +20,7 @@ export default {
     getAct(id){
     this.$axios.get("http://jj.hanbing777.top:80/api/article/current",{params:{id:id}}).then(res=>{
        this.Atc=res.data.data
-        });
+        }).catch((err)=>{ console.log(err)});
     }
   }
 }

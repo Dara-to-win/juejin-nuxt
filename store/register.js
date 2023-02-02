@@ -1,16 +1,17 @@
 const REGISTER_URL= 'http://jj.hanbing777.top/api/user/register'
 export const state = () => ({
   isRegisterDialogShow: false,
+  token:''
 })
 
 export const actions = {
-  // 注册操作
-  register(context, value) {
+  //注册操作
+ async register(context, value) {
     let nickname = value.nickname
     let userAccount = value.userAccount
     let userPassword = value.password
     let userAvatar=value.userAvatar
-    // 向服务端发送请求，进行登录
+    //向服务端发送请求，进行登录
     fetch(REGISTER_URL, {
       method: 'post',
       body: JSON.stringify({
@@ -18,7 +19,7 @@ export const actions = {
         userAccount,
         userPassword,
         userAvatar,
-        introduction: ""
+        introduction: "用户"
       }),
       headers: {
         'Content-type': 'application/json'
@@ -26,7 +27,7 @@ export const actions = {
     }).then(res => res.json())
       .then(data => {
         console.log(data)
-      })
+      }).catch((err)=>{ console.log(err)});
   }
 }
 

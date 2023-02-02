@@ -25,7 +25,7 @@ export default {
     return $axios.post('http://jj.hanbing777.top/api/article/current_list',postData).then((res) => {
         const atc = res.data.data.list
         return { atc }
-      })
+      }).catch((err)=>{ console.log(err)});
   },
   data(){
     return{
@@ -56,7 +56,7 @@ export default {
           this.atc=res.data.data.list
         }else{this.atc=[...this.atc,...res.data.data.list]}
         this.loading=false
-      })
+      }).catch((err)=>{ console.log(err)});
     })
   },
   destroyed(){

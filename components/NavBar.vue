@@ -89,7 +89,8 @@
           <!-- 消息图标 -->
           <el-button
             type="text"
-            icon="el-icon-bell"
+            size="small"
+            icon="el-icon-message-solid"
             class="message-btn"
           ></el-button>
 
@@ -323,3 +324,175 @@ export default {
   },
 }
 </script>
+<style scoped lang="less">
+.bg-container {
+  width: 100vw;
+  background-color: #fff;
+  z-index: 100;
+  position: fixed;
+  .nav-container {
+    margin: 0 auto;
+    width: 100%;
+    .nav-bar {
+      height: 64px;
+      align-items: center;
+      background-color: white;
+
+      // logo 区域
+      .logo-text {
+        width: 100px;
+        height: 33px;
+        margin-left: 20px;
+      }
+      .logo-img {
+        display: none;
+        width: 31px;
+      }
+      // 媒体查询要写在下面才能生效
+      @media (max-width: 640px) {
+        .logo-text {
+          display: none;
+        }
+        .logo-img {
+          display: block;
+          margin-left: 20px;
+        }
+      }
+      // 导航栏区域
+      .left,
+      .right {
+        display: flex;
+      }
+      // 左侧链接部分
+      .left {
+        justify-content: flex-start;
+        align-items: center;
+        margin-left: 10px;
+
+        // 导航栏左侧宽度较窄时的下拉导航链接
+        .nav-link-dropdown {
+          font-size: 16px;
+          color: #1e80ff;
+          display: none;
+          cursor: pointer;
+        }
+
+        // 完整的导航链接部分
+        .nav-link {
+          border-bottom: 1px solid white;
+          margin-left: 13px;
+          .el-menu-item {
+            width: 50px;
+            font-size: 16px;
+            padding: 0 10px;
+            transition: none !important;
+            &.is-active {
+              color: #1e80ff;
+              border-bottom: none;
+            }
+          }
+        }
+
+        @media (max-width: 1230px) {
+          .nav-link-dropdown {
+            display: block;
+          }
+          .nav-link {
+            display: none;
+          }
+        }
+
+        // border: 1px solid red;
+      }
+
+      // 右侧按钮、用户头像部分
+      .right {
+        justify-content: flex-end;
+        align-items: center;
+        margin: 0 15px;
+
+        // 搜索框
+        .input {
+          max-width: 200px;
+          min-width: 140px;
+          margin-right: 12px;
+          margin-top:2px;
+          height: 31px;
+          // 搜索框的图标
+          .el-icon-search {
+            max-width: 250px;
+            margin: 2px;
+            width: 28px;
+            line-height: 28px;
+            border-radius: 3px;
+            background-color: #f2f3f5;
+            color:#86909c;
+            font-weight: bold;
+          }
+        }
+        @media (max-width: 398px) {
+          .input {
+            display: none;
+          }
+        }
+        // 创作者中心下拉按钮和消息气泡
+        .badge {
+          right: 72px;
+          z-index:100;
+          height: 30px;
+          .originator-drop {
+            right: -62px;
+            min-width: 140px;
+            margin: 0 12px;
+            z-index: 0;
+            &:hover {
+              z-index: 0;
+            }
+            & > * {
+              width: 100%;
+            }
+          }
+        }
+        // 消息按钮
+        .message-btn {
+          height: 100%;
+          font-size: 24px;
+          margin: 0 15px;
+          color:#8a919f // #515767
+        }
+        @media (max-width: 799px) {
+          .badge {
+            display: none;
+          }
+          .message-btn{
+            display: none;
+          }
+        }
+        // border: 1px solid skyblue;
+      }
+    }
+  }
+}
+.nav-leave-active{
+  transition: 0.2s;
+}
+.nav-enter-active{
+  transition: 0.15s;
+}
+.nav-enter, .nav-leave-to  {
+  transform: translateY(-100%)
+}
+.landButton{
+  border-color:#1e80ff;
+  background-color:#cde1f84f;
+  color:#1e80ff;
+  margin-right:10px;
+}
+@media (max-width: 799px) {
+  .landButton{
+    margin-right:0px;
+    
+  }
+}
+
+</style>

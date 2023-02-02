@@ -34,7 +34,6 @@ export default {
   css: [
     'element-ui/lib/theme-chalk/index.css',
     '@/static/css/css.css',
-    '@/static/css/less.less',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins

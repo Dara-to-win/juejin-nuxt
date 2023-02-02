@@ -30,7 +30,17 @@
 </template>
 <script>
 import { mapMutations } from 'vuex'
+import { v4 as uuidv4 } from 'uuid';
+const qiniu = require('qiniu-js')
 export default {
+  created() {
+    const QiniuUPToken = require('qiniu-uptoken')
+    // 生成上传 Token
+    this.token = QiniuUPToken(
+    'StZJMeCvllWcmnvI7VaUdQsebPOIjOemENGm5sQd', 
+    'S2fKXsgqhItS78sf3Oz1VhkB3X00RRWLQEDocKmH', 
+    'dian210')
+    },
   data() {
     return {
       rulesForm: {
@@ -49,23 +59,26 @@ export default {
         ],
         password: [
           { required: true, message: '密码', trigger: 'change' },
-          { min: 5, max: 15, message: '长度在5到15', trigger: 'change' },
+          { min: 9, max: 15, message: '长度在9到15', trigger: 'change' },
         ],
       },
-      img: ''
+      img:"",
+      token:'',
+      imgSrc:""
     }
   },
   methods: {
     submitForm() {
           // 如果校检通过，在这里向后端发送用户名和密码
+          if(!this.img){alert("请上传头像")}
           const namereg=/^[\u4E00-\u9FA5\uF900-\uFA2D|\w]{2,10}$/
           const phonereg=/^1[3-9]\d{9}$/
-          const passwordreg=/^(\w){5,15}$/
+          const passwordreg=/^(\w){9,15}$/
           if(phonereg.test(this.rulesForm.userAccount)&& 
              passwordreg.test(this.rulesForm.password) &&
              namereg.test(this.rulesForm.nickname)){
               const form=this.rulesForm
-              form.userAvatar=this.img
+              form.userAvatar=this.imgSrc
             this.$store.dispatch('register/register', this.rulesForm)
           }else{
             alert("输入不符合要求")
@@ -73,11 +86,34 @@ export default {
         },
     ...mapMutations('register', {closeRegisterDialog: 'CLOSE_REGISTER_DIALOG'}),
         handleAvatarSuccess(res, file) {
-        const reader  = new FileReader()
-        reader.readAsDataURL(file.raw)
-        reader.onload = (res)=>{
-        this.img =res.target.result
-         }
+          const reader  = new FileReader()
+          reader.readAsDataURL(file.raw)
+          reader.onload =  (res)=>{
+          this.img =res.target.result
+          }
+          const config = {
+            useCdnDomain: false,
+            region:null
+          };
+          const putExtra = {
+            fname: "",
+            params: {},
+            mimeType: null
+          };
+          const observer = {
+          next(res){
+            // ...
+          },
+          error(err){
+            this.$message.error(err)
+          }, 
+          complete(res){
+            // ...
+          }}
+          const uuid=uuidv4()
+          const observable = qiniu.upload(file.raw, uuid, this.token, putExtra, config)
+          observable.subscribe(observer) // 上传开始
+          this.imgSrc=`qiniu.diandian210.top/${uuid}`
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
