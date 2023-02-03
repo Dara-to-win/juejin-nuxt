@@ -17,7 +17,7 @@ export default {
     searchAct(content){
     this.$axios.post("http://jj.hanbing777.top:80/api/article/current",{content}).then(res=>{
        this.Atc=res.data.data
-        });
+        }).catch((err)=>{ console.log(err)});
     }
   }
 }

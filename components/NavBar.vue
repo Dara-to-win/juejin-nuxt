@@ -285,7 +285,7 @@ export default {
     },
     userAvatar(){
       return localStorage.getItem('userAvatar')
-    }
+    },
   },
   watch:{ 
     scrolNumber: {
@@ -310,7 +310,10 @@ export default {
     },
   },
   mounted() {
-   this.scroll = window.addEventListener("scroll", this.throttle(this.scrollToTop, 200));
+    if(this.userAvatar && this.username && localStorage.getItem('userid')){
+    this.$store.state.login.isLogin=true
+   }
+   this.scroll = window.addEventListener("scroll", this.throttle(this.scrollToTop, 200)); 
   },
   updated(){
   },

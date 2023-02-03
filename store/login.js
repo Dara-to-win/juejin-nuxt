@@ -10,6 +10,8 @@ export const state = () => ({
   // 登录对话框是否打开
   isLoginDialogShow: false,
 });
+
+
 export const actions = {
   // 输入登录信息，并发送 ajax 请求判断能否登录
   login(context) {
