@@ -3,8 +3,8 @@
     <!-- :rules="rules" -->
     <el-form ref="ruleForm" label-position="top" label-width="100px" class="demo-ruleForm" :rules="rules" :model="userInfo" status-icon >
       <h2>用户登录</h2>
-      <el-form-item label="用户名" prop="username">
-        <el-input v-model="userInfo.username" type="text"  placeholder="请输入用户名"></el-input>
+      <el-form-item label="手机号" prop="username">
+        <el-input v-model="userInfo.username" type="text"  placeholder="请输入手机号"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
         <el-input v-model="userInfo.password" type="password"  placeholder="请输入密码"></el-input>
@@ -19,7 +19,7 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions, mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -31,7 +31,7 @@ export default {
         ],
         password: [
           { required: true, message: '密码',trigger: 'change'},
-          { min: 8, max: 15, message: '长度在5到15',trigger: 'change'},
+          { min: 9, max: 15, message: '长度在9到15',trigger: 'change'},
         ],
       },
     }
@@ -41,9 +41,15 @@ export default {
   },
   methods: {
     // 点击“登录”时的逻辑
-    ...mapActions({
-        login:'login/login'
-      }),
+    login(){
+    const namereg=/^1[3-9]\d{9}$/
+    const passwordreg=/^(\w){9,15}$/
+    if(namereg.test(this.$store.state.login.userInfo.username)&& passwordreg.test(this.$store.state.login.userInfo.password)){
+      this.$store.dispatch('login/login')
+    }else{
+      alert("输入不符合规范")
+    }
+    },
     // 点击“注册”时关闭登录弹窗，打开注册弹窗
     openRegisterDialog(){
       this.$store.commit('login/CLOSE_LOGIN_DIALOG')

@@ -7,12 +7,13 @@
         <div class="author-info-box">
           <div class="author-name" >{{ atcData.author }}</div>
           <div class="meta-box">
-            <span style="font-weight:normal;font-size: 14px;letter-spacing:1px">2022年08月26日 22:41 · 阅读 {{atcData.view_count}}</span>
+            <span style="font-weight:normal;font-size: 14px;letter-spacing:1px">2022年08月26日 22:41 · 阅读 {{atcData.viewCount}}</span>
           </div>
         </div>
         <button class="follow-button">+ 关注</button>
       </div>
       <div class="markdown-body">
+        <img :src='atcData.snapshot' style="max-width:750px;">
         <MarkdownPreview
           v-if="atcData"
           :initialValue="atcData.content"

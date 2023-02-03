@@ -56,7 +56,7 @@
         <!-- 主导航栏右半部分，包含搜索框、创作者中心按钮、消息提示和用户头像 -->
         <el-col :span="15" class="right">
           <!-- 输入框 -->
-          <el-input v-model="input" placeholder="探索掘金社区"  class="input"  >
+          <el-input v-model="input" placeholder="探索稀土掘金"  class="input"  >
             <i slot="suffix" class="el-icon-search"></i>
           </el-input>
 
@@ -104,13 +104,13 @@
                   <div class="user-info">
                     <div class="avatar">
                       <img
-                        src="@/static/assets/info/head protrait.jpg"
+                       :src="userAvatar"
                         alt=""
                         class="lazy avatar"
-                        style="width:48px">
+                        style="width:48px; height:48px; cursor: pointer;border-radius:50%;" >
                     </div>
                     <div class="user-detail">
-                      <p class="name">用户12345678</p>
+                      <p class="name">{{username}}</p>
                       <div class="ore" >
                         <span style="font-size:12px;">矿石:2.8w</span>
                         <img
@@ -242,17 +242,17 @@
                 <div style="display:flex; margin-top:10px">
                   <el-link :underline="false">我的设置</el-link>
                   <div class="hide"></div>
-                  <el-link :underline="false">退出登录</el-link>
+                  <el-link :underline="false" @click='logout()'>退出登录</el-link>
                 </div>
               </div>
               <div
                 slot="reference"
                 class="avatar-div"
-                style="width: 40px; height: 40px"
+                style="width: 40px; height: 40px;margin-right:10px"
               >
                 <img
-                  src="@/static/assets/info/head protrait.jpg"
-                  style="width: 100%; height: 100%; cursor: pointer"
+                  :src="userAvatar"
+                  style="width: 100%; height: 100%; cursor: pointer;border-radius:50%;"
                 />
               </div>
             </el-popover>
@@ -280,6 +280,12 @@ export default {
   },
   computed: {
     ...mapState('login', ['isLogin', 'isLoginDialogShow', 'userInput']),
+    username(){
+      return localStorage.getItem('username')
+    },
+    userAvatar(){
+      return localStorage.getItem('userAvatar')
+    }
   },
   watch:{ 
     scrolNumber: {
@@ -313,7 +319,8 @@ export default {
   },
   methods:{
     ...mapMutations({
-        login:'login/OPEN_LOGIN_DIALOG'
+        login:'login/OPEN_LOGIN_DIALOG',
+        logout:'login/LOGOUT',
       }),
     scrollToTop() {
       this.scrolNumber = document.body.scrollTop || document.documentElement.scrollTop 
@@ -414,36 +421,40 @@ export default {
         // 搜索框
         .input {
           max-width: 200px;
-          min-width: 140px;
+          min-width: 130px;
           margin-right: 12px;
-          margin-top:2px;
+          margin-top:-5px;
           height: 31px;
           // 搜索框的图标
           .el-icon-search {
             max-width: 250px;
-            margin: 2px;
-            width: 28px;
-            line-height: 28px;
-            border-radius: 3px;
+            margin-top: 5px;
+            width: 30px;
+            line-height: 30px;
+            border-radius: 5px;
             background-color: #f2f3f5;
             color:#86909c;
             font-weight: bold;
           }
         }
-        @media (max-width: 398px) {
+        @media (max-width: 388px) {
           .input {
             display: none;
           }
         }
+        @media (max-width: 910px) {
+          .input{
+             font-size: 13px;
+          }
+        }
         // 创作者中心下拉按钮和消息气泡
         .badge {
-          right: 72px;
+          right: 60px;
           z-index:100;
           height: 30px;
           .originator-drop {
             right: -62px;
             min-width: 140px;
-            margin: 0 12px;
             z-index: 0;
             &:hover {
               z-index: 0;
@@ -491,8 +502,6 @@ export default {
 @media (max-width: 799px) {
   .landButton{
     margin-right:0px;
-    
   }
 }
-
 </style>

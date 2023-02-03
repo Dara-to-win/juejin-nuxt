@@ -26,7 +26,10 @@ export const actions = {
       }
     }).then(res => res.json())
       .then(data => {
-        console.log(data)
+        if(data.data){
+          alert("注册成功")
+          context.commit("REGISTERED")
+        }else(alert(data.description))
       }).catch((err)=>{ console.log(err)});
   }
 }
@@ -41,8 +44,8 @@ export const mutations = {
   },
   // 注册成功后，关闭注册弹窗，打开登录弹窗
   REGISTERED(state) {
-    this.commit('registerOptions/CLOSE_REGISTER_DIALOG')
-    this.commit('loginOptions/OPEN_LOGIN_DIALOG')
+    this.commit('register/CLOSE_REGISTER_DIALOG')
+    this.commit('login/OPEN_LOGIN_DIALOG')
   }
   // // 清空用户输入
   // CLEAR_USER_INPUT(state){

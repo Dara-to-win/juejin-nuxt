@@ -113,7 +113,7 @@ export default {
           const uuid=uuidv4()
           const observable = qiniu.upload(file.raw, uuid, this.token, putExtra, config)
           observable.subscribe(observer) // 上传开始
-          this.imgSrc=`qiniu.diandian210.top/${uuid}`
+          this.imgSrc=`http://qiniu.diandian210.top/${uuid}`
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
@@ -148,7 +148,7 @@ h2{
   position: fixed; /*固定定位*/
   top: 50%; /*距顶部50%*/
   left: 50%;
-  /* margin: -100px 0 0 -150px; 设定这个div的margin-top的负值为自身的高度的一半,margin-left的值也是自身的宽度的一半的负值.(感觉在绕口令) */
+  /* margin: -100px 0 0 -150px; 设定这个div的margin-top的负值为自身的高度的一半,margin-left的值也是自身的宽度的一半的负值 */
   transform: translateX(-50%) translateY(-50%); /* 用平移实现居中更好，自适应 */
   width: 300px; /*宽为400,那么margin-top为-200px*/
   padding: 20px;
