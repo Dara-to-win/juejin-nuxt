@@ -28,13 +28,13 @@ export const actions = {
           'Content-type': 'application/json'
         }
       }).then(res => res.json()).then(data => {
-          if(data){
+          if(data.data){
             localStorage.setItem('username', data.data.nickname)
             localStorage.setItem('userAvatar',data.data.avatar)
             localStorage.setItem('userid',data.data.userid)
             context.commit('LOGIN')
             context.commit('CLOSE_LOGIN_DIALOG')
-          }
+          }else{alert(data.description)}
         }).catch((err)=>{ console.log(err)});
   }
 };
@@ -57,9 +57,7 @@ export const mutations = {
   LOGOUT(state) {
     state.isLogin = false
     this.commit('login/CLEAR_USER_Info')
-    localStorage.setItem('username',null)
-    localStorage.setItem('userAvatar',null)
-    localStorage.setItem('userid',null)
+    localStorage.clear()
   },
   // 清空用户输入
   CLEAR_USER_Info(state) {

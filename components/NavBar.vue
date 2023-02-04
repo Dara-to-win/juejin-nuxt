@@ -312,6 +312,8 @@ export default {
   mounted() {
     if(this.userAvatar && this.username && localStorage.getItem('userid')){
     this.$store.state.login.isLogin=true
+   }else{
+    this.$store.state.login.isLogin=false
    }
    this.scroll = window.addEventListener("scroll", this.throttle(this.scrollToTop, 200)); 
   },
