@@ -3,11 +3,11 @@
   <div ref="linkpop" :class="linkPopClass" class="lk-container">
     <ul>
       <LinkPopItem
-        v-for="item in lists"
-        :key="item.id"
-        :index="item.id"
-        :info="item.info"
-        @click.native="changeHome(item.id)"
+        v-for="(item,index) in labelList||lists"
+        :key="index"
+        :index="index"
+        :labelList="item"
+        @click.native="changeHome(index)"
       />
     </ul>
   </div>
@@ -38,20 +38,20 @@ export default {
         {
           id: 1,
           info: {
-            main: '综合',
+            text: '综合',
           },
         },
         {
           id: 2,
           info: {
-            main: '关注',
+            text: '关注',
           },
         },
         {
           id: 3,
           info: {
-            main: '后端',
-            sub: [
+            text: '后端',
+            sublist: [
               '后端',
               'java',
               'go',
@@ -73,8 +73,8 @@ export default {
         {
           id: 4,
           info: {
-            main: '前端',
-            sub: [
+            text: '前端',
+            sublist: [
               '前端',
               'JavaScript',
               'Vue.js',
@@ -96,8 +96,8 @@ export default {
         {
           id: 5,
           info: {
-            main: 'Android',
-            sub: [
+            text: 'Android',
+            sublist: [
               'Android',
               'Kotlin',
               'Flutter',
@@ -119,8 +119,8 @@ export default {
         {
           id: 6,
           info: {
-            main: 'iOS',
-            sub: [
+            text: 'iOS',
+            sublist: [
               'iOS',
               'Swift',
               'SwiftUl',
@@ -142,8 +142,8 @@ export default {
         {
           id: 7,
           info: {
-            main: '人工智能',
-            sub: [
+            text: '人工智能',
+            sublist: [
               '人工智能',
               '深度学习',
               '算法',
@@ -165,8 +165,8 @@ export default {
         {
           id: 8,
           info: {
-            main: '开发工具',
-            sub: [
+            text: '开发工具',
+            sublist: [
               '后端',
               '前端',
               '开源',
@@ -188,8 +188,8 @@ export default {
         {
           id: 9,
           info: {
-            main: '代码人生',
-            sub: [
+            text: '代码人生',
+            sublist: [
               '程序员',
               '前端',
               '后端',
@@ -210,11 +210,16 @@ export default {
         {
           id: 10,
           info: {
-            main: '阅读',
+            text: '阅读',
           },
         },
       ],
     }
+  },
+  computed:{
+    labelList(){
+   return this.$store.state.homeConfig.homeConfig.labelList
+  },
   },
   mounted() {
     this.$bus.$on('linPopDown', () => {
@@ -234,10 +239,10 @@ export default {
       for (const item of tag) {
         item.style.color = '#71777c'
       }
-      tag[id - 1].style.color = '#1e80ff'
+      tag[id].style.color = '#1e80ff'
       // 然后发请求，改数据
       this.$bus.$emit('initCurrent',2) // 初始化页数
-      const linkpop=tag[id - 1].innerText
+      const linkpop=tag[id].innerText
       window.sessionStorage.setItem('tag',linkpop)
       this.$bus.$emit('getAtc',1,linkpop,true)
     },

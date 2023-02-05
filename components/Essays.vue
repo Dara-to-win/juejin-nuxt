@@ -42,8 +42,13 @@ export default {
       activeIndex: 1,
     }
   },
+  computed:{
+    screening(){
+   return this.$store.state.homeConfig.homeConfig.screening
+  },
+  },
   mounted() {
-    let current=2
+    let current=2 // 页数
     this.io=new IntersectionObserver((e)=>{
       if(e[0].isIntersecting){
        const tag= window.sessionStorage.getItem('tag')
@@ -83,6 +88,7 @@ export default {
     color: #909090;
     font-size: 14px;
     white-space: nowrap;
+    width: 700px;
     li {
       padding: 0 15px;
       &:hover {

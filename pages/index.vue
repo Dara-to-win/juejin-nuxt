@@ -13,7 +13,7 @@ export default {
   layout: 'nav',
   asyncData({ $axios }) {
     const postData = {
-      articleStatus:2,// 根据文章状态查询0-草稿箱1-待审核2-已发布  
+      articleStatus:0,// 根据文章状态查询0-草稿箱1-待审核2-已发布  
       category: '',// 不传默认不根据分类查询,传具体的分类名称
       content:'',// 搜索字段(可搜索内容、标题、快照)模糊查询
       current: 1,// 当前页数
@@ -32,7 +32,7 @@ export default {
       loading:false,
       atc:'',
       postData:{
-      articleStatus:2,// 根据文章状态查询0-草稿箱1-待审核2-已发布  
+      articleStatus:0,// 根据文章状态查询0-草稿箱1-待审核2-已发布  
       category: '',// 不传默认不根据分类查询,传具体的分类名称
       content:'',// 搜索字段(可搜索内容、标题、快照)模糊查询
       current: 1,// 当前页数
@@ -44,7 +44,7 @@ export default {
     }
   },
   mounted(){
-    this.$bus.$on('getAtc', (current,category,isInit) => {// 页数，标签，是否重新加载
+    this.$bus.$on('getAtc', (current,category,isInit,content) => {// 页数，标签，是否重新加载,搜索内容
       if(isInit){
         this.loading=true
       }

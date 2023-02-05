@@ -70,9 +70,11 @@
             >
               创作者中心
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>
+                <div @click="jump2Editor()" >
+                <el-dropdown-item >
                   <img src="@/static/assets/write-article.svg" /> 写文章
                 </el-dropdown-item>
+                </div>
                 <el-dropdown-item>
                   <img src="@/static/assets/boiling.svg" /> 发沸点
                 </el-dropdown-item>
@@ -284,7 +286,7 @@ export default {
       return localStorage.getItem('username')
     },
     userAvatar(){
-      return localStorage.getItem('userAvatar')
+      return this.$store.state.upLoadImg.imgSrc || localStorage.getItem('userAvatar')
     },
   },
   watch:{ 
@@ -332,6 +334,14 @@ export default {
     },
     jumpToIndex(){
       window.location.href = "/"
+    },
+    jump2Editor(){
+      if(this.$store.state.login.isLogin){
+        window.location.href = "/Editor"
+      }else{
+        alert("请先登录")
+      }
+      
     }
   },
 }

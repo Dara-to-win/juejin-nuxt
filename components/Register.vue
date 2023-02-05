@@ -30,17 +30,7 @@
 </template>
 <script>
 import { mapMutations } from 'vuex'
-import { v4 as uuidv4 } from 'uuid';
-const qiniu = require('qiniu-js')
 export default {
-  created() {
-    const QiniuUPToken = require('qiniu-uptoken')
-    // 生成上传 Token
-    this.token = QiniuUPToken(
-    'StZJMeCvllWcmnvI7VaUdQsebPOIjOemENGm5sQd', 
-    'S2fKXsgqhItS78sf3Oz1VhkB3X00RRWLQEDocKmH', 
-    'dian210')
-    },
   data() {
     return {
       rulesForm: {
@@ -64,8 +54,10 @@ export default {
       },
       img:"",
       token:'',
-      imgSrc:""
     }
+  },
+  created(){
+    this.$store.dispatch('upLoadImg/getToken')
   },
   methods: {
     submitForm() {
@@ -77,8 +69,6 @@ export default {
           if(phonereg.test(this.rulesForm.userAccount)&& 
              passwordreg.test(this.rulesForm.password) &&
              namereg.test(this.rulesForm.nickname)){
-              const form=this.rulesForm
-              form.userAvatar=this.imgSrc
             this.$store.dispatch('register/register', this.rulesForm)
           }else{
             alert("输入不符合要求")
@@ -91,29 +81,7 @@ export default {
           reader.onload =  (res)=>{
           this.img =res.target.result
           }
-          const config = {
-            useCdnDomain: false,
-            region:null
-          };
-          const putExtra = {
-            fname: "",
-            params: {},
-            mimeType: null
-          };
-          const observer = {
-          next(res){
-            // ...
-          },
-          error(err){
-            this.$message.error(err)
-          }, 
-          complete(res){
-            // ...
-          }}
-          const uuid=uuidv4()
-          const observable = qiniu.upload(file.raw, uuid, this.token, putExtra, config)
-          observable.subscribe(observer) // 上传开始
-          this.imgSrc=`http://qiniu.diandian210.top/${uuid}`
+          this.$store.dispatch('upLoadImg/upLoadImg',file.raw)
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
