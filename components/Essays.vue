@@ -88,7 +88,7 @@ export default {
     color: #909090;
     font-size: 14px;
     white-space: nowrap;
-    width: 700px;
+    width: 100%;
     li {
       padding: 0 15px;
       &:hover {
@@ -105,14 +105,18 @@ export default {
     
   }
 }
+.io{
+  height: 20px;
+  width: 700px;
+}
 @media screen and (max-width: 1000px) {
   .es-container {
     width: 100%;
     margin-right: 0;
   }
-}
-.io{
-  height: 20px;
+  .io{
+    width:0
+  }
 }
 .skeleton{
   width: 700px;

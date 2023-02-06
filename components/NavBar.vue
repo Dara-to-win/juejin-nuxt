@@ -56,12 +56,17 @@
         <!-- 主导航栏右半部分，包含搜索框、创作者中心按钮、消息提示和用户头像 -->
         <el-col :span="15" class="right">
           <!-- 输入框 -->
-          <el-input v-model="input" placeholder="探索稀土掘金"  class="input"  >
-            <i slot="suffix" class="el-icon-search"></i>
+          <el-input ref="input" v-model="input"  placeholder="探索稀土掘金"  class="input" @focus="inPut()" @blur="outPut()" >
           </el-input>
-
+          <div class="search" :class="searchChange">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M12.4008 12.4008C14.744 10.0577 14.744 6.25871 12.4008 3.91556C10.0577 1.57242 6.25871 1.57242 3.91556 3.91556C1.57242 6.25871 1.57242 10.0577 3.91556 12.4008C6.25871 14.744 10.0577 14.744 12.4008 12.4008ZM12.4008 12.4008L15.5828 15.5828" :stroke="searchColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            </div>
           <!-- 创作者中心按钮 -->
-          <el-badge :value="1" class="badge" type="danger" >
+          <div  class="holder">
+          <transition name="badge">
+          <el-badge v-show="badgeShow" :value="1" class="badge" type="danger" >
             <el-dropdown
               split-button
               type="primary"
@@ -84,9 +89,10 @@
               </el-dropdown-menu>
             </el-dropdown>
           </el-badge>
-
+          </transition>
+          </div>
           <!-- vip 图标 -->
-          <img src="@/static/assets/logo-vip.svg" style="margin:0 10px 0 10px;"/>
+          <img src="@/static/assets/logo-vip.svg" style="margin:0 10px 0 10px;z-index: 110;"/>
 
           <!-- 消息图标 -->
           <el-button
@@ -278,6 +284,10 @@ export default {
       scrolNumber:"",
       navClass:'',
       navShow:true,
+      badgeShow:true,
+      inputClass:'',
+      searchChange:'',
+      searchColor:'#515767',
     }
   },
   computed: {
@@ -341,8 +351,22 @@ export default {
       }else{
         alert("请先登录")
       }
-      
-    }
+    },
+    inPut(){
+      if(document.body.clientWidth>1000){
+      this.searchColor="#409EFF"
+      this.badgeShow=false
+      this.searchChange="searchChange"
+      this.$refs.input.$refs.input.style.transition="0.4s"
+      this.$refs.input.$refs.input.style.width="340px"
+      }
+    },  
+    outPut(){
+      this.searchChange=""
+      this.searchColor="#515767"
+      this.badgeShow=true
+      this.$refs.input.$refs.input.style.width=""
+    },
   },
 }
 </script>
@@ -378,6 +402,9 @@ export default {
         .logo-img {
           display: block;
           margin-left: 20px;
+        }
+        .el-dropdown-link{
+          font-size:13px
         }
       }
       // 导航栏区域
@@ -440,9 +467,10 @@ export default {
           margin-right: 12px;
           margin-top:-5px;
           height: 31px;
+          transition: 0.4s;
+          z-index: 101;
           // 搜索框的图标
-          .el-icon-search {
-            max-width: 250px;
+          .search {
             margin-top: 5px;
             width: 30px;
             line-height: 30px;
@@ -452,16 +480,15 @@ export default {
             font-weight: bold;
           }
         }
-        @media (max-width: 388px) {
+        .holder{
+            width: 140px;
+          }
+        @media (max-width: 360px) {
           .input {
             display: none;
           }
         }
-        @media (max-width: 910px) {
-          .input{
-             font-size: 13px;
-          }
-        }
+        
         // 创作者中心下拉按钮和消息气泡
         .badge {
           right: 60px;
@@ -484,15 +511,8 @@ export default {
           height: 100%;
           font-size: 24px;
           margin: 0 15px;
-          color:#8a919f // #515767
-        }
-        @media (max-width: 799px) {
-          .badge {
-            display: none;
-          }
-          .message-btn{
-            display: none;
-          }
+          color:#8a919f;// #515767
+          z-index: 110;
         }
         // border: 1px solid skyblue;
       }
@@ -508,15 +528,65 @@ export default {
 .nav-enter, .nav-leave-to  {
   transform: translateY(-100%)
 }
+.badge-leave-active{
+  transition: 0.4s;
+}
+.badge-enter-active{
+  transition: 0.4s;
+}
+.badge-enter, .badge-leave-to  {
+  transform: translateX(20%);
+  opacity:0;
+}
 .landButton{
   border-color:#1e80ff;
   background-color:#cde1f84f;
   color:#1e80ff;
   margin-right:10px;
 }
-@media (max-width: 799px) {
+.search{
+    width: 44px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 102;
+    position: absolute;
+    background-color: #f2f3f5;
+    top: 19px;
+    right:340px;
+    border-radius: 5px;
+    transition: 0.4s;
+    cursor:pointer;
+}
+.searchChange{
+  right:200px;
+  transition: 0.4s;
+  background-color:rgb(217, 236, 255);
+}
+@media (max-width: 920px) {
+   .input{
+     font-size: 13px;
+  }
+  .search{
+    width: 30px;
+  }
+}
+@media (max-width: 700px) {
   .landButton{
     margin-right:0px;
+  }
+  .badge {
+   display: none;
+  }
+  .message-btn{
+   display: none;
+    }
+  .holder{
+   width: 0;
+  }
+  .search{
+    display: none;
   }
 }
 </style>
