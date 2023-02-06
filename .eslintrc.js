@@ -23,5 +23,6 @@ module.exports = {
     'vue/no-template-shadow':0,
     'vue/no-v-html':0,
     'vue/order-in-components':0,
+    'no-console':0,
   }
 }

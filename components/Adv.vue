@@ -174,10 +174,10 @@ export default {
       this.slideClass = 'slideFixed' // 出现
     })
     this.$bus.$on('slideDown', () => {
-      slide.style.bottom = '50px' // 起
+      slide.style.top = '64px' // 起
     })
     this.$bus.$on('slideUp', () => {
-      slide.style.bottom = '5px' // 落
+      slide.style.top = '100px' // 落
     })
   },
   beforeDestroy() {
@@ -359,7 +359,7 @@ i {
   pointer-events: all;
   opacity: 1;
   transition: 0.2s;
-  bottom: 0;
+  top: 64;
 }
 .holder {
   width: 240px;

@@ -7,12 +7,13 @@
         <div class="author-info-box">
           <div class="author-name" >{{ atcData.author }}</div>
           <div class="meta-box">
-            <span style="font-weight:normal;font-size: 14px;letter-spacing:1px">2022年08月26日 22:41 · 阅读 {{atcData.view_count}}</span>
+            <span style="font-weight:normal;font-size: 14px;letter-spacing:1px">2022年08月26日 22:41 · 阅读 {{atcData.viewCount}}</span>
           </div>
         </div>
         <button class="follow-button">+ 关注</button>
       </div>
       <div class="markdown-body">
+        <img :src='atcData.snapshot' style="max-width:750px;">
         <MarkdownPreview
           v-if="atcData"
           :initialValue="atcData.content"
@@ -65,7 +66,6 @@
       </div>
     </div>
     <el-backtop :bottom="100" :visibility-height="50"></el-backtop>
-    <el-backtop :bottom="100" :visibility-height="50"></el-backtop>
     <div class="suspended-panel"></div>
     <div class="suspended-panel"></div>
   </div>
@@ -75,13 +75,19 @@ import MarkdownPreview from './preview/MarkdownPreview'
 export default {
   name: "Atc",
   components:{MarkdownPreview},
+  props:{
+    atcData:{
+       type:Object,
+       required:false,
+       default(){return {}},
+    }
+  },
   data() {
     return {
       activeName: "tab0",
       tabPosition: "right",
       scroll: 0,
       navList: [],
-      atcData: "",
       index: 5,
       catalogue: false,
       fixed:'',
@@ -91,11 +97,10 @@ export default {
   mounted() {
     setTimeout(() => {
       this.selectAllTitle();
-    }, 500); // 使用定时器,不然获取不到dom元素
-    this.atcData = JSON.parse(window.sessionStorage.getItem("atcData"))
+    }, 1000); // 使用定时器,不然获取不到dom元素
     this.$bus.$on('scrolNumberChange', (newNumber,oldNumber) => {
-      this.loadScroll()
       this.scroll=newNumber
+      this.loadScroll()
      if (newNumber > oldNumber && newNumber>400) {
           this.top="20px"
         }
@@ -142,7 +147,7 @@ export default {
     jump(index) {
       const jump = document.querySelectorAll("h1,h2,h3,h4,h5,h6");
       //  获取需要滚动的距离
-      const total = jump[index].offsetTop - 80;
+      const total = jump[index].offsetTop - 100;
       //  Chrome
       document.body.scrollTop = total;
       //  Firefox

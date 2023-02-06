@@ -9,11 +9,9 @@
         <span >{{ homeData.author }}</span>
       </div>
       <!-- <div>{{ dateFromNow }}</div> -->
-      <!-- <div>
-        <span v-for="(item, index) in essay.info.category" :key="index">{{
-          item标签
-        }}</span>
-      </div> -->
+      <div>
+      <span>{{homeData.category}}</span>
+      </div>
     </div> 
     <!-- 稿件内容预览 -->
     <div class="content">
@@ -125,11 +123,6 @@ export default {
       border-right: 1px solid hsla(0,0%,59.2%,.2);
       span:hover {
         color: #1e80ff;
-      }
-      // 中间的有点连接，最后一个没有点
-      span::after {
-        content: '·';
-        padding: 0 5px;
       }
       & > span:last-child {
         &::after {

@@ -56,7 +56,7 @@
         <!-- 主导航栏右半部分，包含搜索框、创作者中心按钮、消息提示和用户头像 -->
         <el-col :span="15" class="right">
           <!-- 输入框 -->
-          <el-input v-model="input" placeholder="探索掘金社区"  class="input"  >
+          <el-input v-model="input" placeholder="探索稀土掘金"  class="input"  >
             <i slot="suffix" class="el-icon-search"></i>
           </el-input>
 
@@ -84,32 +84,33 @@
           </el-badge>
 
           <!-- vip 图标 -->
-          <img src="@/static/assets/logo-vip.svg" />
+          <img src="@/static/assets/logo-vip.svg" style="margin:0 10px 0 10px;"/>
 
           <!-- 消息图标 -->
           <el-button
             type="text"
-            icon="el-icon-bell"
+            size="small"
+            icon="el-icon-message-solid"
             class="message-btn"
           ></el-button>
 
           <!-- 用户menu -->
           <div>
             <!-- 登录后 -->
-            <el-popover placement="bottom" trigger="click">
+            <el-popover v-if="isLogin" placement="bottom" trigger="click">
               <!-- 信息框 -->
               <div class="infobox">
                 <div class="user-card">
                   <div class="user-info">
                     <div class="avatar">
                       <img
-                        src="@/static/assets/info/head protrait.jpg"
+                       :src="userAvatar"
                         alt=""
                         class="lazy avatar"
-                        style="width:48px">
+                        style="width:48px; height:48px; cursor: pointer;border-radius:50%;" >
                     </div>
                     <div class="user-detail">
-                      <p class="name">用户12345678</p>
+                      <p class="name">{{username}}</p>
                       <div class="ore" >
                         <span style="font-size:12px;">矿石:2.8w</span>
                         <img
@@ -241,20 +242,22 @@
                 <div style="display:flex; margin-top:10px">
                   <el-link :underline="false">我的设置</el-link>
                   <div class="hide"></div>
-                  <el-link :underline="false">退出登录</el-link>
+                  <el-link :underline="false" @click='logout()'>退出登录</el-link>
                 </div>
               </div>
               <div
                 slot="reference"
                 class="avatar-div"
-                style="width: 40px; height: 40px"
+                style="width: 40px; height: 40px;margin-right:10px"
               >
                 <img
-                  src="@/static/assets/info/head protrait.jpg"
-                  style="width: 100%; height: 100%; cursor: pointer"
+                  :src="userAvatar"
+                  style="width: 100%; height: 100%; cursor: pointer;border-radius:50%;"
                 />
               </div>
             </el-popover>
+            <!-- 登录前 -->
+            <el-button v-if="!isLogin" class="landButton" size="small" @click="login()"  >登录</el-button>
           </div>
         </el-col>
       </el-row>
@@ -264,6 +267,7 @@
 </template>
 
 <script>
+import { mapMutations,mapState} from 'vuex';
 export default {
   name: 'NavBar',
   data(){
@@ -275,6 +279,15 @@ export default {
       // 广告组件高度
       adHeight: '',
     }
+  },
+  computed: {
+    ...mapState('login', ['isLogin', 'isLoginDialogShow', 'userInput']),
+    username(){
+      return localStorage.getItem('username')
+    },
+    userAvatar(){
+      return localStorage.getItem('userAvatar')
+    },
   },
   watch:{ 
     scrolNumber: {
@@ -309,16 +322,31 @@ export default {
     },
   },
   mounted() {
+<<<<<<< HEAD
    this.scroll = window.addEventListener("scroll", this.throttle(this.scrollToTop, 200));
    this.$bus.$on('getAdHeight', (data) => {
       this.adHeight = data;
    })
+=======
+    if(this.userAvatar && this.username && localStorage.getItem('userid')){
+    this.$store.state.login.isLogin=true
+   }else{
+    this.$store.state.login.isLogin=false
+   }
+   this.scroll = window.addEventListener("scroll", this.throttle(this.scrollToTop, 200)); 
+  },
+  updated(){
+>>>>>>> 56ee495f5e90e0fdf3ec31172cc20bf19e3bc0cb
   },
   beforeDestroy() {
     window.removeEventListener('scroll',this.scroll)
     this.$bus.$off('getAdHeight')
   },
   methods:{
+    ...mapMutations({
+        login:'login/OPEN_LOGIN_DIALOG',
+        logout:'login/LOGOUT',
+      }),
     scrollToTop() {
       // this.scrolNumber = document.body.scrollTop || document.documentElement.scrollTop 
       this.scrolNumber = window.pageYOffset 
@@ -329,3 +357,177 @@ export default {
   },
 }
 </script>
+<style scoped lang="less">
+.bg-container {
+  width: 100vw;
+  background-color: #fff;
+  z-index: 100;
+  position: fixed;
+  .nav-container {
+    margin: 0 auto;
+    width: 100%;
+    .nav-bar {
+      height: 64px;
+      align-items: center;
+      background-color: white;
+
+      // logo 区域
+      .logo-text {
+        width: 100px;
+        height: 33px;
+        margin-left: 20px;
+      }
+      .logo-img {
+        display: none;
+        width: 31px;
+      }
+      // 媒体查询要写在下面才能生效
+      @media (max-width: 640px) {
+        .logo-text {
+          display: none;
+        }
+        .logo-img {
+          display: block;
+          margin-left: 20px;
+        }
+      }
+      // 导航栏区域
+      .left,
+      .right {
+        display: flex;
+      }
+      // 左侧链接部分
+      .left {
+        justify-content: flex-start;
+        align-items: center;
+        margin-left: 10px;
+
+        // 导航栏左侧宽度较窄时的下拉导航链接
+        .nav-link-dropdown {
+          font-size: 16px;
+          color: #1e80ff;
+          display: none;
+          cursor: pointer;
+        }
+
+        // 完整的导航链接部分
+        .nav-link {
+          border-bottom: 1px solid white;
+          margin-left: 13px;
+          .el-menu-item {
+            width: 50px;
+            font-size: 16px;
+            padding: 0 10px;
+            transition: none !important;
+            &.is-active {
+              color: #1e80ff;
+              border-bottom: none;
+            }
+          }
+        }
+
+        @media (max-width: 1230px) {
+          .nav-link-dropdown {
+            display: block;
+          }
+          .nav-link {
+            display: none;
+          }
+        }
+
+        // border: 1px solid red;
+      }
+
+      // 右侧按钮、用户头像部分
+      .right {
+        justify-content: flex-end;
+        align-items: center;
+        margin: 0 15px;
+
+        // 搜索框
+        .input {
+          max-width: 200px;
+          min-width: 130px;
+          margin-right: 12px;
+          margin-top:-5px;
+          height: 31px;
+          // 搜索框的图标
+          .el-icon-search {
+            max-width: 250px;
+            margin-top: 5px;
+            width: 30px;
+            line-height: 30px;
+            border-radius: 5px;
+            background-color: #f2f3f5;
+            color:#86909c;
+            font-weight: bold;
+          }
+        }
+        @media (max-width: 388px) {
+          .input {
+            display: none;
+          }
+        }
+        @media (max-width: 910px) {
+          .input{
+             font-size: 13px;
+          }
+        }
+        // 创作者中心下拉按钮和消息气泡
+        .badge {
+          right: 60px;
+          z-index:100;
+          height: 30px;
+          .originator-drop {
+            right: -62px;
+            min-width: 140px;
+            z-index: 0;
+            &:hover {
+              z-index: 0;
+            }
+            & > * {
+              width: 100%;
+            }
+          }
+        }
+        // 消息按钮
+        .message-btn {
+          height: 100%;
+          font-size: 24px;
+          margin: 0 15px;
+          color:#8a919f // #515767
+        }
+        @media (max-width: 799px) {
+          .badge {
+            display: none;
+          }
+          .message-btn{
+            display: none;
+          }
+        }
+        // border: 1px solid skyblue;
+      }
+    }
+  }
+}
+.nav-leave-active{
+  transition: 0.2s;
+}
+.nav-enter-active{
+  transition: 0.15s;
+}
+.nav-enter, .nav-leave-to  {
+  transform: translateY(-100%)
+}
+.landButton{
+  border-color:#1e80ff;
+  background-color:#cde1f84f;
+  color:#1e80ff;
+  margin-right:10px;
+}
+@media (max-width: 799px) {
+  .landButton{
+    margin-right:0px;
+  }
+}
+</style>

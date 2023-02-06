@@ -7,10 +7,12 @@
       <li :class="{ active: activeIndex == 3 }" @click="activate(3)" >热榜</li>
     </ul>
     <hr style="opacity:0" size="1" />
-    <div ref="essaylist" class="content" >
+    <el-skeleton v-show="loading" class="skeleton" animated :throttle="300" :loading="loading"/>
+    <div v-show="!loading" ref="essaylist" class="content" >
       <Essay v-for="(item, index) in homeDatas"
-       :key="item.article_id" :homeData="item" :index="index"
-       @click.native="jumpToDetail(item)"/>
+       :key="item.articleID" :homeData="item" :index="index"
+       @click.native="jumpToDetail(item.articleID)"/>
+       <div class='io'></div>
     </div>
   </div>
 </template>
@@ -28,74 +30,42 @@ export default {
         required:false,
         default(){return []}
     },
+    loading:{
+       type:Boolean,
+       required:false,
+       default(){return false},
+    }
   },
   data() {
     return {
       // nav 栏激活 index
       activeIndex: 1,
-      // 判断当前是否正在加载（正忙）
-      busy: false,
-      // 记录当前文章列表长度
-      curEssaysLength: 0,
-      // IntersectionObserver 对象，用来监听元素实现无限滚动
-      // observer: new IntersectionObserver(
-      //   (entries) => {
-      //     if (!this.busy && entries[0].intersectionRatio > 0.75) {
-      //       this.busy = true
-      //       const p = new Promise((resolve, reject) => {
-      //         // 加载更多文章
-      //         this.loadMore()
-      //         resolve()
-      //       })
-      //       p.then(() => {
-      //         // 执行异步操作后的内容（目前没有）
-      //       })
-      //     }
-      //   },
-      //   {
-      //     threshold: [0.75],
-      //   }
-      // ),
-      // 测试无限滚动，用来新增的新文章数据
-      newEssays:'',
     }
   },
-  computed: {
-  },
   mounted() {
-    // 监听当前列表的最下部元素
-    // setTimeout(() => {this.observer.observe(this.$refs.essaylist.lastElementChild)},300)
-  },
-  updated() {
-    // 更新后，如果使得文章列表长度发生变化，则重新监听最下方的元素
-    // if (this.$refs.essaylist.childNodes.length !== this.curEssaysLength) {
-    //   this.observer.disconnect()
-    //   this.observer.observe(this.$refs.essaylist.lastElementChild)
-    //   this.busy = false
-    // }
+    let current=2
+    this.io=new IntersectionObserver((e)=>{
+      if(e[0].isIntersecting){
+       const tag= window.sessionStorage.getItem('tag')
+       this.debounce(this.$bus.$emit('getAtc',current,tag,false),2000)
+       current+=1
+      }
+    })
+    this.io.observe( document.querySelector('.io'));
+    this.$bus.$on('initCurrent',(Current) => {current=Current})
   },
   beforeDestroy() {
-    // this.observer.disconnect()
+    this.io.disconnect()
+    this.$bus.$off('initCurrent')
   },
   methods: {
     activate(index) {
       this.activeIndex = index
     },
-    // 模拟滚动到最下方时加载新数据
-    // loadMore() {
-    //   setTimeout(() => {
-    //     this.essays = [...this.essays, ...this.newEssays]
-    //   }, 1000)
-    // },
-    // 点击文章跳转到详情页
-   jumpToDetail(item) {
-    window.sessionStorage.setItem("atcData",JSON.stringify(item));
-     const newRoute = this.$router.resolve({name:"Detail",query:{article_id:item.article_id}})
-     window.open(newRoute.href, '_blank')
-   }
-    // getEssays(){
-    //   // 发送 ajax 请求获取 essays
-    // }
+   jumpToDetail(id) {
+      const newRoute = this.$router.resolve({name:"Detail",query:{article_id:id}})
+      window.open(newRoute.href, '_blank')
+    },
   },
 }
 </script>
@@ -108,7 +78,7 @@ export default {
     justify-content: flex-start;
     align-items: center;
     list-style: none;
-    padding: 10px;
+    padding: 13px;
     background-color: white;
     color: #909090;
     font-size: 14px;
@@ -134,5 +104,14 @@ export default {
     width: 100%;
     margin-right: 0;
   }
+}
+.io{
+  height: 20px;
+}
+.skeleton{
+  width: 700px;
+  margin:1px;
+  padding:15px;
+  background-color:white;
 }
 </style>

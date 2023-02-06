@@ -236,6 +236,10 @@ export default {
       }
       tag[id - 1].style.color = '#1e80ff'
       // 然后发请求，改数据
+      this.$bus.$emit('initCurrent',2) // 初始化页数
+      const linkpop=tag[id - 1].innerText
+      window.sessionStorage.setItem('tag',linkpop)
+      this.$bus.$emit('getAtc',1,linkpop,true)
     },
   },
 }
