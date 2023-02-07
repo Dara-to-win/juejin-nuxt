@@ -17,7 +17,7 @@
       v-show="loading"
       class="skeleton"
       animated
-      :throttle="300"
+      :throttle="200"
       :loading="loading"
     />
     <div v-show="!loading" ref="essaylist" class="content">
@@ -79,7 +79,10 @@ export default {
     this.io.observe(document.querySelector('.io'))
     this.$bus.$on('initCurrent', (Current) => {
       current = Current
-    })
+    })// 设置为首次请求
+    this.$bus.$on('changeActive', () => {
+      this.activeIndex=0
+    })// 设置为综合高亮
   },
   beforeDestroy() {
     this.io.disconnect()
@@ -88,6 +91,9 @@ export default {
   methods: {
     activate(index,parameter) {
       this.activeIndex = index
+      const tag = window.sessionStorage.getItem('tag')
+      this.$bus.$emit('initCurrent',2) // 初始化页数
+      this.$bus.$emit('getAtc', 1, tag, true,"",parameter)
     },
     jumpToDetail(id) {
       const newRoute = this.$router.resolve({

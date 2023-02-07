@@ -2,8 +2,9 @@
 <template>
   <div ref="linkpop" :class="linkPopClass" class="lk-container">
     <ul>
+      <!-- ||lists -->
       <LinkPopItem
-        v-for="(item,index) in labelList||lists"
+        v-for="(item,index) in labelList"
         :key="index"
         :index="index"
         :labelList="item"
@@ -240,6 +241,7 @@ export default {
         item.style.color = '#71777c'
       }
       tag[id].style.color = '#1e80ff'
+      this.$bus.$emit('changeActive')
       // 然后发请求，改数据
       this.$bus.$emit('initCurrent',2) // 初始化页数
       const linkpop=tag[id].innerText

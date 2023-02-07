@@ -7,7 +7,7 @@
 </template>
 
 <script>
-// import axios from 'axios'  // 安装axios后引入/ 将axios挂载到原型上方便使用
+
 export default {
   name: 'IndexPage',
   layout: 'nav',
@@ -45,14 +45,16 @@ export default {
   },
   created(){
     this.loading=true
-    setTimeout(()=>{this.loading=false},1000)
+    setTimeout(()=>{this.loading=false},500)
   },
   mounted(){
-    this.$bus.$on('getAtc', (current,category,isInit,content) => {// 页数，标签，是否重新加载,搜索内容
+    this.$bus.$on('getAtc', (current,category,isInit,content,order) => {// 页数,标签,是否重新加载,搜索内容,排序方式
       if(isInit){
         this.loading=true
       }
       this.postData.current=current
+      if(order){this.postData.sortField=order
+        }else{this.postData.sortField=""}
       if(category!=="综合"&&category!=="关注"){
         this.postData.category=category}else{ this.postData.category=''}
       this.$axios.post('http://jj.hanbing777.top/api/article/current_list',this.postData).then((res) => {

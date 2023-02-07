@@ -6,7 +6,7 @@
       <!-- 弹出卡片 --> 
       <transition name="fade">
         <!-- 如果没有副标题 sublist，则 sublist 为 undefined -->
-        <div v-if="labelList.sublist && isShow" class="card" >
+        <div v-show="isShow" class="card" >
           <!-- 弹出卡片里的子项目，数据来自父组件 -->
           <ul>
             <li v-for="(item, index) in labelList.sublist" :key="index">{{item.text}}</li>
@@ -35,10 +35,11 @@ export default {
   },
   methods: {
     actived(){
+      if(typeof this.labelList.sublist[0]!=="undefined"){
      this.time= setTimeout(() => {
       if(this.isShow===false){
         this.isShow=true
-        }},500)
+        }},500)}
     },
     deActived(){
       clearTimeout(this.time)

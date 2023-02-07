@@ -8,7 +8,7 @@
         <img src="@/static/assets/logo-text.svg" alt class="logo-text" style="width:107px"/>
         <img src="@/static/assets/logo.svg" alt class="logo-img"  />
         <!-- 主导航栏左半部分，包含链接 -->
-        <el-col :span="9" class="left">
+        <el-col :span="10" class="left">
           <!-- 屏幕较窄时的下拉链接列表 -->
           <el-dropdown trigger="click" class="nav-link-dropdown">
             <span class="el-dropdown-link" @click="jumpToIndex()">
@@ -48,8 +48,8 @@
               ></el-menu-item
             >
             <el-menu-item index="6"><el-link>竞赛</el-link></el-menu-item>
-            <el-menu-item index="7"><el-link >商城</el-link></el-menu-item
-            >
+            <el-menu-item index="7"><el-link >商城</el-link></el-menu-item>
+            <el-menu-item index="7"><el-link >商城</el-link></el-menu-item>
           </el-menu>
         </el-col>
 
@@ -359,7 +359,9 @@ export default {
       this.searchChange="searchChange"
       this.$refs.input.$refs.input.style.transition="0.4s"
       this.$refs.input.$refs.input.style.width="340px"
-      }
+      }else{
+        this.searchColor="#409EFF"
+        }
     },  
     outPut(){
       this.searchChange=""
