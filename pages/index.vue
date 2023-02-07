@@ -43,6 +43,10 @@ export default {
     }
     }
   },
+  created(){
+    this.loading=true
+    setTimeout(()=>{this.loading=false},1000)
+  },
   mounted(){
     this.$bus.$on('getAtc', (current,category,isInit,content) => {// 页数，标签，是否重新加载,搜索内容
       if(isInit){

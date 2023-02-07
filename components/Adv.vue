@@ -2,7 +2,7 @@
   <div>
     <!-- <transition name="fade"> -->
     <div class="holder"></div>
-    <div class="ad main">
+    <div v-show="ad" class="ad main" >
       <!-- 提示信息 -->
       <div class="tip">
         <div class="left">
@@ -27,7 +27,7 @@
         </div>
       </div>
       <!-- 广告组件 -->
-      <div class="ad">
+      <div class="ad" >
         <div v-for="(ad, index) in ad" :key="index" class="outsideDiv mt10">
           <div v-show="ad.open">
             <a :href="ad.url"><img :src="ad.imgUrl" alt="广告" /> </a>
@@ -68,7 +68,7 @@
     </div>
     <!-- </transition> -->
     <!-- <transition name="fade"> -->
-    <div id="slide" :class="slideClass">
+    <div v-show="ad" id="slide" :class="slideClass" >
       <!-- 广告组件 -->
       <div class="ad" >
         <div v-for="(ad, index) in ad" :key="index" class="outsideDiv mt10">

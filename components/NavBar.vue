@@ -554,13 +554,13 @@ export default {
     position: absolute;
     background-color: #f2f3f5;
     top: 19px;
-    right:340px;
+    right:325px;
     border-radius: 5px;
     transition: 0.4s;
     cursor:pointer;
 }
 .searchChange{
-  right:200px;
+  right:185px;
   transition: 0.4s;
   background-color:rgb(217, 236, 255);
 }

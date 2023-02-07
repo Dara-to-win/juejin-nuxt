@@ -2,17 +2,33 @@
 <template>
   <div class="es-container">
     <ul class="nav">
-      <li :class="{ active: activeIndex == 1 }" style="border-right: 1px solid hsla(0,0%,59.2%,.2);" @click="activate(1)" >推荐</li>
-      <li :class="{ active: activeIndex == 2 }" style="border-right: 1px solid hsla(0,0%,59.2%,.2);" @click="activate(2)" >最新</li>
-      <li :class="{ active: activeIndex == 3 }" @click="activate(3)" >热榜</li>
+      <li
+        v-for="(item, index) in screening"
+        :key="index"
+        :class="{ active: activeIndex == index }"
+        class="border"
+        @click="activate(index,item.parameter)"
+      >
+        {{ item.text }}
+      </li>
     </ul>
-    <hr style="opacity:0" size="1" />
-    <el-skeleton v-show="loading" class="skeleton" animated :throttle="300" :loading="loading"/>
-    <div v-show="!loading" ref="essaylist" class="content" >
-      <Essay v-for="(item, index) in homeDatas"
-       :key="item.articleID" :homeData="item" :index="index"
-       @click.native="jumpToDetail(item.articleID)"/>
-       <div class='io'></div>
+    <hr style="opacity: 0" size="1" />
+    <el-skeleton
+      v-show="loading"
+      class="skeleton"
+      animated
+      :throttle="300"
+      :loading="loading"
+    />
+    <div v-show="!loading" ref="essaylist" class="content">
+      <Essay
+        v-for="(item, index) in homeDatas"
+        :key="item.articleID"
+        :homeData="item"
+        :index="index"
+        @click.native="jumpToDetail(item.articleID)"
+      />
+      <div class="io"></div>
     </div>
   </div>
 </template>
@@ -24,51 +40,60 @@ export default {
   components: {
     Essay,
   },
-  props:{
-     homeDatas: {
-        type:Array,
-        required:false,
-        default(){return []}
+  props: {
+    homeDatas: {
+      type: Array,
+      required: false,
+      default() {
+        return []
+      },
     },
-    loading:{
-       type:Boolean,
-       required:false,
-       default(){return false},
-    }
+    loading: {
+      type: Boolean,
+      required: false,
+      default() {
+        return false
+      },
+    },
   },
   data() {
     return {
       // nav 栏激活 index
-      activeIndex: 1,
+      activeIndex: 0,
     }
   },
-  computed:{
-    screening(){
-   return this.$store.state.homeConfig.homeConfig.screening
-  },
+  computed: {
+    screening() {
+      return this.$store.state.homeConfig.homeConfig.screening
+    },
   },
   mounted() {
-    let current=2 // 页数
-    this.io=new IntersectionObserver((e)=>{
-      if(e[0].isIntersecting){
-       const tag= window.sessionStorage.getItem('tag')
-       this.debounce(this.$bus.$emit('getAtc',current,tag,false),2000)
-       current+=1
+    let current = 2 // 页数
+    this.io = new IntersectionObserver((e) => {
+      if (e[0].isIntersecting) {
+        const tag = window.sessionStorage.getItem('tag')
+        this.debounce(this.$bus.$emit('getAtc', current, tag, false), 2000)
+        current += 1
       }
     })
-    this.io.observe( document.querySelector('.io'));
-    this.$bus.$on('initCurrent',(Current) => {current=Current})
+    this.io.observe(document.querySelector('.io'))
+    this.$bus.$on('initCurrent', (Current) => {
+      current = Current
+    })
   },
   beforeDestroy() {
     this.io.disconnect()
     this.$bus.$off('initCurrent')
   },
   methods: {
-    activate(index) {
+    activate(index,parameter) {
       this.activeIndex = index
     },
-   jumpToDetail(id) {
-      const newRoute = this.$router.resolve({name:"Detail",query:{article_id:id}})
+    jumpToDetail(id) {
+      const newRoute = this.$router.resolve({
+        name: 'Detail',
+        query: { article_id: id },
+      })
       window.open(newRoute.href, '_blank')
     },
   },
@@ -97,15 +122,15 @@ export default {
       }
       &.active {
         color: #1e80ff;
+        pointer-events: none;
       }
     }
   }
   content {
     width: 100%;
-    
   }
 }
-.io{
+.io {
   height: 20px;
   width: 700px;
 }
@@ -114,14 +139,20 @@ export default {
     width: 100%;
     margin-right: 0;
   }
-  .io{
-    width:0
+  .io {
+    width: 0;
   }
 }
-.skeleton{
+.skeleton {
   width: 700px;
-  margin:1px;
-  padding:15px;
-  background-color:white;
+  margin: 1px;
+  padding: 15px;
+  background-color: white;
+}
+.border {
+  border-right: 1px solid hsla(0, 0%, 59.2%, 0.2);
+}
+.border:last-child {
+   border-right:none
 }
 </style>
