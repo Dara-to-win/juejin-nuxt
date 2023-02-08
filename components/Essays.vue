@@ -82,7 +82,7 @@ export default {
     })// 设置为首次请求
     this.$bus.$on('changeActive', () => {
       this.activeIndex=0
-    })// 设置为综合高亮
+    })// 设置为推荐高亮
   },
   beforeDestroy() {
     this.io.disconnect()

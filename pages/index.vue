@@ -3,6 +3,7 @@
     <div class="holder"></div>
     <LinkPop ref="link" />
     <LowerHalf :homeDatas="atc" :loading="loading"/>
+    <el-backtop :bottom="10" :right="10" :visibility-height="500"></el-backtop>
   </div>
 </template>
 
@@ -42,10 +43,6 @@ export default {
       sortOrder: '',// 默认升序排序
     }
     }
-  },
-  created(){
-    this.loading=true
-    setTimeout(()=>{this.loading=false},500)
   },
   mounted(){
     this.$bus.$on('getAtc', (current,category,isInit,content,order) => {// 页数,标签,是否重新加载,搜索内容,排序方式

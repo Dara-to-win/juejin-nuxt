@@ -2,20 +2,22 @@
 <template>
 <transition name="nav">
   <div v-show="navShow" class="bg-container" :class="navClass" >
+    <div class="line"></div>
     <div class="nav-container">
       <!-- 主导航栏上半部分 - 页面跳转 -->
       <el-row type="flex" class="nav-bar">
         <img src="@/static/assets/logo-text.svg" alt class="logo-text" style="width:107px"/>
         <img src="@/static/assets/logo.svg" alt class="logo-img"  />
         <!-- 主导航栏左半部分，包含链接 -->
-        <el-col :span="10" class="left">
+        <el-col :span="16" class="left">
           <!-- 屏幕较窄时的下拉链接列表 -->
           <el-dropdown trigger="click" class="nav-link-dropdown">
-            <span class="el-dropdown-link" @click="jumpToIndex()">
+            <span class="el-dropdown-link">
               首页
               <i class="el-icon-caret-bottom"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item><span @click="jumpToIndex()">首页</span></el-dropdown-item>
               <el-dropdown-item>沸点</el-dropdown-item>
               <el-dropdown-item>直播</el-dropdown-item>
               <el-dropdown-item>活动</el-dropdown-item>
@@ -25,32 +27,28 @@
             </el-dropdown-menu>
           </el-dropdown>
           <!-- 完整的导航链接 -->
-          <el-menu default-active="1" class="nav-link" mode="horizontal">
-            <el-menu-item index="1" @click="jumpToIndex()"><el-link>首页</el-link></el-menu-item>
-            <el-menu-item index="2"
-              ><el-link href="https://juejin.cn/pins" target="_blank"
-                >沸点</el-link
-              ></el-menu-item
-            >
-            <el-menu-item index="3"
-              ><el-link href="https://juejin.cn/course" target="_blank"
-                >课程</el-link
-              ></el-menu-item
-            >
-            <el-menu-item index="4"
-              ><el-link href="https://juejin.cn/live" target="_blank"
-                >直播</el-link
-              ></el-menu-item
-            >
-            <el-menu-item index="5"
-              ><el-link href="https://juejin.cn/events/all" target="_blank"
-                >活动</el-link
-              ></el-menu-item
-            >
-            <el-menu-item index="6"><el-link>竞赛</el-link></el-menu-item>
-            <el-menu-item index="7"><el-link >商城</el-link></el-menu-item>
-            <el-menu-item index="7"><el-link >商城</el-link></el-menu-item>
-          </el-menu>
+          <el-menu default-active="0" class="nav-link" mode="horizontal">
+            <el-menu-item v-for="(item,index) in titleList" :key="index" :index="index.toString()" >
+              <el-link 
+              :href="item.url" 
+              target="_blank">
+              {{item.title}}
+              {{index}}
+              </el-link>
+              <span class="tablead">{{item.badge}}</span>
+              </el-menu-item>
+            <el-submenu v-show="moreShow" index="8">
+              <template slot="title">更多</template>
+              <el-menu-item v-for="(item,index) in moreList" :key="index" :index="`8-${index.toString()}}`">
+                <el-link 
+                :href="item.url" 
+                target="_blank">
+                {{item.title}}
+                {{index}}
+                </el-link>
+                </el-menu-item>
+               </el-submenu>
+           </el-menu>
         </el-col>
 
         <!-- 主导航栏右半部分，包含搜索框、创作者中心按钮、消息提示和用户头像 -->
@@ -265,7 +263,7 @@
               </div>
             </el-popover>
             <!-- 登录前 -->
-            <el-button v-if="!isLogin" class="landButton" size="small" @click="login()"  >登录</el-button>
+            <button v-if="!isLogin" class="landButton"  @click="login()"> 登录 </button>
           </div>
         </el-col>
       </el-row>
@@ -298,6 +296,15 @@ export default {
     userAvatar(){
       return this.$store.state.upLoadImg.imgSrc || localStorage.getItem('userAvatar')
     },
+    titleList(){
+      return this.$store.state.homeConfig.homeConfig.titleList.slice(0,8)
+    },
+    moreShow(){
+      return this.$store.state.homeConfig.homeConfig.titleList.length > 8
+    },
+    moreList(){
+      return this.$store.state.homeConfig.homeConfig.titleList.slice(8)
+    }
   },
   watch:{ 
     scrolNumber: {
@@ -378,6 +385,7 @@ export default {
   background-color: #fff;
   z-index: 100;
   position: fixed;
+  height:65px;
   .nav-container {
     margin: 0 auto;
     width: 100%;
@@ -471,16 +479,6 @@ export default {
           height: 31px;
           transition: 0.4s;
           z-index: 101;
-          // 搜索框的图标
-          .search {
-            margin-top: 5px;
-            width: 30px;
-            line-height: 30px;
-            border-radius: 5px;
-            background-color: #f2f3f5;
-            color:#86909c;
-            font-weight: bold;
-          }
         }
         .holder{
             width: 140px;
@@ -525,7 +523,7 @@ export default {
   transition: 0.2s;
 }
 .nav-enter-active{
-  transition: 0.15s;
+  transition: 0.2s;
 }
 .nav-enter, .nav-leave-to  {
   transform: translateY(-100%)
@@ -541,32 +539,51 @@ export default {
   opacity:0;
 }
 .landButton{
-  border-color:#1e80ff;
+  text-align:center;
+  line-height: 28px;
   background-color:#cde1f84f;
   color:#1e80ff;
   margin-right:10px;
+  width: 40px;
+  height:28px;
+  border-radius: 5px;
+  border: 1px solid #1e80ff;
+  cursor:pointer;
+  transition: 0.4s;
+}
+.landButton:hover{
+  background-color:#cde1f89c;
+  transition: 0.4s;
 }
 .search{
-    width: 44px;
-    height: 30px;
+    width: 40px;
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 102;
     position: absolute;
     background-color: #f2f3f5;
-    top: 19px;
-    right:325px;
+    top: 16px;
+    right:321px;
     border-radius: 5px;
     transition: 0.4s;
     cursor:pointer;
 }
 .searchChange{
-  right:185px;
+  right:181px;
   transition: 0.4s;
   background-color:rgb(217, 236, 255);
 }
-@media (max-width: 920px) {
+.line{
+  position: absolute;
+  top: 63px;
+  height: 1px;
+  width: 100vw;
+  background-color: #59575718;
+  z-index: 9;
+}
+@media (max-width: 1100px) {
    .input{
      font-size: 13px;
   }
@@ -590,5 +607,20 @@ export default {
   .search{
     display: none;
   }
+}
+.tablead{
+    position: absolute;
+    top: 6px;
+    left: 10px;
+    z-index: 2;
+    white-space: nowrap;
+    padding: 0px 3px;
+    background-color: #ee502f;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 20px;
+    color: #fff;
+    transform: scale(0.5);
 }
 </style>

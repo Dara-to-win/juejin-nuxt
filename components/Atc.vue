@@ -65,7 +65,7 @@
         </div>
       </div>
     </div>
-    <el-backtop :bottom="100" :visibility-height="50"></el-backtop>
+    <el-backtop :bottom="10" :right="10" :visibility-height="500"></el-backtop>
     <div class="suspended-panel"></div>
     <div class="suspended-panel"></div>
   </div>

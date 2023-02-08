@@ -4,13 +4,35 @@
     <ul>
       <!-- ||lists -->
       <LinkPopItem
-        v-for="(item,index) in labelList"
+        v-for="(item, index) in labelList"
         :key="index"
         :index="index"
         :labelList="item"
         @click.native="changeHome(index)"
       />
+      <div style="width: 40px"></div>
     </ul>
+    <div class="more" :class="moreChange">
+      <!-- 透明渐变效果 -->
+      <div class="holder"></div>
+      <img
+        src="@/static/assets/more.svg"
+        style="cursor: pointer; background-color: white"
+        @click="more()"
+      />
+      <div class="gradient"></div>
+    </div>
+    <transition name="more">
+      <div v-show="moreShow" class="moreShow" :class="moreTagChange">
+        <span
+          v-for="(item, index) in labelList"
+          :key="index"
+          class="moreTag"
+          @click="changeHome(index)"
+          >{{ item.text }}</span
+        >
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -24,6 +46,9 @@ export default {
   data() {
     return {
       linkPopClass: '',
+      moreChange: '',
+      moreShow: false,
+      moreTagChange:'',
       up: [
         {
           transform: 'translateY(-64px)',
@@ -34,200 +59,23 @@ export default {
           transform: 'translateY(64px)',
         },
       ],
-      // 测试数据，可发请求拿到
-      lists: [
-        {
-          id: 1,
-          info: {
-            text: '综合',
-          },
-        },
-        {
-          id: 2,
-          info: {
-            text: '关注',
-          },
-        },
-        {
-          id: 3,
-          info: {
-            text: '后端',
-            sublist: [
-              '后端',
-              'java',
-              'go',
-              '算法',
-              'Python',
-              'SpringBoot',
-              'MySQL',
-              '数据库',
-              '面试',
-              'Spring',
-              '架构',
-              'Redis',
-              'LeetCode',
-              '前端',
-              'Linux',
-            ],
-          },
-        },
-        {
-          id: 4,
-          info: {
-            text: '前端',
-            sublist: [
-              '前端',
-              'JavaScript',
-              'Vue.js',
-              'React.js',
-              'css',
-              '面试',
-              'TypeScript',
-              '后端',
-              'Node.js',
-              '前端框架',
-              '算法',
-              'Webpack',
-              '架构',
-              '微信小程序',
-              'Android',
-            ],
-          },
-        },
-        {
-          id: 5,
-          info: {
-            text: 'Android',
-            sublist: [
-              'Android',
-              'Kotlin',
-              'Flutter',
-              '前端',
-              'Android Jetpack',
-              'Java',
-              'APP',
-              'Android Studio',
-              '源码',
-              '面试',
-              '性能优化',
-              '架构',
-              'gradle',
-              'iOS',
-              '程序员',
-            ],
-          },
-        },
-        {
-          id: 6,
-          info: {
-            text: 'iOS',
-            sublist: [
-              'iOS',
-              'Swift',
-              'SwiftUl',
-              'Flutter',
-              '算法',
-              '前端',
-              'LeetCode',
-              'Objective-C',
-              'Xcode',
-              'Mac',
-              'WWDC',
-              'Apple',
-              '计算机视觉',
-              'Android',
-              '前端框架',
-            ],
-          },
-        },
-        {
-          id: 7,
-          info: {
-            text: '人工智能',
-            sublist: [
-              '人工智能',
-              '深度学习',
-              '算法',
-              '机器学习',
-              'Python',
-              '计算机视觉',
-              '后端',
-              'NLP',
-              'PyTorch',
-              '神经网络',
-              '数据分析',
-              'TensorFlow',
-              '程序员',
-              '数据可视化',
-              '自动驾驶',
-            ],
-          },
-        },
-        {
-          id: 8,
-          info: {
-            text: '开发工具',
-            sublist: [
-              '后端',
-              '前端',
-              '开源',
-              'Git',
-              'GitHub',
-              '测试',
-              'Linux',
-              '设计',
-              '数据库',
-              '大数据',
-              '程序员',
-              'Python',
-              'JavaScript',
-              'Unity3D',
-              '云原生',
-            ],
-          },
-        },
-        {
-          id: 9,
-          info: {
-            text: '代码人生',
-            sublist: [
-              '程序员',
-              '前端',
-              '后端',
-              '算法',
-              'JavaScript',
-              'Python',
-              'Java 架构 ',
-              '面试',
-              '开源',
-              '大数据',
-              '年终总结',
-              'Linux',
-              '数据结构',
-              '数据库',
-            ],
-          },
-        },
-        {
-          id: 10,
-          info: {
-            text: '阅读',
-          },
-        },
-      ],
     }
   },
-  computed:{
-    labelList(){
-   return this.$store.state.homeConfig.homeConfig.labelList
-  },
+  computed: {
+    labelList() {
+      return this.$store.state.homeConfig.homeConfig.labelList
+    },
   },
   mounted() {
     this.$bus.$on('linPopDown', () => {
       this.linkPopClass = ''
+      this.moreChange = ''
+      this.moreTagChange=''
     })
     this.$bus.$on('linPopUp', () => {
       this.linkPopClass = 'fixed'
+      this.moreChange = 'moreChange'
+      this.moreTagChange='moreTagChange'
     })
   },
   destroyed() {
@@ -237,16 +85,24 @@ export default {
   methods: {
     changeHome(id) {
       const tag = document.querySelectorAll('.tag')
+      const moreTag = document.querySelectorAll('.moreTag')
+      this.actived(moreTag, id)
+      this.actived(tag, id)
+      this.$bus.$emit('changeActive') // 设置底下的综合高亮
+      // 然后发请求，改数据
+      this.$bus.$emit('initCurrent', 2) // 初始化页数
+      const linkpop = tag[id].innerText
+      window.sessionStorage.setItem('tag', linkpop)
+      this.$bus.$emit('getAtc', 1, linkpop, true)
+    },
+    actived(tag, id) {
       for (const item of tag) {
         item.style.color = '#71777c'
       }
       tag[id].style.color = '#1e80ff'
-      this.$bus.$emit('changeActive')
-      // 然后发请求，改数据
-      this.$bus.$emit('initCurrent',2) // 初始化页数
-      const linkpop=tag[id].innerText
-      window.sessionStorage.setItem('tag',linkpop)
-      this.$bus.$emit('getAtc',1,linkpop,true)
+    },
+    more() {
+      this.moreShow = !this.moreShow
     },
   },
 }
@@ -279,6 +135,63 @@ export default {
     color: #71777c;
   }
 }
+.more {
+  position: fixed;
+  width: 60px;
+  right: 0px;
+  top: 73px;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 10px;
+  z-index: 9;
+  transition: 0.2s;
+}
+.moreChange {
+  top: 9px;
+}
+.holder {
+  width: 10px;
+  background-color: white;
+}
+
+.fixed {
+  top: 0;
+  transition: 0.2s;
+}
+
+.gradient {
+  width: 40px;
+  pointer-events: none;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.8)
+  );
+}
+.moreShow {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 76px;
+  height: 100%;
+  top: 111px;
+  right: 0px;
+  background-color: white;
+  transition: 0.2s;
+  border-top: 1px solid #95999c44;
+  border-left: 1px solid #95999c44;
+}
+.moreTagChange{
+  top: 47px;
+  transition: 0.2s;
+}
+.moreTag {
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 14px;
+  color: #71777c;
+}
 @media screen and (max-width: 600px) {
   .lk-container {
     overflow-x: auto;
@@ -295,6 +208,9 @@ export default {
   .lk-container {
     padding-left: 20px;
   }
+  .more {
+    margin-right: 0px;
+  }
 }
 
 @media screen and (max-width: 1210px) {
@@ -302,9 +218,15 @@ export default {
     padding-left: 50px;
   }
 }
-
-.fixed {
-  top: 0;
-  transition: 0.2s;
+.more-leave-active {
+  transition: 0.4s;
+}
+.more-enter-active {
+  transition: 0.4s;
+}
+.more-enter,
+.more-leave-to {
+  transform: translateX(100%);
+  opacity: 0;
 }
 </style>

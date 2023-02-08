@@ -104,19 +104,6 @@ export default {
     return {
       slideClass: '',
       bottom: '',
-      adInfo: [
-        {
-          imgUrl: require('~/static/assets/adv2.jpg'),
-          url:
-            'https://juejin.cn/pin/7129334097113006116?utm_source=slide&utm_medium=banner&utm_campaign=reading',
-          open: true,
-        },
-        {
-          imgUrl: require('~/static/assets/adv3.jpg'),
-          url: 'https://juejin.cn/book/7126538479051210766?utm_source=web_banner&utm_medium=banner&utm_campaign=Book_SK_0817',
-          open: true
-        }
-      ],
       helloInfo: '',
       authorInfo: [
         {
