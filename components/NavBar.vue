@@ -103,7 +103,8 @@
           <!-- 用户menu -->
           <div>
             <!-- 登录后 -->
-            <el-popover v-if="isLogin" placement="bottom" trigger="click">
+            <el-popover 
+            v-if="isLogin" placement="bottom" trigger="click">
               <!-- 信息框 -->
               <div class="infobox">
                 <div class="user-card">
