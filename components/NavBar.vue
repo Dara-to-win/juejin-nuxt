@@ -54,13 +54,30 @@
         <!-- 主导航栏右半部分，包含搜索框、创作者中心按钮、消息提示和用户头像 -->
         <el-col :span="15" class="right">
           <!-- 输入框 -->
+        <form >
           <el-input ref="input" v-model="input"  placeholder="探索稀土掘金"  class="input" @focus="inPut()" @blur="outPut()" >
+            
+        
           </el-input>
+          <transition name="el-zoom-in-left">
+          <div v-show="!badgeShow" class="searchMenu" :style="{width:searchWidth}">
+            <div class="searchHead">
+              <span>搜索历史</span>
+              <span class="clear"> 清空</span>
+            </div>
+            <div class="searchList">{{  }}</div>
+           
+
+
+            
+           </div></transition>
           <div class="search" :class="searchChange">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
               <path d="M12.4008 12.4008C14.744 10.0577 14.744 6.25871 12.4008 3.91556C10.0577 1.57242 6.25871 1.57242 3.91556 3.91556C1.57242 6.25871 1.57242 10.0577 3.91556 12.4008C6.25871 14.744 10.0577 14.744 12.4008 12.4008ZM12.4008 12.4008L15.5828 15.5828" :stroke="searchColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
+            
             </div>
+          </form>
           <!-- 创作者中心按钮 -->
           <div  class="holder">
           <transition name="badge">
@@ -103,8 +120,7 @@
           <!-- 用户menu -->
           <div>
             <!-- 登录后 -->
-            <el-popover 
-            v-if="isLogin" placement="bottom" trigger="click">
+            <el-popover v-if="isLogin" placement="bottom" trigger="click">
               <!-- 信息框 -->
               <div class="infobox">
                 <div class="user-card">
@@ -287,6 +303,7 @@ export default {
       inputClass:'',
       searchChange:'',
       searchColor:'#515767',
+      searchMenu:''
     }
   },
   computed: {
@@ -365,8 +382,13 @@ export default {
       this.searchColor="#409EFF"
       this.badgeShow=false
       this.searchChange="searchChange"
-      this.$refs.input.$refs.input.style.transition="0.4s"
+      this.$refs.input.$refs.input.style.transition="0.3s"
       this.$refs.input.$refs.input.style.width="340px"
+      this.$refs.input.$refs.input.placeholder="搜索文章/小册/标签/用户"
+      this.searchWidth="342px"
+     
+      
+     
       }else{
         this.searchColor="#409EFF"
         }
@@ -376,6 +398,7 @@ export default {
       this.searchColor="#515767"
       this.badgeShow=true
       this.$refs.input.$refs.input.style.width=""
+      this.$refs.input.$refs.input.placeholder="探索稀土掘金"
     },
   },
 }
@@ -470,6 +493,41 @@ export default {
         justify-content: flex-end;
         align-items: center;
         margin: 0 15px;
+        .searchMenu{
+          width: 100%;
+          position: absolute;
+          margin-top: 11px;
+          line-height: 2rem;
+          right: 178px;
+          z-index: 100;
+          min-width: 6rem;
+          font-size: 1rem;
+          color: #869aab;
+          list-style: none;
+          text-align: left;
+          border-radius: 0.17rem;
+          box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
+          border: 1px solid #ebebeb;
+          background-color: #fff;
+          .searchHead{
+            border-bottom: 1px solid #ebebeb;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+          }
+          .clear{
+            cursor: pointer;
+            color: #1e80ff;
+          }
+         .searchList{
+         
+          padding: 0.5rem 1rem;
+          display: flex;
+          justify-content: space-between;
+          cursor: pointer;
+          color: #5e6369;
+         }
+        }
 
         // 搜索框
         .input {
@@ -478,9 +536,11 @@ export default {
           margin-right: 12px;
           margin-top:-5px;
           height: 31px;
-          transition: 0.4s;
+          transition: 0.3s;
           z-index: 101;
+         
         }
+      
         .holder{
             width: 140px;
           }
