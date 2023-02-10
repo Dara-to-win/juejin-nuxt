@@ -8,9 +8,8 @@
         <el-row type="flex" class="nav-bar">
           <img
             src="@/static/assets/logo-text.svg"
-            alt
             class="logo-text"
-            style="width: 107px"
+            style="width: 107px;cursor: pointer;" @click="jumpToIndex()"
           />
           <img src="@/static/assets/logo.svg" alt class="logo-img" />
           <!-- 主导航栏左半部分，包含链接 -->
@@ -65,7 +64,7 @@
           <!-- 主导航栏右半部分，包含搜索框、创作者中心按钮、消息提示和用户头像 -->
           <el-col :span="14" class="right">
             <!-- 输入框 -->
-            <form>
+            <div>
               <el-input
                 ref="input"
                 v-model="input"
@@ -73,6 +72,7 @@
                 class="input"
                 @focus="inPut()"
                 @blur="outPut()"
+                @keydown.enter.native="outPut()"
               >
               </el-input>
               <transition name="el-zoom-in-left">
@@ -85,8 +85,8 @@
                     <span>搜索历史</span>
                     <span class="clear"> 清空</span>
                   </div>
-                  <div class="searchList">{{}}</div></div
-              ></transition>
+                  <div class="searchList">{{}}</div></div>
+                  </transition>
               <div class="search" :class="searchChange">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -104,7 +104,7 @@
                   />
                 </svg>
               </div>
-            </form>
+            </div>
             <!-- 创作者中心按钮 -->
             <div class="holder">
               <transition name="badge">
@@ -452,6 +452,13 @@ export default {
       this.badgeShow = true
       this.$refs.input.$refs.input.style.width = ''
       this.$refs.input.$refs.input.placeholder = '探索稀土掘金'
+      sessionStorage.setItem('search',this.input)
+      if(this.input){
+        this.$router.push({
+          name: "Search",
+          query:{search: this.input}
+          })
+      }
     },
   },
 }
