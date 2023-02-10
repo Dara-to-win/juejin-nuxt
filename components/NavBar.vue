@@ -329,7 +329,7 @@
               </el-popover>
               <!-- 登录前 -->
               <button v-if="!isLogin" class="landButton" @click="login()">
-                登录
+                登录  |  注册
               </button>
             </div>
           </el-col>
@@ -662,8 +662,8 @@ export default {
   background-color: #cde1f84f;
   color: #1e80ff;
   margin-right: 10px;
-  width: 40px;
-  height: 28px;
+  width: 102.63px;
+  height: 36px;
   border-radius: 5px;
   border: 1px solid #1e80ff;
   cursor: pointer;
