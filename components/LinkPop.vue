@@ -4,7 +4,7 @@
     <ul>
       <!-- ||lists -->
       <LinkPopItem
-        v-for="(item, index) in labelList"
+        v-for="(item, index) in  labelList"
         :key="index"
         :index="index"
         :labelList="item"
@@ -43,6 +43,13 @@ export default {
   components: {
     LinkPopItem,
   },
+  props: {
+    label: {
+       type:Array,
+       required:false,
+       default(){return []},
+    }
+  },
   data() {
     return {
       linkPopClass: '',
@@ -62,8 +69,12 @@ export default {
     }
   },
   computed: {
-    labelList() {
-      return this.$store.state.homeConfig.homeConfig.labelList
+    labelList(){
+      if(JSON.stringify(this.label)==='[]'){// 判断是否为空数组
+      return this.$store.state.homeConfig.homeConfig.labelList.slice(0,14)
+      }else{
+        return this.label
+      }
     },
   },
   mounted() {

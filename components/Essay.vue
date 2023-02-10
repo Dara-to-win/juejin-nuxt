@@ -16,8 +16,8 @@
     <!-- 稿件内容预览 -->
     <div class="content">
       <div class="text">
-        <div class="title">{{ homeData.title }}</div>
-        <div class="preview">{{ homeData.preview }}</div>
+        <div class="title" v-html="light(word,homeData.title)"></div>
+        <div class="preview" v-html="light(word,homeData.preview)"></div>
         <!-- 查看、点赞、评论 -->
         <div class="feedback">
           <ul>
@@ -65,7 +65,14 @@ export default {
       type:Number,
       required:false,
       default:1
-      }
+      },
+    word:{
+      type: String,
+      required: false,
+      default() {
+        return ''
+      },
+    }
   },
   data() {
     return {}

@@ -1,33 +1,40 @@
 <template>
   <div>
     <div class="holder"></div>
-    <Atc :atcData="Atc"/>
+    <Atc :atcData="Atc" />
   </div>
 </template>
 <script>
 export default {
   name: 'Detail',
   layout: 'nav',
-  data(){
+  data() {
     return {
-      Atc:{}
+      Atc: {},
     }
   },
-  mounted(){
+  mounted() {
     this.getAct(this.$route.query.article_id)
   },
-  methods:{
-    getAct(id){
-    this.$axios.get("http://jj.hanbing777.top:80/api/article/current",{params:{id:id}}).then(res=>{
-       this.Atc=res.data.data
-        }).catch((err)=>{ console.log(err)});
-    }
-  }
+  methods: {
+    getAct(id) {
+      this.$axios
+        .get('http://jj.hanbing777.top:80/api/article/current', {
+          params: { id },
+        })
+        .then((res) => {
+          this.Atc = res.data.data
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+  },
 }
 </script>
 
 <style scoped>
 .holder {
-  height:64px;
+  height: 64px;
 }
 </style>

@@ -26,6 +26,7 @@
         :key="item.articleID"
         :homeData="item"
         :index="index"
+        :word='word'
         @click.native="jumpToDetail(item.articleID)"
       />
       <div class="io"></div>
@@ -55,6 +56,13 @@ export default {
         return false
       },
     },
+    word:{
+      type: String,
+      required: false,
+      default() {
+        return ''
+      },
+    }
   },
   data() {
     return {
@@ -93,7 +101,7 @@ export default {
       this.activeIndex = index
       const tag = window.sessionStorage.getItem('tag')
       this.$bus.$emit('initCurrent',2) // 初始化页数
-      this.$bus.$emit('getAtc', 1, tag, true,"",parameter)
+      this.$bus.$emit('getAtc', 1, tag, true,parameter)
     },
     jumpToDetail(id) {
       const newRoute = this.$router.resolve({

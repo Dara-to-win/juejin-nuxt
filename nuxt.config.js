@@ -41,6 +41,7 @@ export default {
     '@/plugins/element-ui',
     '@/plugins/throttle&debounce',
     '@/plugins/bus',
+    '@/plugins/light',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
