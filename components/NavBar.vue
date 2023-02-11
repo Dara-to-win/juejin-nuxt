@@ -491,6 +491,7 @@ export default {
     },
     jump2search(item) {
     this.input=item
+    this.$refs.input.focus()
     this.$router.push({
       name: 'Search',
       query: { search: item },
