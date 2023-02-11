@@ -85,7 +85,8 @@
                     <span>搜索历史</span>
                     <span class="clear"> 清空</span>
                   </div>
-                  <div class="searchList">{{}}</div></div>
+                  <div class="searchList">{{}}</div>
+                  </div>
                   </transition>
               <div class="search" :class="searchChange">
                 <svg
@@ -452,7 +453,6 @@ export default {
       this.badgeShow = true
       this.$refs.input.$refs.input.style.width = ''
       this.$refs.input.$refs.input.placeholder = '探索稀土掘金'
-      sessionStorage.setItem('search',this.input)
       if(this.input){
         this.$router.push({
           name: "Search",

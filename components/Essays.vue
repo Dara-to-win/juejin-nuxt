@@ -80,7 +80,11 @@ export default {
     this.io = new IntersectionObserver((e) => {
       if (e[0].isIntersecting) {
         const tag = window.sessionStorage.getItem('tag')
-        this.debounce(this.$bus.$emit('getAtc', current, tag, false), 2000)
+        if(this.$route.name==='Search'){
+          this.$bus.$emit('searchAtc',current)
+        }else{
+          this.debounce(this.$bus.$emit('getAtc', current, tag, false), 2000)
+        }
         current += 1
       }
     })
