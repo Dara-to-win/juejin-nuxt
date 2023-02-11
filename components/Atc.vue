@@ -28,7 +28,42 @@
 
     <div class="aside">
       <!-- 作者信息 -->
-      <div class="author"></div>
+      <div class="author">
+        <div class="user-item">
+          <img :src="atcData.avatar" alt="" class="user-pic"/>
+          <div class="user-box">
+            <a class="username">
+              <span class="name">{{ atcData.author }}</span>
+            </a>
+            <div class="user-position" title="">{{  }}</div>
+          </div>
+        </div>
+        <div class="operate-btn" >
+          <el-button type="primary" class="ui-btn">关注</el-button>
+          <el-button type="primary" plain class="ui-btn-to">私信</el-button>
+        </div>
+        <div class="cut-off"></div>
+        <div class="stat-item">
+          <svg class="zan" xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 25 26">
+            <g fill="none" fill-rule="evenodd" transform="translate(0 .57)">
+              <ellipse cx="12.5" cy="12.57" fill="#E1EFFF" rx="12.5" ry="12.57"></ellipse>
+                <path fill="#7BB9FF" d="M8.596 11.238V19H7.033C6.463 19 6 18.465 6 17.807v-5.282c0-.685.483-1.287 1.033-1.287h1.563zm4.275-4.156A1.284 1.284 0 0 1 14.156 6c.885.016 1.412.722 1.595 1.07.334.638.343 1.687.114 2.361-.207.61-.687 1.412-.687 1.412h3.596c.38 0 .733.178.969.488.239.317.318.728.21 1.102l-1.628 5.645a1.245 1.245 0 0 1-1.192.922h-7.068v-7.889c1.624-.336 2.623-2.866 2.806-4.029z"></path>
+            </g>
+          </svg>
+          <span class="content">获得点赞</span>
+          <span class="count"> &nbsp;{{ }}</span>
+        </div>
+        <div class="stat-item">
+          <svg width="25" height="25" viewBox="0 0 25 25" class="zan">
+            <g fill="none" fill-rule="evenodd">
+              <circle cx="12.5" cy="12.5" r="12.5" fill="#E1EFFF"></circle>
+                <path fill="#7BB9FF" d="M4 12.5S6.917 7 12.75 7s8.75 5.5 8.75 5.5-2.917 5.5-8.75 5.5S4 12.5 4 12.5zm8.75 2.292c1.208 0 2.188-1.026 2.188-2.292 0-1.266-.98-2.292-2.188-2.292-1.208 0-2.188 1.026-2.188 2.292 0 1.266.98 2.292 2.188 2.292z"></path>
+            </g>
+          </svg>
+          <span class="content">文章被阅读</span>
+          <span class="count"> &nbsp;{{atcData.viewCount}}</span>
+        </div>
+      </div>
       <!--  掘金app二维码-->
       <div class="app-link">
         <img src="~/static/assets/QRCode.jpg" style="max-width: 21%" />
@@ -65,6 +100,7 @@
         </div>
       </div>
     </div>
+    <div class="article-suspended-panel"> </div>
     <el-backtop :bottom="10" :right="10" :visibility-height="500"></el-backtop>
     <div class="suspended-panel"></div>
     <div class="suspended-panel"></div>
@@ -259,10 +295,9 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .atc-main {
-  width: 100%;
-  margin: 5px 20px 50px 100px;
+  width: 820px;
   background-color: white;
-  padding: 25px 20px 20px 20px;
+  padding: 32px 32px 0px 32px;
   border-radius: 5px;
 }
 
@@ -272,12 +307,113 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .aside {
-  height: auto;
-  border-radius: 5px;
-  margin-right: 50px ;
-  width: 300px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25rem;
 }
-
+.author{
+  border-radius: 4px;
+  background: #fff;
+  padding: 1.667rem;
+}
+.user-item{
+  min-width: 0;
+  max-width: 260px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 17px;
+}
+.user-pic{
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.user-box{
+  width: 196px;
+  height: 50px;
+  margin-left: 16px;
+  right: 0px;
+}
+.username{
+  display: flex;
+  align-items: center;
+}
+ .name{
+  max-width: 128px;
+  font-size: 1.333rem;
+  font-weight: 500;
+  line-height: 2rem;
+  color: #252933;
+  white-space: pre-wrap;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.user-position{
+  margin-top: 4px;
+  font-size: 1.167rem;
+  color: #515767;
+  font-weight: 400;
+  line-height: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.operate-btn{
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.ui-btn{
+  border-radius: 4px;
+  font-size: 14px;
+  justify-content: center;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  width: 124px;
+  height: 37px;
+}
+.ui-btn-to{
+  font-size: 14px;
+  box-sizing: border-box;
+  display: flex;
+  width: 122px;
+  height: 36px;
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+}
+.cut-off{
+  height: 1px;
+  background: #e4e6eb;
+  display: block;
+}
+.stat-item{
+  margin-top: 0.667rem;
+  display: flex;
+  align-items: center;
+  height: 26px;
+}
+.zan{
+  margin-right: 1rem;
+}
+.content{
+  font-size: 1.167rem;
+  color: #252933;
+  font-weight: 400;
+}
+.count{
+  font-size: 1.167rem;
+  color: #252933;
+  font-weight: 400;
+}
+.article-suspended-panel{
+  position: fixed;
+  top: 140px;
+  z-index: 2;
+}
 .app-link {
   margin: 5px 0;
   cursor: pointer;
@@ -314,12 +450,11 @@ h1,h2,h3,h4,h5,h6 {
   border-radius: 5px;
 }
 .container {
-  display: flex;
+  position: relative;
+  margin: 0 auto;
   width: 100%;
-  height: 100%;
-  padding-top: 20px;
-  justify-content: center;
-  align-items: flex-start;
+  max-width: 1140px;
+  margin-top: 20px;
 }
 .catalogue {
   float: left;
