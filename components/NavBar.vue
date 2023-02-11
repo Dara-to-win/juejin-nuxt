@@ -9,7 +9,8 @@
           <img
             src="@/static/assets/logo-text.svg"
             class="logo-text"
-            style="width: 107px;cursor: pointer;" @click="jumpToIndex()"
+            style="width: 107px; cursor: pointer"
+            @click="jumpToIndex()"
           />
           <img src="@/static/assets/logo.svg" alt class="logo-img" />
           <!-- 主导航栏左半部分，包含链接 -->
@@ -34,7 +35,11 @@
             </el-dropdown>
             <!-- 完整的导航链接 -->
             <el-menu default-active="0" class="nav-link" mode="horizontal">
-              <el-menu-item v-for="(item, index) in titleList" :key="index" :index="index.toString()">
+              <el-menu-item
+                v-for="(item, index) in titleList"
+                :key="index"
+                :index="index.toString()"
+              >
                 <el-link :href="item.url" target="_blank">
                   {{ item.title }}
                   {{ index }}
@@ -43,7 +48,11 @@
               </el-menu-item>
               <el-submenu v-show="moreShow" index="8">
                 <template slot="title">更多</template>
-                <el-menu-item v-for="(item, index) in moreList" :key="index" :index="`8-${index.toString()}}`">
+                <el-menu-item
+                  v-for="(item, index) in moreList"
+                  :key="index"
+                  :index="`8-${index.toString()}}`"
+                >
                   <el-link :href="item.url" target="_blank">
                     {{ item.title }}
                     {{ index }}
@@ -65,24 +74,29 @@
                 @focus="inPut()"
                 @blur="outPut()"
                 @keydown.enter.native="outPut()"
-                @keyup.enter.native="searchHistory()"
               >
               </el-input>
               <transition name="el-zoom-in-left">
+                <client-only>
                 <div
-                  v-show="!badgeShow"
+                  v-show="!badgeShow && !input && searchArr.length"
                   class="searchMenu"
                   :style="{ width: searchWidth }"
                 >
                   <div class="searchHead">
                     <span>搜索历史</span>
-                    <span class="clear" @click="clearHistory()"> 清空</span>
+                    <span class="clear" @click='clearHistory()'> 清空</span>
                   </div>
-                  <div class="searchList" 
-                  v-for="(item, index) in searchArr" 
-                  :key="index"
-                  @click="jump2search(item)"
-                  >{{ item }}</div></div>
+                  <div
+                    v-for="(item, index) in searchArr"
+                    :key="index"
+                    class="searchList"
+                   @click="jump2search(item)"
+                  >
+                    {{ item }}
+                  </div>
+                </div>
+                </client-only>
               </transition>
               <div class="search" :class="searchChange">
                 <svg
@@ -94,15 +108,29 @@
                 >
                   <path
                     d="M12.4008 12.4008C14.744 10.0577 14.744 6.25871 12.4008 3.91556C10.0577 1.57242 6.25871 1.57242 3.91556 3.91556C1.57242 6.25871 1.57242 10.0577 3.91556 12.4008C6.25871 14.744 10.0577 14.744 12.4008 12.4008ZM12.4008 12.4008L15.5828 15.5828"
-                    :stroke="searchColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    :stroke="searchColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
               </div>
             </div>
             <!-- 创作者中心按钮 -->
             <div class="holder">
               <transition name="badge">
-                <el-badge v-show="badgeShow" :value="1" class="badge" type="danger">
-                  <el-dropdown split-button type="primary" size="small" class="originator-drop">
+                <el-badge
+                  v-show="badgeShow"
+                  :value="1"
+                  class="badge"
+                  type="danger"
+                >
+                  <el-dropdown
+                    split-button
+                    type="primary"
+                    size="small"
+                    class="originator-drop"
+                  >
                     创作者中心
                     <el-dropdown-menu slot="dropdown">
                       <div @click="jump2Editor()">
@@ -125,7 +153,12 @@
             <img src="@/static/assets/logo-vip.svg" class="vip" />
 
             <!-- 消息图标 -->
-            <el-button type="text" size="small" icon="el-icon-message-solid" class="message-btn"></el-button>
+            <el-button
+              type="text"
+              size="small"
+              icon="el-icon-message-solid"
+              class="message-btn"
+            ></el-button>
 
             <!-- 用户menu -->
             <div>
@@ -136,18 +169,27 @@
                   <div class="user-card">
                     <div class="user-info">
                       <div class="avatar">
-                        <img :src="userAvatar" alt="" class="lazy avatar" style="
+                        <img
+                          :src="userAvatar"
+                          alt=""
+                          class="lazy avatar"
+                          style="
                             width: 48px;
                             height: 48px;
                             cursor: pointer;
                             border-radius: 50%;
-                          " />
+                          "
+                        />
                       </div>
                       <div class="user-detail">
                         <p class="name">{{ username }}</p>
                         <div class="ore">
                           <span style="font-size: 12px">矿石:2.8w</span>
-                          <img src="@/static/assets/info/unfold.jpg" alt="" class="path" />
+                          <img
+                            src="@/static/assets/info/unfold.jpg"
+                            alt=""
+                            class="path"
+                          />
                         </div>
                       </div>
                     </div>
@@ -161,7 +203,11 @@
                         <div class="progress">
                           <span>
                             308.4/500
-                            <img src="@/static/assets/info/unfold.jpg" alt="" class="progress-path" />
+                            <img
+                              src="@/static/assets/info/unfold.jpg"
+                              alt=""
+                              class="progress-path"
+                            />
                           </span>
                         </div>
                         <div class="bar">
@@ -188,43 +234,78 @@
                   <ul class="drop-down list box">
                     <li class="drop-down">
                       <div class="open-menu">
-                        <img src="@/static/assets/info/homepage.jpg" alt="" ip="image" style="width: 20px" />
+                        <img
+                          src="@/static/assets/info/homepage.jpg"
+                          alt=""
+                          ip="image"
+                          style="width: 20px"
+                        />
                         <el-link :underline="false">我的主页</el-link>
                       </div>
                     </li>
                     <li class="drop-down">
                       <div class="open-menu" style="width: 100px">
-                        <img src="@/static/assets/info/welfare.jpg" alt="" ip="image" style="width: 20px" />
+                        <img
+                          src="@/static/assets/info/welfare.jpg"
+                          alt=""
+                          ip="image"
+                          style="width: 20px"
+                        />
                         <el-link :underline="false">成长福利</el-link>
                       </div>
                     </li>
                     <li class="drop-down">
                       <div class="open-menu">
-                        <img src="@/static/assets/info/member.jpg" alt="" ip="image" style="width: 20px" />
+                        <img
+                          src="@/static/assets/info/member.jpg"
+                          alt=""
+                          ip="image"
+                          style="width: 20px"
+                        />
                         <el-link :underline="false">会员中心</el-link>
                       </div>
                     </li>
                     <li class="drop-down">
                       <div class="open-menu">
-                        <img src="@/static/assets/info/course.jpg" alt="" ip="image" style="width: 20px" />
+                        <img
+                          src="@/static/assets/info/course.jpg"
+                          alt=""
+                          ip="image"
+                          style="width: 20px"
+                        />
                         <el-link :underline="false">我的课程</el-link>
                       </div>
                     </li>
                     <li class="drop-down">
                       <div class="open-menu">
-                        <img src="@/static/assets/info/discounts.jpg" alt="" ip="image" style="width: 20px" />
+                        <img
+                          src="@/static/assets/info/discounts.jpg"
+                          alt=""
+                          ip="image"
+                          style="width: 20px"
+                        />
                         <el-link :underline="false">我的优惠</el-link>
                       </div>
                     </li>
                     <li class="drop-down">
                       <div class="open-menu">
-                        <img src="@/static/assets/info/apply.jpg" alt="" ip="image" style="width: 20px" />
+                        <img
+                          src="@/static/assets/info/apply.jpg"
+                          alt=""
+                          ip="image"
+                          style="width: 20px"
+                        />
                         <el-link :underline="false">我的报名</el-link>
                       </div>
                     </li>
                     <li class="drop-down">
                       <div class="open-menu">
-                        <img src="@/static/assets/info/footprint.jpg" alt="" ip="image" style="width: 20px" />
+                        <img
+                          src="@/static/assets/info/footprint.jpg"
+                          alt=""
+                          ip="image"
+                          style="width: 20px"
+                        />
                         <el-link :underline="false">我的足迹</el-link>
                       </div>
                     </li>
@@ -233,16 +314,25 @@
                   <div style="display: flex; margin-top: 10px">
                     <el-link :underline="false">我的设置</el-link>
                     <div class="hide"></div>
-                    <el-link :underline="false" @click="logout()">退出登录</el-link>
+                    <el-link :underline="false" @click="logout()"
+                      >退出登录</el-link
+                    >
                   </div>
                 </div>
-                <div slot="reference" class="avatar-div" style="width: 40px; height: 40px; margin-right: 10px">
-                  <img :src="userAvatar" style="
+                <div
+                  slot="reference"
+                  class="avatar-div"
+                  style="width: 40px; height: 40px; margin-right: 10px"
+                >
+                  <img
+                    :src="userAvatar"
+                    style="
                       width: 100%;
                       height: 100%;
                       cursor: pointer;
                       border-radius: 50%;
-                    " />
+                    "
+                  />
                 </div>
               </el-popover>
               <!-- 登录前 -->
@@ -263,8 +353,7 @@ export default {
   name: 'NavBar',
   data() {
     return {
-      input:  '',
-      searchArr: [],
+      input: '',
       scrolNumber: '',
       navClass: '',
       navShow: true,
@@ -274,6 +363,11 @@ export default {
       searchColor: '#515767',
       searchMenu: '',
       searchWidth: '',
+      get searchArr(){
+        if(process.client){
+       return (JSON.parse(localStorage.getItem('searchList')) || [])}
+        else{return []}
+      },
     }
   },
   computed: {
@@ -328,9 +422,8 @@ export default {
       'scroll',
       this.throttle(this.scrollToTop, 200)
     )
-    this.searchArr = JSON.parse(localStorage.getItem("searchList")) || [];
   },
-  updated() { },
+  updated() {},
   destroyed() {
     window.removeEventListener('scroll', this.scroll)
   },
@@ -367,41 +460,43 @@ export default {
       }
     },
     outPut() {
-      this.searchChange = ''
-      this.searchColor = '#515767'
-      this.badgeShow = true
-      this.$refs.input.$refs.input.style.width = ''
-      this.$refs.input.$refs.input.placeholder = '探索稀土掘金'
-      sessionStorage.setItem('search',this.input)
-      if(this.input){
+      setTimeout(() =>{
+        this.badgeShow = true
+        this.searchChange = ''
+        this.searchColor = '#515767'
+        this.$refs.input.$refs.input.style.width = ''
+        this.$refs.input.$refs.input.placeholder = '探索稀土掘金'
+      },50)
+      if (this.input) {
+        this.searchHistory()
         this.$router.push({
-          name: "Search",
-          query:{search: this.input}
+          name: 'Search',
+          query: { search: this.input },
         })
       }
     },
-    searchHistory(){
-    
-      if (!localStorage.getItem("searchList")) {
-        localStorage.setItem("searchList", "[]");
+    searchHistory() {
+      let arr=[]
+      if (!localStorage.getItem('searchList')) {
+        localStorage.setItem('searchList', '[]')
       } else {
-        this.searchArr = JSON.parse(localStorage.getItem("searchList"));
+        arr = JSON.parse(localStorage.getItem('searchList'))
       }
-      this.searchArr.unshift(this.input);
-      const newArr = new Set(this.searchArr);
-      localStorage.setItem("searchList", JSON.stringify(Array.from(newArr)));
-      }
-  },
-  jump2search(item){
+      arr.unshift(this.input)
+      const newArr = new Set(arr)
+      localStorage.setItem('searchList', JSON.stringify(Array.from(newArr)))
+    },
+    clearHistory() {
+      localStorage.setItem('searchList','[]')
+    },
+    jump2search(item) {
+    this.input=item
     this.$router.push({
-          name: "Search",
-          query:{search: item}
-            })
+      name: 'Search',
+      query: { search: item },
+    })
+    },
   },
-  clearHistory(){
-    this.searchArr = [];
-    localStorage.removeItem("searchList");
-  }
 }
 </script>
 <style scoped lang="less">
@@ -542,6 +637,9 @@ export default {
             cursor: pointer;
             color: #5e6369;
           }
+          .searchList:hover {
+            background-color: #f2f3f5;
+          }
         }
 
         // 搜索框
@@ -585,7 +683,7 @@ export default {
               z-index: 0;
             }
 
-            &>* {
+            & > * {
               width: 100%;
             }
           }
@@ -685,7 +783,7 @@ export default {
 
 .vip {
   margin: 0 10px 0 10px;
-  z-index: 110
+  z-index: 110;
 }
 
 @media (max-width: 1100px) {

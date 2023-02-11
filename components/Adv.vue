@@ -55,8 +55,8 @@
           <el-avatar :size="45" fit="fill" :src="author.avatar"></el-avatar>
           <div>
             <h3 class="username">
-              {{ author.nickname
-              }}<img :src="author.creationLevel" alt="level" class="level" />
+              {{ author.nickname}}
+              <!-- <img :src="author.creationLevel" alt="level" class="level" /> -->
             </h3>
             <p>{{ author.introduction }}</p>
           </div>
