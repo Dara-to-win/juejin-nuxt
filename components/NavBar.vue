@@ -6,8 +6,11 @@
       <div class="nav-container">
         <!-- 主导航栏上半部分 - 页面跳转 -->
         <el-row type="flex" class="nav-bar">
-          <img src="@/static/assets/logo-text.svg" class="logo-text" style="width: 107px;cursor: pointer;"
-            @click="jumpToIndex()" />
+          <img
+            src="@/static/assets/logo-text.svg"
+            class="logo-text"
+            style="width: 107px;cursor: pointer;" @click="jumpToIndex()"
+          />
           <img src="@/static/assets/logo.svg" alt class="logo-img" />
           <!-- 主导航栏左半部分，包含链接 -->
           <el-col :span="15" class="left">
@@ -18,7 +21,9 @@
                 <i class="el-icon-caret-bottom"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item><span @click="jumpToIndex()">首页</span></el-dropdown-item>
+                <el-dropdown-item
+                  ><span @click="jumpToIndex()">首页</span></el-dropdown-item
+                >
                 <el-dropdown-item>沸点</el-dropdown-item>
                 <el-dropdown-item>直播</el-dropdown-item>
                 <el-dropdown-item>活动</el-dropdown-item>
@@ -52,20 +57,41 @@
           <el-col :span="14" class="right">
             <!-- 输入框 -->
             <div>
-              <el-input ref="input" v-model="input" placeholder="探索稀土掘金" class="input" @focus="inPut()" @blur="outPut()"
-                @keydown.enter.native="outPut()">
+              <el-input
+                ref="input"
+                v-model="input"
+                placeholder="探索稀土掘金"
+                class="input"
+                @focus="inPut()"
+                @blur="outPut()"
+                @keydown.enter.native="outPut()"
+                @keyup.enter.native="searchHistory()"
+              >
               </el-input>
               <transition name="el-zoom-in-left">
-                <div v-show="!badgeShow" class="searchMenu" :style="{ width: searchWidth }">
+                <div
+                  v-show="!badgeShow"
+                  class="searchMenu"
+                  :style="{ width: searchWidth }"
+                >
                   <div class="searchHead">
                     <span>搜索历史</span>
-                    <span class="clear"> 清空</span>
+                    <span class="clear" @click="clearHistory()"> 清空</span>
                   </div>
-                  <div class="searchList">{{}}</div>
-                </div>
+                  <div class="searchList" 
+                  v-for="(item, index) in searchArr" 
+                  :key="index"
+                  @click="jump2search(item)"
+                  >{{ item }}</div></div>
               </transition>
               <div class="search" :class="searchChange">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                >
                   <path
                     d="M12.4008 12.4008C14.744 10.0577 14.744 6.25871 12.4008 3.91556C10.0577 1.57242 6.25871 1.57242 3.91556 3.91556C1.57242 6.25871 1.57242 10.0577 3.91556 12.4008C6.25871 14.744 10.0577 14.744 12.4008 12.4008ZM12.4008 12.4008L15.5828 15.5828"
                     :stroke="searchColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -237,7 +263,8 @@ export default {
   name: 'NavBar',
   data() {
     return {
-      input: '',
+      input:  '',
+      searchArr: [],
       scrolNumber: '',
       navClass: '',
       navShow: true,
@@ -301,6 +328,7 @@ export default {
       'scroll',
       this.throttle(this.scrollToTop, 200)
     )
+    this.searchArr = JSON.parse(localStorage.getItem("searchList")) || [];
   },
   updated() { },
   destroyed() {
@@ -344,14 +372,36 @@ export default {
       this.badgeShow = true
       this.$refs.input.$refs.input.style.width = ''
       this.$refs.input.$refs.input.placeholder = '探索稀土掘金'
-      if (this.input) {
+      sessionStorage.setItem('search',this.input)
+      if(this.input){
         this.$router.push({
           name: "Search",
-          query: { search: this.input }
+          query:{search: this.input}
         })
       }
     },
+    searchHistory(){
+    
+      if (!localStorage.getItem("searchList")) {
+        localStorage.setItem("searchList", "[]");
+      } else {
+        this.searchArr = JSON.parse(localStorage.getItem("searchList"));
+      }
+      this.searchArr.unshift(this.input);
+      const newArr = new Set(this.searchArr);
+      localStorage.setItem("searchList", JSON.stringify(Array.from(newArr)));
+      }
   },
+  jump2search(item){
+    this.$router.push({
+          name: "Search",
+          query:{search: item}
+            })
+  },
+  clearHistory(){
+    this.searchArr = [];
+    localStorage.removeItem("searchList");
+  }
 }
 </script>
 <style scoped lang="less">
