@@ -506,7 +506,7 @@ export default {
   background-color: #fff;
   z-index: 100;
   position: fixed;
-  height: 65px;
+  height: 64.5px;
 
   .nav-container {
     margin: 0 auto;
@@ -710,7 +710,7 @@ export default {
 }
 
 .nav-enter-active {
-  transition: 0.2s;
+  transition:ease-out 0.13s;
 }
 
 .nav-enter,
@@ -775,11 +775,11 @@ export default {
 
 .line {
   position: absolute;
-  top: 63px;
+  top: 64px;
   height: 1px;
   width: 100vw;
   background-color: #59575718;
-  z-index: 9;
+  z-index: 99;
 }
 
 .vip {
