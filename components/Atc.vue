@@ -223,15 +223,15 @@
         <svg class="sprite-icon-zan" >
           <use xlink:href="#icon-report"></use>
         </svg></div>
-      <span class="tooltip">
-        <div class="byte-tooltip byte-tooltip--dark" style="display:none;">
+      
+        <div v-if="showHov" class="byte-tooltip-dark" style="max-width: none;z-index: 1091;position: absolute;will-change: transform;top: 0px;left: 0px;transform: translate3d(-12px, 310px, 0px);width: 72px;" >
           沉浸阅读
-        </div><span class="byte-tooltip__wrapper">
-          <div class="panel-btn-badge"><svg class="sprite-icon-zan" >
+        </div>
+      
+        <div class="panel-btn-badge" @mouseover="showHov=true" @mouseout="showHov=false"><svg class="sprite-icon-zan" >
               <use xlink:href="#icon-immerse" :class="[readCome ? 'frontBox':'laterBox']" @click="readCom"></use>
-            </svg></div>
-        </span>
-      </span>
+        </svg></div>
+        
 
     </div>
 
@@ -264,7 +264,8 @@ export default {
       top: '',
       showCode:false,
       readCome:false,
-      showHover: false
+      showHover: false,
+      showHov:false
     };
   },
   mounted() {
@@ -362,6 +363,7 @@ export default {
     },
     readCom(){
       this.readCome= !this.readCome;
+      
     },
     blurIt(){
       this.blurIts= !this.blurIts;
@@ -427,7 +429,16 @@ h6 {
   margin-top: 2px;
   color: rgb(134, 134, 134);
 }
-
+.byte-tooltip-dark{
+  background: #000;
+    opacity: .8;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 16%);
+    color: #fff;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 20px;
+}
 .follow-button {
   margin: 15px 20px 15px auto;
   cursor: pointer;
@@ -656,7 +667,6 @@ h6 {
   border-radius: 4px;
   position: relative;
 }
-
 .related-title {
   padding: 1.333rem 0;
   margin: 0 1.667rem;
