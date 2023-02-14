@@ -2,14 +2,14 @@
 <template>
   <div>
     <li @mouseenter="actived()" @mouseleave="deActived()">
-      <span class="tag">{{info.main}}</span>
+      <span class="tag">{{labelList.text}}</span>
       <!-- 弹出卡片 --> 
       <transition name="fade">
-        <!-- 如果没有副标题 sub，则 sub 为 undefined -->
-        <div v-show="info.sub && isShow" class="card" >
+        <!-- 如果没有副标题 sublist，则 sublist 为 undefined -->
+        <div v-show="isShow" class="card" >
           <!-- 弹出卡片里的子项目，数据来自父组件 -->
           <ul>
-            <li v-for="(item, index) in info.sub" :key="index">{{item}}</li>
+            <li v-for="(item, index) in labelList.sublist" :key="index">{{item.text}}</li>
           </ul>
         </div>
       </transition>
@@ -21,12 +21,12 @@
 export default {
   name: "LinkPopItem",
   props: {
-    info: {
+    labelList: {
        type:Object,
        required:false,
        default(){return {}},
     }
-    // 包含本项目的名字 main 和 子项目 sub（如果有子项的话）
+    // 包含本项目的名字 text 和 子项目 sublist（如果有子项的话）
   },
    data() {
     return {
@@ -35,10 +35,11 @@ export default {
   },
   methods: {
     actived(){
+      if(typeof this.labelList.sublist[0]!=="undefined"){
      this.time= setTimeout(() => {
       if(this.isShow===false){
         this.isShow=true
-        }},500)
+        }},500)}
     },
     deActived(){
       clearTimeout(this.time)

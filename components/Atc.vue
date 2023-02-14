@@ -7,7 +7,7 @@
         <div class="author-info-box">
           <div class="author-name" >{{ atcData.author }}</div>
           <div class="meta-box">
-            <span style="font-weight:normal;font-size: 14px;letter-spacing:1px">2022年08月26日 22:41 · 阅读 {{atcData.viewCount}}</span>
+            <span style="font-weight:normal;font-size: 14px;letter-spacing:1px">2023年1月26日 22:41 · 阅读 {{atcData.viewCount}}</span>
           </div>
         </div>
         <button class="follow-button">+ 关注</button>
@@ -65,7 +65,7 @@
         </div>
       </div>
     </div>
-    <el-backtop :bottom="100" :visibility-height="50"></el-backtop>
+    <el-backtop :bottom="10" :right="10" :visibility-height="500"></el-backtop>
     <div class="suspended-panel"></div>
     <div class="suspended-panel"></div>
   </div>
@@ -345,6 +345,6 @@ h1,h2,h3,h4,h5,h6 {
   transition:0.15s;
 }
 .catalog-box{
-  transition:0.2s;
+  transition:0.15s;
 }
 </style>

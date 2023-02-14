@@ -25,6 +25,9 @@ export default {
     NODE_ENV:process.env.NODE_ENV,
     NODE_URL:process.env.NODE_URL,
   }, // 在组件中用process.env.NODE_ENV区分是生产环境还是开发环境
+  router: {
+    base: '/'
+  },
   server: {
     // 默认localhost 只能本地访问
     // 若想要对外访问，要配置为 0.0.0.0
@@ -44,6 +47,7 @@ export default {
     '@/plugins/element-ui',
     '@/plugins/throttle&debounce',
     '@/plugins/bus',
+    '@/plugins/light',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

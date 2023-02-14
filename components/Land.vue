@@ -2,8 +2,9 @@
   <div class="login-section">
     <!-- :rules="rules" -->
     <el-form ref="ruleForm" label-position="top" label-width="100px" class="demo-ruleForm" :rules="rules" :model="userInfo" status-icon >
-      <h2>用户登录</h2>
-      <el-form-item label="手机号" prop="username">
+      <h2>登录掘金畅享更多权益</h2>
+      <hr/>
+      <el-form-item label="账号" prop="username">
         <el-input v-model="userInfo.username" type="text"  placeholder="请输入手机号"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
@@ -14,7 +15,7 @@
         <el-button @click="closeLoginDialog">取消</el-button>
       </el-form-item>
       <!-- 注册链接，点击打开注册页面 -->
-      <a style="cursor:pointer;" @click="openRegisterDialog">注册</a>
+      <a style="cursor:pointer;" @click="openRegisterDialog">没有掘金账号？</a>
     </el-form>
   </div>
 </template>

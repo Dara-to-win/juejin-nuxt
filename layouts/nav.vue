@@ -13,16 +13,28 @@ import { mapState } from 'vuex'
 export default {
     data(){
         return {
-            
         }
     },
-    asyncData() {
-        
-    },
+   async fetch(){
+     await this.$axios.get('http://jj.hanbing777.top/api/article/getHomeConfig').then((res) => {
+        this.$store.state.homeConfig.homeConfig = res.data.data
+        }).catch((err)=>{ console.log(err)});
+      },
     mounted(){
         // 轮询，获得首页设置
-      this.timer = setInterval(() => {
-      }, 4000);
+        this.timer=setInterval(()=>{
+          this.getHome()
+        },60000)
+    },
+    beforeDestroy(){
+        clearInterval(this.timer)
+    },
+    methods:{
+     async getHome(){
+      await this.$axios.get('http://jj.hanbing777.top/api/article/getHomeConfig').then((res) => {
+        this.$store.state.homeConfig.homeConfig = res.data.data
+        }).catch((err)=>{ console.log(err)});
+      }
     },
     computed:{
     ...mapState('login',['isLoginDialogShow']),

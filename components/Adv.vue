@@ -2,7 +2,7 @@
   <div>
     <!-- <transition name="fade"> -->
     <div class="holder"></div>
-    <div class="ad main">
+    <div v-show="ad" class="ad main" >
       <!-- 提示信息 -->
       <div class="tip">
         <div class="left">
@@ -27,13 +27,13 @@
         </div>
       </div>
       <!-- 广告组件 -->
-      <div class="ad">
-        <div v-for="(ad, index) in adInfo" :key="index" class="outsideDiv mt10">
-          <div v-show="ad.isShow">
-            <a :href="ad.adUrl"><img :src="ad.imgUrl" alt="广告" /> </a>
+      <div class="ad" >
+        <div v-for="(ad, index) in ad" :key="index" class="outsideDiv mt10">
+          <div v-show="ad.open">
+            <a :href="ad.url"><img :src="ad.imgUrl" alt="广告" /> </a>
             <i
               class="el-icon-close insideDiv"
-              @click="ad.isShow = !ad.isShow"
+              @click="ad.open = !ad.open"
             ></i>
           </div>
         </div>
@@ -49,16 +49,16 @@
         </div>
       </div>
       <!-- 作者榜 -->
-      <div class="authorRank mt10">
+      <div v-if="userList" class="authorRank mt10">
         <h3>🎖️作者榜</h3>
-        <div v-for="(author, index) in authorInfo" :key="index" class="author">
-          <el-avatar :size="45" fit="fill" :src="author.avatarUrl"></el-avatar>
+        <div v-for="(author, index) in userList[0].list|| authorInfo" :key="index" class="author">
+          <el-avatar :size="45" fit="fill" :src="author.avatar"></el-avatar>
           <div>
             <h3 class="username">
-              {{ author.username
-              }}<img :src="author.levelUrl" alt="level" class="level" />
+              {{ author.nickname}}
+              <!-- <img :src="author.creationLevel" alt="level" class="level" /> -->
             </h3>
-            <p>{{ author.introduce }}</p>
+            <p>{{ author.introduction }}</p>
           </div>
         </div>
         <div class="totalRank">
@@ -68,15 +68,15 @@
     </div>
     <!-- </transition> -->
     <!-- <transition name="fade"> -->
-    <div id="slide" :class="slideClass">
+    <div v-show="ad" id="slide" :class="slideClass" >
       <!-- 广告组件 -->
-      <div class="ad">
-        <div v-for="(ad, index) in adInfo" :key="index" class="outsideDiv mt10">
-          <div v-show="ad.isShow">
-            <a :href="ad.adUrl"><img :src="ad.imgUrl" alt="广告" /> </a>
+      <div class="ad" >
+        <div v-for="(ad, index) in ad" :key="index" class="outsideDiv mt10">
+          <div v-show="ad.open">
+            <a :href="ad.url"><img :src="ad.imgUrl" alt="广告" /> </a>
             <i
               class="el-icon-close insideDiv"
-              @click="ad.isShow = !ad.isShow"
+              @click="ad.open = !ad.open"
             ></i>
           </div>
         </div>
@@ -97,7 +97,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
   name: 'Adv',
@@ -105,46 +104,27 @@ export default {
     return {
       slideClass: 'slide',
       bottom: '',
-      adInfo: [
-        // {
-        //   imgUrl: require('~/static/assets/adv1.jpg'),
-        //   adUrl:
-        //     '',
-        //   isShow: true,
-        // },
-        {
-          imgUrl: '/assets/adv2.jpg',
-          adUrl:
-            'https://juejin.cn/pin/7129334097113006116?utm_source=slide&utm_medium=banner&utm_campaign=reading',
-          isShow: true,
-        },
-        {
-          imgUrl: '/assets/adv3.jpg',
-          adUrl: 'https://juejin.cn/book/7126538479051210766?utm_source=web_banner&utm_medium=banner&utm_campaign=Book_SK_0817',
-          isShow: true
-        }
-      ],
       helloInfo: '',
       authorInfo: [
         {
-          avatarUrl: require('~/static/assets/avatar1.png'),
-          username: 'YeeWang',
-          levelUrl: require('~/static/assets/level6.png'),
-          introduce:
+          avatar: require('~/static/assets/avatar1.png'),
+          nickname: 'YeeWang',
+          creationLevel: require('~/static/assets/level6.png'),
+          introduction:
             '前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端',
         },
         {
-          avatarUrl: require('~/static/assets/avatar2.png'),
-          username: 'YeeWang',
-          levelUrl: require('~/static/assets/level6.png'),
-          introduce:
+          avatar: require('~/static/assets/avatar2.png'),
+          nickname: 'YeeWang',
+          creationLevel: require('~/static/assets/level6.png'),
+          introduction:
             '前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端',
         },
         {
-          avatarUrl: require('~/static/assets/avatar3.png'),
-          username: 'YeeWang',
-          levelUrl: require('~/static/assets/level6.png'),
-          introduce:
+          avatar: require('~/static/assets/avatar3.png'),
+          nickname: 'YeeWang',
+          creationLevel: require('~/static/assets/level6.png'),
+          introduction:
             '前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端',
         },
       ],
@@ -153,14 +133,14 @@ export default {
       // slideShow: false
     }
   },
-  watch:{ 
-    adHeight: {
-      immediate: true,
-      handler(newNumber, oldNumber) {
-        this.$bus.$emit('getAdHeight', newNumber)
-      },
-    },
+ computed:{
+  ad(){
+   return this.$store.state.homeConfig.homeConfig.advertisement
   },
+  userList(){
+   return this.$store.state.homeConfig.homeConfig.userList
+  }
+ },
   mounted() {
     this.getHelloInfo()
     this.getAdHeight()
@@ -205,13 +185,13 @@ export default {
     },
     // 获取广告信息
     async asyncAdInfo() {
-      const { data } = await axios.get('https://api.myjson.com/bins/8gdmr')
-      return { adInfo: data }
+      // const { data } = await axios.get('https://api.myjson.com/bins/8gdmr')
+      // return { adInfo: data }
     },
     // 获取作者信息
     async asyncAuthorInfo() {
-      const { data } = await axios.get('https://api.myjson.com/bins/8gdmr')
-      return { authorInfo: data }
+      // const { data } = await axios.get('https://api.myjson.com/bins/8gdmr')
+      // return { authorInfo: data }
     },
     // 获取广告组件的高度
     getAdHeight(){

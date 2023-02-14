@@ -9639,11 +9639,6 @@
     "vue-hot-reload-api" "^2.3.0"
     "vue-style-loader" "^4.1.0"
 
-"vue-meditor@^2.1.2":
-  "integrity" "sha512-Jg4n1DUvMbVW9zoLonG/GnFOGgIFdt6P5uuJ7EkdCKWZkSiS0tjT6TpxJyeQji3pFb7h6YnDC/BGWs8UynbuPg=="
-  "resolved" "https://registry.npmmirror.com/vue-meditor/-/vue-meditor-2.1.2.tgz"
-  "version" "2.1.2"
-
 "vue-meta@^2.4.0":
   "integrity" "sha512-XEeZUmlVeODclAjCNpWDnjgw+t3WA6gdzs6ENoIAgwO1J1d5p1tezDhtteLUFwcaQaTtayRrsx7GL6oXp/m2Jw=="
   "resolved" "https://registry.npmmirror.com/vue-meta/-/vue-meta-2.4.0.tgz"
