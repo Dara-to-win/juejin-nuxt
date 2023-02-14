@@ -9,7 +9,8 @@
           <img
             src="@/static/assets/logo-text.svg"
             class="logo-text"
-            style="width: 107px;cursor: pointer;" @click="jumpToIndex()"
+            style="width: 107px; cursor: pointer"
+            @click="jumpToIndex()"
           />
           <img src="@/static/assets/logo.svg" alt class="logo-img" />
           <!-- 主导航栏左半部分，包含链接 -->
@@ -76,17 +77,27 @@
               >
               </el-input>
               <transition name="el-zoom-in-left">
+                <client-only>
                 <div
-                  v-show="!badgeShow"
+                  v-show="!badgeShow && !input && searchArr.length"
                   class="searchMenu"
                   :style="{ width: searchWidth }"
                 >
                   <div class="searchHead">
                     <span>搜索历史</span>
-                    <span class="clear"> 清空</span>
+                    <span class="clear" @click='clearHistory()'> 清空</span>
                   </div>
-                  <div class="searchList">{{}}</div></div>
-                  </transition>
+                  <div
+                    v-for="(item, index) in searchArr"
+                    :key="index"
+                    class="searchList"
+                   @click="jump2search(item)"
+                  >
+                    {{ item }}
+                  </div>
+                </div>
+                </client-only>
+              </transition>
               <div class="search" :class="searchChange">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -139,10 +150,7 @@
               </transition>
             </div>
             <!-- vip 图标 -->
-            <img
-              src="@/static/assets/logo-vip.svg"
-              class="vip"
-            />
+            <img src="@/static/assets/logo-vip.svg" class="vip" />
 
             <!-- 消息图标 -->
             <el-button
@@ -354,7 +362,12 @@ export default {
       searchChange: '',
       searchColor: '#515767',
       searchMenu: '',
-      searchWidth:'',
+      searchWidth: '',
+      get searchArr(){
+        if(process.client){
+       return (JSON.parse(localStorage.getItem('searchList')) || [])}
+        else{return []}
+      },
     }
   },
   computed: {
@@ -447,18 +460,42 @@ export default {
       }
     },
     outPut() {
-      this.searchChange = ''
-      this.searchColor = '#515767'
-      this.badgeShow = true
-      this.$refs.input.$refs.input.style.width = ''
-      this.$refs.input.$refs.input.placeholder = '探索稀土掘金'
-      sessionStorage.setItem('search',this.input)
-      if(this.input){
+      setTimeout(() =>{
+        this.badgeShow = true
+        this.searchChange = ''
+        this.searchColor = '#515767'
+        this.$refs.input.$refs.input.style.width = ''
+        this.$refs.input.$refs.input.placeholder = '探索稀土掘金'
+      },50)
+      if (this.input) {
+        this.searchHistory()
         this.$router.push({
-          name: "Search",
-          query:{search: this.input}
-          })
+          name: 'Search',
+          query: { search: this.input },
+        })
       }
+    },
+    searchHistory() {
+      let arr=[]
+      if (!localStorage.getItem('searchList')) {
+        localStorage.setItem('searchList', '[]')
+      } else {
+        arr = JSON.parse(localStorage.getItem('searchList'))
+      }
+      arr.unshift(this.input)
+      const newArr = new Set(arr)
+      localStorage.setItem('searchList', JSON.stringify(Array.from(newArr)))
+    },
+    clearHistory() {
+      localStorage.setItem('searchList','[]')
+    },
+    jump2search(item) {
+    this.input=item
+    this.$refs.input.focus()
+    this.$router.push({
+      name: 'Search',
+      query: { search: item },
+    })
     },
   },
 }
@@ -469,10 +506,12 @@ export default {
   background-color: #fff;
   z-index: 100;
   position: fixed;
-  height: 65px;
+  height: 64.5px;
+
   .nav-container {
     margin: 0 auto;
     width: 100%;
+
     .nav-bar {
       height: 64px;
       align-items: center;
@@ -484,28 +523,34 @@ export default {
         height: 33px;
         margin-left: 20px;
       }
+
       .logo-img {
         display: none;
         width: 31px;
       }
+
       // 媒体查询要写在下面才能生效
       @media (max-width: 640px) {
         .logo-text {
           display: none;
         }
+
         .logo-img {
           display: block;
           margin-left: 20px;
         }
+
         .el-dropdown-link {
           font-size: 13px;
         }
       }
+
       // 导航栏区域
       .left,
       .right {
         display: flex;
       }
+
       // 左侧链接部分
       .left {
         justify-content: flex-start;
@@ -524,11 +569,13 @@ export default {
         .nav-link {
           border-bottom: 1px solid white;
           margin-left: 13px;
+
           .el-menu-item {
             width: 50px;
             font-size: 16px;
             padding: 0 10px;
             transition: none !important;
+
             &.is-active {
               color: #1e80ff;
               border-bottom: none;
@@ -540,6 +587,7 @@ export default {
           .nav-link-dropdown {
             display: block;
           }
+
           .nav-link {
             display: none;
           }
@@ -553,6 +601,7 @@ export default {
         justify-content: flex-end;
         align-items: center;
         margin: 0 15px;
+
         .searchMenu {
           width: 100%;
           position: absolute;
@@ -569,22 +618,28 @@ export default {
           box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
           border: 1px solid #ebebeb;
           background-color: #fff;
+
           .searchHead {
             border-bottom: 1px solid #ebebeb;
             padding: 0.5rem 1rem;
             display: flex;
             justify-content: space-between;
           }
+
           .clear {
             cursor: pointer;
             color: #1e80ff;
           }
+
           .searchList {
             padding: 0.5rem 1rem;
             display: flex;
             justify-content: space-between;
             cursor: pointer;
             color: #5e6369;
+          }
+          .searchList:hover {
+            background-color: #f2f3f5;
           }
         }
 
@@ -601,11 +656,13 @@ export default {
         .holder {
           width: 140px;
         }
+
         @media (max-width: 720px) {
-        .input{
-          width: 125px;
+          .input {
+            width: 125px;
+          }
         }
-        }
+
         @media (max-width: 360px) {
           .input {
             display: none;
@@ -617,18 +674,22 @@ export default {
           right: 60px;
           z-index: 100;
           height: 30px;
+
           .originator-drop {
             right: -62px;
             min-width: 140px;
             z-index: 0;
+
             &:hover {
               z-index: 0;
             }
+
             & > * {
               width: 100%;
             }
           }
         }
+
         // 消息按钮
         .message-btn {
           height: 100%;
@@ -637,32 +698,40 @@ export default {
           color: #8a919f; // #515767
           z-index: 110;
         }
+
         // border: 1px solid skyblue;
       }
     }
   }
 }
+
 .nav-leave-active {
   transition: 0.2s;
 }
+
 .nav-enter-active {
-  transition: 0.2s;
+  transition:ease-out 0.13s;
 }
+
 .nav-enter,
 .nav-leave-to {
   transform: translateY(-100%);
 }
+
 .badge-leave-active {
   transition: 0.4s;
 }
+
 .badge-enter-active {
   transition: 0.4s;
 }
+
 .badge-enter,
 .badge-leave-to {
   transform: translateX(20%);
   opacity: 0;
 }
+
 .landButton {
   text-align: center;
   line-height: 28px;
@@ -676,10 +745,12 @@ export default {
   cursor: pointer;
   transition: 0.4s;
 }
+
 .landButton:hover {
   background-color: #cde1f89c;
   transition: 0.4s;
 }
+
 .search {
   width: 40px;
   height: 35px;
@@ -695,53 +766,65 @@ export default {
   transition: 0.3s;
   cursor: pointer;
 }
+
 .searchChange {
   right: 181px;
   transition: 0.3s;
   background-color: rgb(217, 236, 255);
 }
+
 .line {
   position: absolute;
-  top: 63px;
+  top: 64px;
   height: 1px;
   width: 100vw;
   background-color: #59575718;
-  z-index: 9;
+  z-index: 99;
 }
-.vip{
+
+.vip {
   margin: 0 10px 0 10px;
-  z-index: 110
+  z-index: 110;
 }
+
 @media (max-width: 1100px) {
   .input {
     font-size: 13px;
   }
+
   .search {
     width: 30px;
   }
 }
+
 @media (max-width: 720px) {
   .landButton {
     margin-right: 0px;
   }
+
   .vip {
     display: none;
   }
+
   .holder {
     width: 0;
   }
+
   .badge {
-     display: none;
-   }
-   .search {
+    display: none;
+  }
+
+  .search {
     right: 275px;
-   }
+  }
 }
+
 @media (max-width: 666px) {
   .search {
     display: none;
-   }
+  }
 }
+
 // @media (max-width: 1210px) {
 //   .search {
 //     display: none;
@@ -750,7 +833,7 @@ export default {
 //     display: none;
 //   }
 // }
-  
+
 .tablead {
   position: absolute;
   top: 6px;

@@ -345,6 +345,6 @@ h1,h2,h3,h4,h5,h6 {
   transition:0.15s;
 }
 .catalog-box{
-  transition:0.2s;
+  transition:0.15s;
 }
 </style>
