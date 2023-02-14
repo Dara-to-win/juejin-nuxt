@@ -58,7 +58,7 @@
               {{ author.nickname}}
               <!-- <img :src="author.creationLevel" alt="level" class="level" /> -->
             </h3>
-            <p>{{ author.introduction }}</p>
+            <p>{{ author.introduction || '这个用户很神秘，什么也没留下。'}}</p>
           </div>
         </div>
         <div class="totalRank">
@@ -205,7 +205,7 @@ export default {
 <style lang="less" scoped>
   @import '~/static/css/theme/theme.less';
   .setTheme();
-  .theme(@bg-color, @font-color, @tip-background-color, @tip-font-color) {
+  .theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color) {
     .ad {
       margin-top: 15px;
     }
@@ -232,7 +232,7 @@ export default {
     }
     .tip .left p {
       margin-top: 5px;
-      color: @tip-font-color;
+      color: @theme-gray;
     }
     .tip .right {
       flex: 1;
@@ -280,11 +280,12 @@ export default {
       height: 50px;
     }
     .download .right {
+      color: @font-color;
       margin-left: 16px;
     }
     .download .right p {
       margin-top: 10px;
-      color: @tip-font-color;
+      color: @theme-gray;
     }
     /* 作者榜 */
     .authorRank {
@@ -295,6 +296,7 @@ export default {
       height: 42px;
       line-height: 42px;
       padding: 0 12px 0;
+      color: @font-color;
       border-bottom: 1px #ccc solid;
     }
     .author {
@@ -315,11 +317,12 @@ export default {
       height: 16px;
     }
     .author .username {
+      color: @font-color;
       height: 18px;
       line-height: 18px;
     }
     .author p {
-      color: #666;
+      color: @theme-gray;
       margin-top: 3px;
       white-space: nowrap;
       overflow: hidden;

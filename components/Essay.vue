@@ -85,6 +85,10 @@ export default {
 </script>
 
 <style scoped lang="less">
+// 导入主题样式
+@import '~/static/css/theme/theme.less';
+.setTheme();
+.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color){
 // 最外部容器，控制位置
 .e-container {
   // 网格布局
@@ -104,9 +108,9 @@ export default {
   max-width: 700px;
   content-visibility: auto;
   contain-intrinsic-size: 124px;
-  background-color: white;
+  background-color: @bg-color;
   &:hover {
-    background-color: #fafafa;
+    background-color: @hover-color;
     cursor: pointer;
   }
 
@@ -117,11 +121,11 @@ export default {
     justify-content: flex-start;
     align-items: center;
     font-size: 13px;
-    color: #869093;
+    color: @theme-gray;
     white-space: nowrap;
     // border-right: 1px solid hsla(0,0%,59.2%,.2);
     & > div:first-child {
-      color: #4e5969;
+      color: @theme-gray;
     }
 
     div {
@@ -163,7 +167,7 @@ export default {
         margin-bottom: 5px;
         font-size: 16px;
         font-weight: bold;
-        color: #1d2129;
+        color: @font-color;
       }
       .preview {
         display: -webkit-box;
@@ -172,7 +176,7 @@ export default {
         text-overflow: ellipsis;
         margin: 10px 0;
         overflow: hidden;
-        color: #80969c;
+        color: @theme-gray;
         font-size: 13px;
       }
       // 用户反馈区
@@ -233,5 +237,6 @@ export default {
     max-width: 1000px;
     grid-template-columns: 1fr;
   }
+}
 }
 </style>

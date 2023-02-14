@@ -119,6 +119,10 @@ export default {
 </script>
 
 <style scoped lang="less">
+// 导入主题样式
+@import '~/static/css/theme/theme.less';
+.setTheme();
+.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color){
 .es-container {
   margin: 15px 15px 0 0;
   .nav {
@@ -127,12 +131,14 @@ export default {
     align-items: center;
     list-style: none;
     padding: 13px;
-    background-color: white;
-    color: #909090;
+    background-color: @bg-color;
+    color: @theme-gray;
     font-size: 14px;
     white-space: nowrap;
     width: 100%;
     li {
+      background-color: @bg-color;
+      color: @theme-gray;
       padding: 0 15px;
       &:hover {
         color: #1e80ff;
@@ -146,6 +152,8 @@ export default {
   }
   content {
     width: 100%;
+    background-color: @bg-color;
+    color: @theme-gray;
   }
 }
 .io {
@@ -165,7 +173,7 @@ export default {
   width: 700px;
   margin: 1px;
   padding: 15px;
-  background-color: white;
+  background-color: @bg-color;
 }
 .border {
   border-right: 1px solid hsla(0, 0%, 59.2%, 0.2);
@@ -180,6 +188,7 @@ export default {
   width: 700px;
   margin:1px;
   padding:15px;
-  background-color:white;
+  background-color:@bg-color;
+}
 }
 </style>

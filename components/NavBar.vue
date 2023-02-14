@@ -509,24 +509,24 @@ export default {
       localStorage.setItem('searchList','[]')
     },
     jump2search(item) {
-    this.input=item
-    this.$refs.input.focus()
-    this.$router.push({
-      name: 'Search',
-      query: { search: item },
-    })
+      this.input=item
+      this.$refs.input.focus()
+      this.$router.push({
+        name: 'Search',
+        query: { search: item },
+      })
     },
   },
 }
 </script>
 <style scoped lang="less">
-// 导入更改样式的
+// 导入主题样式
 @import '~/static/css/theme/theme.less';
 .setTheme();
-.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color){
+.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color){
 .bg-container {
   width: 100vw;
-  background-color: #fff;
+  background-color: @bg-color;
   z-index: 100;
   position: fixed;
   height: 64.5px;
@@ -537,7 +537,7 @@ export default {
     .nav-bar {
       height: 64px;
       align-items: center;
-      background-color: white;
+      background-color: @bg-color;
       // logo 区域
       .logo-text {
         width: 100px;
@@ -571,6 +571,7 @@ export default {
         justify-content: flex-start;
         align-items: center;
         margin-left: 10px;
+        background-color: @bg-color;
         // 导航栏左侧宽度较窄时的下拉导航链接
         .nav-link-dropdown {
           font-size: 16px;
@@ -580,16 +581,21 @@ export default {
         }
         // 完整的导航链接部分
         .nav-link {
-          border-bottom: 1px solid white;
+          border-bottom: 1px solid @bg-color;
           margin-left: 13px;
+          background-color: @bg-color;
           .el-menu-item {
             width: 50px;
             font-size: 16px;
             padding: 0 10px;
             transition: none !important;
+            color: @theme-gray;
             &.is-active {
               color: #1e80ff;
               border-bottom: none;
+            }
+            &:hover {
+              background-color: @hover-color;
             }
           }
         }
@@ -613,17 +619,17 @@ export default {
           position: absolute;
           margin-top: 11px;
           line-height: 2rem;
-          right: 178px;
+          right: 240px;
           z-index: 100;
           min-width: 6rem;
           font-size: 1rem;
-          color: #869aab;
+          color: @theme-gray;
           list-style: none;
           text-align: left;
           border-radius: 0.17rem;
           box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
           border: 1px solid #ebebeb;
-          background-color: #fff;
+          background-color: @bg-color;
           .searchHead {
             border-bottom: 1px solid #ebebeb;
             padding: 0.5rem 1rem;
@@ -653,6 +659,8 @@ export default {
           height: 31px;
           transition: 0.3s;
           z-index: 101;
+          background-color: @bg-color;
+          color: @theme-gray;
         }
         .holder {
           width: 140px;
@@ -688,6 +696,9 @@ export default {
         // 主题切换
         #modeCheckBox {
           display: none;
+        }
+        .modeCheck {
+          margin: 0 10px;
         }
         .modeCheck::after {
             content: "";
@@ -765,14 +776,14 @@ export default {
   z-index: 102;
   position: absolute;
   background-color: #f2f3f5;
-  top: 16px;
-  right: 321px;
+  top: 17px;
+  right: 381px;
   border-radius: 5px;
   transition: 0.3s;
   cursor: pointer;
 }
 .searchChange {
-  right: 181px;
+  right: 242px;
   transition: 0.3s;
   background-color: rgb(217, 236, 255);
 }

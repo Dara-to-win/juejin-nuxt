@@ -31,9 +31,9 @@
       <div class="author"></div>
       <!--  掘金app二维码-->
       <div class="app-link">
-        <img src="~/static/assets/QRCode.jpg" style="max-width: 21%" />
+        <img src="~/static/assets/QRCode.jpg"/>
         <div class="app-card">
-          <div class="app-card-download">下载稀土掘金APP</div>
+          <div class="app-card-download">下载掘金稀土APP</div>
           <div class="app-card-text">一个帮助开发者成长的社区</div>
         </div>
       </div>
@@ -186,7 +186,11 @@ export default {
   },
 };
 </script>
-<style  scoped>
+<style scoped lang="less">
+// 导入主题样式
+@import '~/static/css/theme/theme.less';
+.setTheme();
+.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color){
 * {
   font-weight: bold;
 }
@@ -237,7 +241,7 @@ h1,h2,h3,h4,h5,h6 {
 
 .meta-box {
   margin-top: 2px;
-  color: rgb(134, 134, 134);
+  color: @theme-gray;
 }
 
 .follow-button {
@@ -249,8 +253,9 @@ h1,h2,h3,h4,h5,h6 {
   border: 1px solid rgb(30, 128, 255, 0.3);
   border-radius: 4px;
   align-items: center;
-  width: 52px;
-  color: #1e80ff;
+  width: 60px;
+  color: white;
+  font-weight: 400;
 }
 
 .follow-button:hover {
@@ -261,7 +266,7 @@ h1,h2,h3,h4,h5,h6 {
 .atc-main {
   width: 100%;
   margin: 5px 20px 50px 100px;
-  background-color: white;
+  background-color: @bg-color;
   padding: 25px 20px 20px 20px;
   border-radius: 5px;
 }
@@ -278,40 +283,47 @@ h1,h2,h3,h4,h5,h6 {
   width: 300px;
 }
 
+/* 下载部分 */
 .app-link {
+  padding: 12px;
   margin: 5px 0;
+  align-items: center;
   cursor: pointer;
-  display: inline-block;
-  background-color: white;
-  padding: 10px;
+  display: flex;
+  background-color: @bg-color;
   border-radius: 5px;
   width: 300px;
 }
+.app-link img {
+  width: 50px;
+  height: 50px;
+}
 
 .app-card {
-  display: inline-block;
+  margin-left: 10px;
 }
 
 .app-card-download {
   font-size: 16px;
-  padding-bottom: 24px;
+  color: @font-color;
 }
 
 .app-card-text {
-  color: #8a919f;
-  border: 4px;
+  color: @theme-gray;
+  margin-top: 10px;
 }
 
 .mulu {
-  background-color: white;
+  background-color: @bg-color;
   border-radius: 5px;
 }
 
 .catalog {
   max-height: 500px;
-  background-color: white;
+  background-color: @bg-color;
   overflow: hidden;
   border-radius: 5px;
+  
 }
 .container {
   display: flex;
@@ -323,7 +335,10 @@ h1,h2,h3,h4,h5,h6 {
 }
 .catalogue {
   float: left;
-  height:380px;
+  height: 380px;
+}
+.el-tab-pane {
+  color: @theme-gray;
 }
 @media screen and (max-width: 1250px) {
   .suspended-panel {
@@ -345,6 +360,8 @@ h1,h2,h3,h4,h5,h6 {
   transition:0.15s;
 }
 .catalog-box{
+  color: @theme-gray;
   transition:0.15s;
+}
 }
 </style>
