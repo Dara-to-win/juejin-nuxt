@@ -113,13 +113,13 @@ export default {
         //   isShow: true,
         // },
         {
-          imgUrl: require('~/static/assets/adv2.jpg'),
+          imgUrl: '/assets/adv2.jpg',
           adUrl:
             'https://juejin.cn/pin/7129334097113006116?utm_source=slide&utm_medium=banner&utm_campaign=reading',
           isShow: true,
         },
         {
-          imgUrl: require('~/static/assets/adv3.jpg'),
+          imgUrl: '/assets/adv3.jpg',
           adUrl: 'https://juejin.cn/book/7126538479051210766?utm_source=web_banner&utm_medium=banner&utm_campaign=Book_SK_0817',
           isShow: true
         }
@@ -221,147 +221,155 @@ export default {
   },
 }
 </script>
-<style scoped>
-.ad {
-  margin-top: 15px;
-}
-img {
-  height: 200px;
-}
-i {
-  cursor: pointer;
-}
-/* 提示信息部分 */
-.tip {
-  display: flex;
-  padding: 0 15px 0;
-  background-color: white;
-  width: 240px;
-  height: 100px;
-  align-items: center;
-}
-.tip .left {
-  flex: 2;
-}
-.tip .left p {
-  margin-top: 5px;
-  color: #666;
-}
-.tip .right {
-  flex: 1;
-}
-.tip .right .el-button {
-  /* margin-left: 15px; */
-  text-align: center;
-  width: 74px;
-  height: 36px;
-  line-height: 36px;
-  padding: 0;
-}
-.tip .right .el-button:hover {
-  background-color: #e8f2ff;
-  color: #5a9df4;
-  outline: none;
-}
-/* 广告部分 */
-.mt10 {
-  margin-top: 10px;
-}
-.outsideDiv {
-  position: relative;
-}
-.insideDiv {
-  position: absolute;
-  display: none;
-  right: 5px;
-  top: 8px;
-}
-.outsideDiv:hover .insideDiv {
-  display: block;
-}
-/* 下载部分 */
-.download {
-  display: flex;
-  padding: 12px;
-  background-color: white;
-  width: 240px;
-  height: 74px;
-  align-items: center;
-}
-.download .left img {
-  width: 50px;
-  height: 50px;
-}
-.download .right {
-  margin-left: 16px;
-}
-.download .right p {
-  margin-top: 10px;
-  color: #666;
-}
-/* 作者榜 */
-.authorRank {
-  width: 240px;
-  background-color: white;
-}
-.authorRank > h3 {
-  height: 42px;
-  line-height: 42px;
-  padding: 0 12px 0;
-  border-bottom: 1px #ccc solid;
-}
-.author {
-  height: 70px;
-  padding: 12px;
-}
-.author .el-avatar {
-  float: left;
-}
-.author div {
-  float: left;
-  padding-left: 6px;
-  width: 170px;
-}
-.author .level {
-  margin-left: 4px;
-  width: 35px;
-  height: 16px;
-}
-.author .username {
-  height: 18px;
-  line-height: 18px;
-}
-.author p {
-  color: #666;
-  margin-top: 3px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.authorRank .totalRank {
-  height: 42px;
-  line-height: 42px;
-  font-size: 14px;
-  text-align: center;
-  border-top: 1px #ccc solid;
-}
-.authorRank .totalRank a {
-  color: #5a9df4;
-}
-.slide {
-  opacity: 0;
-  pointer-events: none;
-  position: fixed;
-  transition: 0.2s;
-}
-.slideFixed {
-  position: fixed;
-  pointer-events: all;
-  opacity: 1;
-  transition: 0.2s;
-  top: 64;
-}
-.holder {
-  width: 240px;
-}
+
+<style lang="less" scoped>
+  @import '~/static/css/theme/theme.less';
+  .setTheme();
+  .theme(@bg-color, @font-color, @tip-background-color, @tip-font-color) {
+    .ad {
+      margin-top: 15px;
+    }
+    img {
+      height: 200px;
+    }
+    i {
+      cursor: pointer;
+    }
+    /* 提示信息部分 */
+    .tip {
+      display: flex;
+      padding: 0 15px 0;
+      background-color: @tip-background-color;
+      width: 240px;
+      height: 100px;
+      align-items: center;
+    }
+    .tip .left {
+      flex: 2;
+    }
+    .tip .left h2 {
+      color: @font-color;
+    }
+    .tip .left p {
+      margin-top: 5px;
+      color: @tip-font-color;
+    }
+    .tip .right {
+      flex: 1;
+    }
+    .tip .right .el-button {
+      /* margin-left: 15px; */
+      text-align: center;
+      width: 74px;
+      height: 36px;
+      line-height: 36px;
+      padding: 0;
+    }
+    .tip .right .el-button:hover {
+      background-color: #e8f2ff;
+      color: #5a9df4;
+      outline: none;
+    }
+    /* 广告部分 */
+    .mt10 {
+      margin-top: 10px;
+    }
+    .outsideDiv {
+      position: relative;
+    }
+    .insideDiv {
+      position: absolute;
+      display: none;
+      right: 5px;
+      top: 8px;
+    }
+    .outsideDiv:hover .insideDiv {
+      display: block;
+    }
+    /* 下载部分 */
+    .download {
+      display: flex;
+      padding: 12px;
+      background-color: @tip-background-color;
+      width: 240px;
+      height: 74px;
+      align-items: center;
+    }
+    .download .left img {
+      width: 50px;
+      height: 50px;
+    }
+    .download .right {
+      margin-left: 16px;
+    }
+    .download .right p {
+      margin-top: 10px;
+      color: @tip-font-color;
+    }
+    /* 作者榜 */
+    .authorRank {
+      width: 240px;
+      background-color: @tip-background-color;
+    }
+    .authorRank > h3 {
+      height: 42px;
+      line-height: 42px;
+      padding: 0 12px 0;
+      border-bottom: 1px #ccc solid;
+    }
+    .author {
+      height: 70px;
+      padding: 12px;
+    }
+    .author .el-avatar {
+      float: left;
+    }
+    .author div {
+      float: left;
+      padding-left: 6px;
+      width: 170px;
+    }
+    .author .level {
+      margin-left: 4px;
+      width: 35px;
+      height: 16px;
+    }
+    .author .username {
+      height: 18px;
+      line-height: 18px;
+    }
+    .author p {
+      color: #666;
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .authorRank .totalRank {
+      height: 42px;
+      line-height: 42px;
+      font-size: 14px;
+      text-align: center;
+      border-top: 1px #ccc solid;
+    }
+    .authorRank .totalRank a {
+      color: #5a9df4;
+    }
+    .slide {
+      opacity: 0;
+      pointer-events: none;
+      position: fixed;
+      transition: 0.2s;
+    }
+    .slideFixed {
+      position: fixed;
+      pointer-events: all;
+      opacity: 1;
+      transition: 0.2s;
+      top: 64;
+    }
+    .holder {
+      width: 240px;
+    }
+  }
 </style>

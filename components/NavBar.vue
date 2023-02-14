@@ -2,6 +2,7 @@
 <template>
 <transition name="nav">
   <div v-show="navShow" class="bg-container" :class="navClass" >
+    <input id="modeCheckBox" type="checkbox" :checked="pageTheme=='theme-dark'? true:false" @click="changeTheme">
     <div class="nav-container">
       <!-- 主导航栏上半部分 - 页面跳转 -->
       <el-row type="flex" class="nav-bar">
@@ -56,7 +57,7 @@
         <!-- 主导航栏右半部分，包含搜索框、创作者中心按钮、消息提示和用户头像 -->
         <el-col :span="15" class="right">
           <!-- 输入框 -->
-          <el-input v-model="input" placeholder="探索稀土掘金"  class="input"  >
+          <el-input v-model="input" placeholder="探索稀土掘金"  class="search"  >
             <i slot="suffix" class="el-icon-search"></i>
           </el-input>
 
@@ -82,6 +83,9 @@
               </el-dropdown-menu>
             </el-dropdown>
           </el-badge>
+
+          <!-- 主题切换图标 -->
+          <label for="modeCheckBox" class="modeCheck"></label>
 
           <!-- vip 图标 -->
           <img src="@/static/assets/logo-vip.svg" style="margin:0 10px 0 10px;"/>
@@ -267,7 +271,7 @@
 </template>
 
 <script>
-import { mapMutations,mapState} from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 export default {
   name: 'NavBar',
   data(){
@@ -278,6 +282,7 @@ export default {
       navShow:true,
       // 广告组件高度
       adHeight: '',
+      pageTheme: ''
     }
   },
   computed: {
@@ -322,21 +327,16 @@ export default {
     },
   },
   mounted() {
-<<<<<<< HEAD
-   this.scroll = window.addEventListener("scroll", this.throttle(this.scrollToTop, 200));
-   this.$bus.$on('getAdHeight', (data) => {
-      this.adHeight = data;
-   })
-=======
     if(this.userAvatar && this.username && localStorage.getItem('userid')){
-    this.$store.state.login.isLogin=true
-   }else{
-    this.$store.state.login.isLogin=false
-   }
-   this.scroll = window.addEventListener("scroll", this.throttle(this.scrollToTop, 200)); 
+      this.$store.state.login.isLogin=true
+    }else{
+      this.$store.state.login.isLogin=false
+    }
+    this.scroll = window.addEventListener("scroll", this.throttle(this.scrollToTop, 200)); 
+    this.pageTheme = localStorage.getItem("theme") || "theme-white";
+    document.body.setAttribute('class', this.pageTheme);
   },
   updated(){
->>>>>>> 56ee495f5e90e0fdf3ec31172cc20bf19e3bc0cb
   },
   beforeDestroy() {
     window.removeEventListener('scroll',this.scroll)
@@ -353,163 +353,206 @@ export default {
     },
     jumpToIndex(){
       window.location.href = "/"
+    },
+    changeTheme(){
+
+      // 更改页面主题变量
+      if(this.pageTheme === 'theme-white'){
+          this.pageTheme = 'theme-dark';
+      }else{
+          this.pageTheme = 'theme-white';
+      }
+      document.body.setAttribute('class', this.pageTheme);
+
+      // 将主题信息保存到localStorage中
+      localStorage.setItem("theme", this.pageTheme);
     }
   },
 }
 </script>
 <style scoped lang="less">
-.bg-container {
-  width: 100vw;
-  background-color: #fff;
-  z-index: 100;
-  position: fixed;
-  .nav-container {
-    margin: 0 auto;
-    width: 100%;
-    .nav-bar {
-      height: 64px;
-      align-items: center;
-      background-color: white;
+@import '~/static/css/theme/theme.less';
+.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color){
+  .bg-container {
+    width: 100vw;
+    background-color: @bg-color;
+    z-index: 100;
+    position: fixed;
+    #modeCheckBox {
+      display: none;
+    }
+    #modeCheckBox:checked + .nav-container .modeCheck::after {
+      content: "";
+      background: url("@/static/assets/moon.png") no-repeat center;
+      background-size: 25px 25px;
+      display: block;
+      width: 25px;
+      height: 25px;
+    }
+    .nav-container {
+      margin: 0 auto;
+      width: 100%;
+      .nav-bar {
+        height: 64px;
+        align-items: center;
+        background-color: @bg-color;
 
-      // logo 区域
-      .logo-text {
-        width: 100px;
-        height: 33px;
-        margin-left: 20px;
-      }
-      .logo-img {
-        display: none;
-        width: 31px;
-      }
-      // 媒体查询要写在下面才能生效
-      @media (max-width: 640px) {
+        // logo 区域
         .logo-text {
-          display: none;
-        }
-        .logo-img {
-          display: block;
+          width: 100px;
+          height: 33px;
           margin-left: 20px;
         }
-      }
-      // 导航栏区域
-      .left,
-      .right {
-        display: flex;
-      }
-      // 左侧链接部分
-      .left {
-        justify-content: flex-start;
-        align-items: center;
-        margin-left: 10px;
-
-        // 导航栏左侧宽度较窄时的下拉导航链接
-        .nav-link-dropdown {
-          font-size: 16px;
-          color: #1e80ff;
+        .logo-img {
           display: none;
-          cursor: pointer;
+          width: 31px;
         }
-
-        // 完整的导航链接部分
-        .nav-link {
-          border-bottom: 1px solid white;
-          margin-left: 13px;
-          .el-menu-item {
-            width: 50px;
-            font-size: 16px;
-            padding: 0 10px;
-            transition: none !important;
-            &.is-active {
-              color: #1e80ff;
-              border-bottom: none;
-            }
+        // 媒体查询要写在下面才能生效
+        @media (max-width: 640px) {
+          .logo-text {
+            display: none;
           }
-        }
-
-        @media (max-width: 1230px) {
-          .nav-link-dropdown {
+          .logo-img {
             display: block;
+            margin-left: 20px;
           }
+        }
+        // 导航栏区域
+        .left,
+        .right {
+          display: flex;
+        }
+        // 左侧链接部分
+        .left {
+          justify-content: flex-start;
+          align-items: center;
+          margin-left: 10px;
+          
+
+          // 导航栏左侧宽度较窄时的下拉导航链接
+          .nav-link-dropdown {
+            font-size: 16px;
+            color: #1e80ff;
+            display: none;
+            cursor: pointer;
+          }
+
+          // 完整的导航链接部分
           .nav-link {
-            display: none;
-          }
-        }
-
-        // border: 1px solid red;
-      }
-
-      // 右侧按钮、用户头像部分
-      .right {
-        justify-content: flex-end;
-        align-items: center;
-        margin: 0 15px;
-
-        // 搜索框
-        .input {
-          max-width: 200px;
-          min-width: 130px;
-          margin-right: 12px;
-          margin-top:-5px;
-          height: 31px;
-          // 搜索框的图标
-          .el-icon-search {
-            max-width: 250px;
-            margin-top: 5px;
-            width: 30px;
-            line-height: 30px;
-            border-radius: 5px;
-            background-color: #f2f3f5;
-            color:#86909c;
-            font-weight: bold;
-          }
-        }
-        @media (max-width: 388px) {
-          .input {
-            display: none;
-          }
-        }
-        @media (max-width: 910px) {
-          .input{
-             font-size: 13px;
-          }
-        }
-        // 创作者中心下拉按钮和消息气泡
-        .badge {
-          right: 60px;
-          z-index:100;
-          height: 30px;
-          .originator-drop {
-            right: -62px;
-            min-width: 140px;
-            z-index: 0;
-            &:hover {
-              z-index: 0;
-            }
-            & > * {
-              width: 100%;
+            background-color: @bg-color;
+            border-bottom: 1px solid @bg-color;
+            margin-left: 13px;
+            .el-menu-item {
+              width: 50px;
+              font-size: 16px;
+              padding: 0 10px;
+              transition: none !important;
+              &.is-active {
+                color: #1e80ff;
+                border-bottom: none;
+              }
             }
           }
+
+          @media (max-width: 1230px) {
+            .nav-link-dropdown {
+              display: block;
+            }
+            .nav-link {
+              display: none;
+            }
+          }
+
+          // border: 1px solid red;
         }
-        // 消息按钮
-        .message-btn {
-          height: 100%;
-          font-size: 24px;
+
+        // 右侧按钮、用户头像部分
+        .right {
+          justify-content: flex-end;
+          align-items: center;
           margin: 0 15px;
-          color:#8a919f // #515767
-        }
-        @media (max-width: 799px) {
+
+          // 搜索框
+          .search {
+            max-width: 200px;
+            min-width: 130px;
+            margin-right: 12px;
+            margin-top:-5px;
+            height: 31px;
+            // 搜索框的图标
+            .el-icon-search {
+              max-width: 250px;
+              margin-top: 5px;
+              width: 30px;
+              line-height: 30px;
+              border-radius: 5px;
+              background-color: #f2f3f5;
+              color:#86909c;
+              font-weight: bold;
+            }
+          }
+          @media (max-width: 388px) {
+            .input {
+              display: none;
+            }
+          }
+          @media (max-width: 910px) {
+            .input{
+              font-size: 13px;
+            }
+          }
+          // 创作者中心下拉按钮和消息气泡
           .badge {
-            display: none;
+            right: 60px;
+            z-index:100;
+            height: 30px;
+            .originator-drop {
+              right: -62px;
+              min-width: 140px;
+              z-index: 0;
+              &:hover {
+                z-index: 0;
+              }
+              & > * {
+                width: 100%;
+              }
+            }
           }
-          .message-btn{
-            display: none;
+          .modeCheck {
+            margin: 0 10px;
           }
+          // 白间夜间模式切换按钮
+          .modeCheck::after {
+            content: "";
+            background: url("@/static/assets/sun.png") no-repeat center;
+            background-size: 25px 25px;
+            display: block;
+            width: 25px;
+            height: 25px;
+          }
+          // 消息按钮
+          .message-btn {
+            height: 100%;
+            font-size: 24px;
+            margin: 0 15px;
+            color:#8a919f // #515767
+          }
+          @media (max-width: 799px) {
+            .badge {
+              display: none;
+            }
+            .message-btn{
+              display: none;
+            }
+          }
+          // border: 1px solid skyblue;
+          
         }
-        // border: 1px solid skyblue;
       }
     }
   }
 }
+.setTheme();
 .nav-leave-active{
   transition: 0.2s;
 }

@@ -1,0 +1,35 @@
+@themes: theme-white, theme-dark;
+@theme-white-bg-color: #fff;
+@theme-dark-bg-color: #80848f;
+@theme-white-font-color: #000;
+@theme-dark-font-color: #fff;
+@theme-white-tip-background-color: #fff;
+@theme-dark-tip-background-color: #666;
+@theme-white-tip-font-color: #000;
+@theme-dark-tip-font-color: #fff;
+
+// .setTheme() {
+//   .loop(@i) when (@i < length(@themes)+1){
+//     @theme: extract(@themes, @i);
+//     @bg-color: '@{theme}-bg-color';
+//     @font-color: '@{theme}-font-color';
+//     @tip-background-color: '@{theme}-tip-background-color';
+//     @tip-font-color: '@{theme}-tip-font-color';
+//     body.@{theme}{
+//       .theme(@@bg-color, @@font-color, @@tip-background-color, @@tip-font-color);
+//     }
+//     .loop(@i+1);
+//   }
+//   .loop(1);
+// }
+.setTheme() {
+  each(@themes, {
+    @bg-color: '@{value}-bg-color';
+    @font-color: '@{value}-font-color';
+    @tip-background-color: '@{value}-tip-background-color';
+    @tip-font-color: '@{value}-tip-font-color';
+    body.@{value} {
+      .theme(@@bg-color, @@font-color, @@tip-background-color, @@tip-font-color);
+    }
+  })
+}
