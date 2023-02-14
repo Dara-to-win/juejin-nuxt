@@ -50,7 +50,7 @@
             </g>
           </svg>
           <span class="content">获得点赞</span>
-          <span class="count"> &nbsp;{{}}</span>
+          <span class="count"> &nbsp;{{atcData.collectCount}}</span>
         </div>
         <div class="stat-item">
           <svg width="25" height="25" viewBox="0 0 25 25" class="zan">
@@ -65,28 +65,12 @@
           <span class="count"> &nbsp;{{ atcData.viewCount }}</span>
         </div>
       </div>
-      <!--  掘金app二维码-->
-      <div v-show="!readCome" class="app-link">
-        <img src="~/static/assets/QRCode.jpg" style="max-width: 21%" />
-        <div class="app-card">
-          <div class="app-card-download">下载稀土掘金APP</div>
-          <div class="app-card-text">一个帮助开发者成长的社区</div>
-        </div>
-      </div>
-      <!-- 广告 -->
       <!-- 相关文章 -->
       <div v-show="!readCome" class="related-entry-sidebar">
         <div class="related-title">相关文章</div>
         <div class="block-body">
           <div class="enter-list">
-            <a href="" target="" title="" class="enter-item">
-              <div class="enter-title">{{ 111 }}</div>
-              <div class="entry-meta-box">
-                <div class="enter-meta">{{ }}点赞</div>
-                <div class="enter-meta">&nbsp;·&nbsp;</div>
-                <div class="enter-meta">{{ }}评论</div>
-              </div>
-            </a>
+            <TenAct></TenAct>
           </div>
         </div>
 
@@ -275,13 +259,13 @@ export default {
     this.$bus.$on('scrolNumberChange', (newNumber, oldNumber) => {
       this.scroll = newNumber
       this.loadScroll()
-      if (newNumber > oldNumber && newNumber > 400) {
+      if (newNumber > oldNumber && newNumber > 950) {
         this.top = "20px"
       }
-      if (newNumber < oldNumber && oldNumber > 400) {
+      if (newNumber < oldNumber && oldNumber > 950) {
         this.top = "84px"
       }
-      if (newNumber > 400) {
+      if (newNumber > 950) {
         this.fixed = 'fixed'
       } else {
         this.fixed = ''
@@ -661,6 +645,7 @@ h6 {
 }
 
 .related-entry-sidebar {
+  margin-top: 10px;
   margin-bottom: 20px;
   background-color: #fff;
   box-shadow: none;
