@@ -88,6 +88,8 @@ export default {
       this.moreChange = 'moreChange'
       this.moreTagChange='moreTagChange'
     })
+    window.addEventListener('resize', this.setNavPadding);
+    this.setNavPadding();
   },
   destroyed() {
     this.$bus.$off('linPopDown')
@@ -115,11 +117,24 @@ export default {
     more() {
       this.moreShow = !this.moreShow
     },
+    setNavPadding(){
+      const width = document.documentElement.clientWidth;
+      const nav = document.querySelector('.lk-container');
+      const paddingWidth = (width - 1200) / 2;
+      if(paddingWidth > 0 && width > 1350){
+        nav.style.paddingLeft = paddingWidth + 'px';
+        nav.style.paddingRight = paddingWidth + 'px';
+      }
+    },
   },
 }
 </script>
 
 <style scoped lang="less">
+// 导入主题样式
+@import '~/static/css/theme/theme.less';
+.setTheme();
+.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color){
 .lk-container {
   position: fixed;
   top: 64px;
@@ -127,7 +142,7 @@ export default {
   justify-content: flex-start;
   border-top: 1px solid #e6e6e6;
   width: 100vw;
-  background-color: white;
+  background-color: @bg-color;
   padding-left: 150px;
   padding-top: 0;
   line-height: 36px;
@@ -140,29 +155,34 @@ export default {
     width: fit-content;
     height: 46px;
     padding: 5px 5px;
-    background-color: white;
+    background-color: @bg-color;
     list-style: none;
     font-size: 14px;
-    color: #71777c;
+    color: @theme-gray;
   }
 }
 .more {
   position: fixed;
-  width: 60px;
+  width: 30px;
   right: 0px;
   top: 73px;
-  display: flex;
-  flex-direction: row-reverse;
+  display: none;
   margin-right: 10px;
   z-index: 9;
   transition: 0.2s;
+}
+@media screen and (max-width: 600px) {
+  .more {
+    display: flex;
+    flex-direction: row-reverse;
+  }
 }
 .moreChange {
   top: 9px;
 }
 .holder {
   width: 10px;
-  background-color: white;
+  background-color: @bg-color;
 }
 
 .fixed {
@@ -171,7 +191,7 @@ export default {
 }
 
 .gradient {
-  width: 40px;
+  width: 30px;
   pointer-events: none;
   background-image: linear-gradient(
     to right,
@@ -188,7 +208,7 @@ export default {
   height: 100%;
   top: 111px;
   right: 0px;
-  background-color: white;
+  background-color: @bg-color;
   transition: 0.2s;
   border-top: 1px solid #95999c44;
   border-left: 1px solid #95999c44;
@@ -201,7 +221,7 @@ export default {
   white-space: nowrap;
   cursor: pointer;
   font-size: 14px;
-  color: #71777c;
+  color: @theme-gray;
 }
 @media screen and (max-width: 600px) {
   .lk-container {
@@ -239,5 +259,6 @@ export default {
 .more-leave-to {
   transform: translateX(100%);
   opacity: 0;
+}
 }
 </style>

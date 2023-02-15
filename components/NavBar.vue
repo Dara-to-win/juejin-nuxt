@@ -429,6 +429,8 @@ export default {
     )
     this.pageTheme = localStorage.getItem("theme") || "theme-white";
     document.body.setAttribute('class', this.pageTheme);
+    window.addEventListener('resize', this.setNavPadding);
+    this.setNavPadding();
   },
   updated() {},
   destroyed() {
@@ -516,12 +518,24 @@ export default {
         query: { search: item },
       })
     },
+    setNavPadding(){
+      console.log('可视宽'+ document.documentElement.clientWidth);
+      console.log('可视高' + document.documentElement.clientHeight);
+      const width = document.documentElement.clientWidth;
+      const nav = document.querySelector('.nav-container');
+      const paddingWidth = (width - 1400) / 2;
+      if(paddingWidth > 0){
+        nav.style.paddingLeft = paddingWidth + 'px';
+        nav.style.paddingRight = paddingWidth + 'px';
+      }
+    },
   },
 }
 </script>
 <style scoped lang="less">
 // 导入主题样式
 @import '~/static/css/theme/theme.less';
+@padding-1366: 400px;
 .setTheme();
 .theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color){
 .bg-container {
@@ -721,12 +735,16 @@ export default {
           height: 100%;
           font-size: 24px;
           margin: 0 15px;
-          color: #8a919f; // #515767
+          // color: #8a919f; // #515767
+          color: @theme-gray;
           z-index: 110;
         }
         // border: 1px solid skyblue;
       }
     }
+    // @media (min-width: 1366px) {
+    //   padding: 0 @padding-1366;
+    // }
   }
 }
 .nav-leave-active {

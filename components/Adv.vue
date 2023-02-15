@@ -58,7 +58,7 @@
               {{ author.nickname}}
               <!-- <img :src="author.creationLevel" alt="level" class="level" /> -->
             </h3>
-            <p>{{ author.introduction || '这个用户很神秘，什么也没留下。'}}</p>
+            <p>{{ author.introduction || '这个用户很神秘！'}}</p>
           </div>
         </div>
         <div class="totalRank">
@@ -219,7 +219,7 @@ export default {
     .tip {
       display: flex;
       padding: 0 15px 0;
-      background-color: @tip-background-color;
+      background-color: @bg-color;
       width: 240px;
       height: 100px;
       align-items: center;
@@ -270,7 +270,7 @@ export default {
     .download {
       display: flex;
       padding: 12px;
-      background-color: @tip-background-color;
+      background-color: @bg-color;
       width: 240px;
       height: 74px;
       align-items: center;
@@ -290,7 +290,7 @@ export default {
     /* 作者榜 */
     .authorRank {
       width: 240px;
-      background-color: @tip-background-color;
+      background-color: @bg-color;
     }
     .authorRank > h3 {
       height: 42px;
