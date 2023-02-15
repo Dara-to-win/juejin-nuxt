@@ -519,8 +519,8 @@ export default {
       })
     },
     setNavPadding(){
-      console.log('可视宽'+ document.documentElement.clientWidth);
-      console.log('可视高' + document.documentElement.clientHeight);
+      // console.log('可视宽'+ document.documentElement.clientWidth);
+      // console.log('可视高' + document.documentElement.clientHeight);
       const width = document.documentElement.clientWidth;
       const nav = document.querySelector('.nav-container');
       const paddingWidth = (width - 1400) / 2;
