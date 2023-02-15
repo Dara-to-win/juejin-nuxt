@@ -187,7 +187,6 @@
           <use xlink:href="#icon-share"></use>
         </svg>
         <div  v-if="showHover" class="share-popup" >
-          <!-- //blur事件需要添加 -->
           <ul>
             <li class="share-item-wechat"><svg class="icon-wechat">
                 <use xlink:href="#icon-wechat"></use>
@@ -446,6 +445,7 @@ h6 {
   background-color: white;
   padding: 32px 32px 0px 32px;
   border-radius: 5px;
+  max-width: 100%;
 }
 
 .el-tabs__header.is-right {
