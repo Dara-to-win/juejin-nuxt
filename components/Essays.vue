@@ -27,7 +27,7 @@
         :homeData="item"
         :index="index"
         :word='word'
-        @click.native="jumpToDetail(item.articleID)"
+        @click.native="jumpToDetail(item.articleID,item.category)"
       />
       <div class="io"></div>
     </div>
@@ -107,7 +107,8 @@ export default {
       this.$bus.$emit('initCurrent',2) // 初始化页数
       this.$bus.$emit('getAtc', 1, tag, true,parameter)
     },
-    jumpToDetail(id) {
+    jumpToDetail(id,category) {      
+      window.sessionStorage.setItem('detailTag',category)
       const newRoute = this.$router.resolve({
         name: 'Detail',
         query: { article_id: id },

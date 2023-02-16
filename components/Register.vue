@@ -1,31 +1,61 @@
 <template>
   <div class="login-section">
-    <el-form ref="ruleForm" label-position="top" label-width="100px" class="demo-ruleForm" :rules="rules" :model="rulesForm" status-icon >
-      <h2>注册新用户</h2>
-      <h3 style="margin-left:10px">头像</h3>
-      <el-upload
-          class="avatar-uploader"
-          action="#"
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload">
-          <img v-if="img" :src="img" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
-        <el-form-item label="用户名" prop="nickname">
-        <el-input v-model="rulesForm.nickname" type="text"></el-input>
-      </el-form-item>
-      <el-form-item label="账号" prop="userAccount">
-        <el-input v-model="rulesForm.userAccount" type="text"></el-input>
-      </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input v-model="rulesForm.password" type="password" ></el-input>
-      </el-form-item>
-      <el-form-item class="register-buttons">
-        <el-button type="primary" @click="submitForm()">注册</el-button>
-        <el-button @click="closeRegisterDialog">取消</el-button>
-      </el-form-item>
-    </el-form>
+    <div>
+      <el-form ref="ruleForm" label-position="top" label-width="100px" class="demo-ruleForm" :rules="rules" :model="rulesForm" status-icon >
+        <el-upload
+            class="avatar-uploader"
+            action="#"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload">
+            <img v-if="img" :src="img" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        <div class="input">
+          <el-form-item label="" prop="nickname">
+          <el-input v-model="rulesForm.nickname" type="text" placeholder="请输入用户名" class="DeInput"></el-input>
+           </el-form-item>
+        </div>
+        <div class="input">
+          <el-form-item label="" prop="userAccount">
+            <el-input v-model="rulesForm.userAccount" type="text" placeholder="请输入邮箱/手机号" class="DeInput"></el-input>
+          </el-form-item>
+        </div>
+        <div class="input">
+          <el-form-item label="" prop="password">
+            <el-input v-model="rulesForm.password" type="password" placeholder="请输入密码" class="DeInput"></el-input>
+          </el-form-item>
+        </div>
+        <div class="login-buttons">
+            <button class="button-re" @click="submitForm()" >注册</button>
+        </div>
+        <div class="oauth-box">
+            <span style="color: #cacdd4;padding-top: 10px;">其它方式登录</span>
+            <div class="oauth">
+              <div class="oauth-bg"><img title="微博" alt="微博"
+                  src="~/static/assets/weibo.png"
+                  class="oauth-btn"></div>
+              <div class="oauth-bg"><img title="微信" alt="微信"
+                  src="~/static/assets/weixin.png"
+                  class="oauth-btn"></div>
+              <div class="oauth-bg"><img title="GitHub" alt="GitHub"
+                  src="~/static/assets/github.png"
+                  class="oauth-btn"></div>
+            </div>
+          </div>
+          <div class="special">
+            <span style="font-size:14px;">注册登录即表示同意 <span style="color:#1e80ff;cursor: pointer;">用户协议</span> 和<span
+                style="color:#1e80ff;cursor: pointer;"> 隐私政策</span></span>
+          </div>
+        <div class="cencle">
+        <el-button icon="el-icon-close" circle @click="closeRegisterDialog" ></el-button>
+          <!-- <a style="cursor:pointer;" @click="closeLoginDialog">取消</a> -->
+        </div>
+        <!-- <div class="register-buttons">
+          <el-button @click="closeRegisterDialog">取消</el-button>
+        </div> -->
+      </el-form>
+    </div>
   </div>
 </template>
 <script>
@@ -40,16 +70,16 @@ export default {
       },
       rules: {
         nickname: [
-          { required: true, message: '用户名', trigger: 'change' },
-          { min: 2, max: 10, message: '长度在2到10', trigger: 'change' },
+          { required: true, message: '请输入用户名', trigger: 'change' },
+          { min: 2, max: 10, message: '用户名的长度在2到10', trigger: 'change' },
         ],
         userAccount: [
-          { required: true, message: '手机号', trigger: 'change' },
-          { pattern: /^1[3-9]\d{9}$/, message: '请输入手机号', trigger: 'change' },
+          { required: true, message: '请输入邮箱/手机号', trigger: 'change' },
+          { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的邮箱/手机号', trigger: 'change' },
         ],
         password: [
-          { required: true, message: '密码', trigger: 'change' },
-          { min: 9, max: 15, message: '长度在9到15', trigger: 'change' },
+          { required: true, message: '请输入密码', trigger: 'change' },
+          { min: 9, max: 15, message: '密码长度在9到15', trigger: 'change' },
         ],
       },
       img:"",
@@ -98,6 +128,9 @@ export default {
 }
 </script>
 <style scoped>
+*{
+  text-align: center;
+}
 h2{
   text-align: center;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -113,21 +146,69 @@ h2{
   z-index: 101;
 }
 .el-form {
-  position: fixed; /*固定定位*/
-  top: 50%; /*距顶部50%*/
+  position: fixed;
+  /*固定定位*/
+  top: 50%;
+  /*距顶部50%*/
   left: 50%;
-  /* margin: -100px 0 0 -150px; 设定这个div的margin-top的负值为自身的高度的一半,margin-left的值也是自身的宽度的一半的负值 */
-  transform: translateX(-50%) translateY(-50%); /* 用平移实现居中更好，自适应 */
-  width: 300px; /*宽为400,那么margin-top为-200px*/
+  /* margin: -100px 0 0 -150px; 设定这个div的margin-top的负值为自身的高度的一半,margin-left的值也是自身的宽度的一半的负值.(感觉在绕口令) */
+  transform: translateX(-50%) translateY(-50%);
+  /* 用平移实现居中更好，自适应 */
+  width: 38rem;
+  height: 38rem;
+  /*宽为400,那么margin-top为-200px*/
   padding: 20px;
-  border-radius: 8px;
-  background-color: #f3f5f6;
-  z-index: 99; /*浮动在最上层 */
+  border-radius: 1rem;
+  background-color: #ffffff;
+  z-index: 99;
+  /*浮动在最上层 */
 }
 .register-buttons {
   display: flex;
   justify-content: center;
   align-items: center;
+  
+  height: 48px;
+    margin-top: 15px;
+
+}
+.button-re {
+  display: inline-block;
+  line-height: 1;
+  cursor: pointer;
+  background:#1e80ff ; 
+  border: 1px solid #DCDFE6;
+  color:#f2f3f5;
+  text-align: center;
+  box-sizing: border-box;
+  font-weight: 500;
+  padding: 12px 20px;
+  font-size: 14px;
+  border-radius: 1rem;
+  width: 13rem;
+  height: 4rem;
+  border-style: none;
+  margin-top: 10px;
+  width: 340px;
+  margin-right: 0px;
+  transition: .3s;
+}
+.button-re:hover{
+  background-color: #1e80ffd1;
+  color: #f2f3f5;
+  transition: .3s;
+}
+.input {
+  text-align: center;
+  margin-top: 15px;
+}
+.login-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.DeInput {
+  width: 30rem;
 }
 .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
@@ -135,23 +216,88 @@ h2{
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    width: 5rem;
+    height: 5rem;
+    text-align: center;
   }
   .avatar-uploader .el-upload:hover {
     border-color: #409EFF;
   }
   .avatar-uploader-icon {
     font-size: 28px;
-    color: #8c939d;
-    width: 50px;
-    height: 50px;
+    color: #ffff;
+    width: 5rem;
+    height: 5rem;
     line-height: 50px;
     text-align: center;
     border-radius: 50%;
+    background-color: #f2f3f5;
+    border-style: solid;
+    border-color: #1e80ff;
   }
   .avatar {
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 6rem;
+    height: 6rem;
     display: block;
   }
+  .oauth-box {
+  width: 20rem;
+  height: 3rem;
+  text-align: center;
+  display: flex;
+  margin-top: 1.67rem;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: 95px;
+}
+
+.oauth {
+  display: flex;
+  align-items: center;
+}
+
+.oauth-bg {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--juejin-gray-2);
+  justify-content: center;
+  margin-right: 10px;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.special {
+  color: rgb(202, 205, 212);
+  padding-top: 10px;
+  text-align: center;
+}
+
+.oauth-btn {
+  width: 3rem;
+  height: 3rem;
+  vertical-align: bottom;
+  cursor: pointer;
+}
+.cencle {
+    text-align: center;
+    margin-top: 250px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-25%);
+}
+::v-deep .el-input__inner {
+  background-color:#f1f1f5;
+  color: #cacdd4;
+  height: 3.5rem;
+  font-family:"Microsoft YaHei";
+  border-radius: 0.5rem;
+}
+::v-deep .el-form-item__error {
+  left: 10%;
+  font-family:"Microsoft YaHei";
+}
 </style>
