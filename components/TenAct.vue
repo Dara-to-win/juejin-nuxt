@@ -20,7 +20,6 @@ export default {
   },
   methods: {
     getTenAtc(category) {
-      console.log(category)
       const postData = {
         articleStatus: 0, // 根据文章状态查询0-草稿箱1-待审核2-已发布
         category, // 不传默认不根据分类查询,传具体的分类名称

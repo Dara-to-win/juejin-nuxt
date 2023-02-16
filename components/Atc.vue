@@ -14,7 +14,7 @@
         <button class="follow-button">+ 关注</button>
       </div>
       <div class="markdown-body">
-        <img :src='atcData.snapshot' style="max-width:750px;">
+        <img :src='atcData.snapshot' style="width:100%;">
         <MarkdownPreview v-if="atcData" :initialValue="atcData.content" style="height: auto" />
       </div>
       <!-- <div class="comment-box">评论
@@ -207,20 +207,18 @@
           <use xlink:href="#icon-report"></use>
         </svg></div>
       
-        <div v-if="showHov" class="byte-tooltip-dark" style="max-width: none;z-index: 1091;position: absolute;will-change: transform;top: 0px;left: 0px;transform: translate3d(-12px, 310px, 0px);width: 72px;" >
+        <div v-if="showHov" class="byte-tooltip-dark" style="max-width: none;z-index:9;position: absolute;will-change: transform;top: 0px;left: 0px;transform: translate3d(-12px, 310px, 0px);width: 72px;" >
           沉浸阅读
         </div>
       
-        <div class="panel-btn-badge" @mouseover="showHov=true" @mouseout="showHov=false"><svg class="sprite-icon-zan" >
-              <use xlink:href="#icon-immerse" :class="[readCome ? 'frontBox':'laterBox']" @click="readCom"></use>
+        <div class="panel-btn-badge" @mouseover="showHov=true" @mouseout="showHov=false" @click="readCom"><svg class="sprite-icon-zan" >
+              <use xlink:href="#icon-immerse" :class="[readCome ? 'frontBox':'laterBox']" ></use>
         </svg></div>
         
 
     </div>
 
     <el-backtop :bottom="10" :right="10" :visibility-height="500"></el-backtop>
-    <div class="suspended-panel"></div>
-    <div class="suspended-panel"></div>
   </div>
 </template>
 <script>
@@ -377,14 +375,6 @@ h6 {
   line-height: 5;
 }
 
-.suspended-panel {
-  z-index: 2;
-  width: 32px;
-  height: auto;
-  position: fixed;
-  top: 140px;
-  left: 40px;
-}
 
 .article-title {
   font-size: 32px;
@@ -441,11 +431,12 @@ h6 {
 }
 
 .atc-main {
-  width: 820px;
+  width: 100%;
   background-color: white;
   padding: 32px 32px 0px 32px;
+  margin-left: 40px;
   border-radius: 5px;
-  max-width: 100%;
+  max-width: 820px;
 }
 
 .el-tabs__header.is-right {
@@ -588,8 +579,8 @@ h6 {
 
 .article-suspended-panel {
   position: fixed;
-  margin-left: -7rem;
   top: 140px;
+  left: 5px;
   z-index: 2;
   display: block;
 
@@ -645,7 +636,7 @@ h6 {
 }
 
 .related-entry-sidebar {
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 20px;
   background-color: #fff;
   box-shadow: none;
@@ -770,7 +761,7 @@ a {
   position: relative;
   margin: 0 auto;
   width: 100%;
-  max-width: 1140px;
+  max-width: 1180px;
   margin-top: 20px;
 }
 
@@ -780,7 +771,7 @@ a {
 }
 
 @media screen and (max-width: 1250px) {
-  .suspended-panel {
+  .article-suspended-panel {
     display: none;
   }
 }
@@ -789,10 +780,11 @@ a {
   .aside {
     display: none;
   }
-
   .atc-main {
     margin: 0px 5px 50px 5px;
+    max-width: 1140px;
   }
+
 }
 
 .fixed {

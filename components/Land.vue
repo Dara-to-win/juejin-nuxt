@@ -5,35 +5,39 @@
       <el-form ref="ruleForm" label-position="top" label-width="100px" class="demo-ruleForm" :rules="rules"
         :model="userInfo" status-icon>
         <div class="centerLogo">
-          <img src="/_nuxt/static/assets/logo-text.svg" class="logo-text">
+          <img src="~/static/assets/logo-text.svg" class="logo-text">
         </div>
         <div class="cut-off"></div>
         <div class="top-input">
-          <input v-model="userInfo.username" type="text" placeholder="     请输入邮箱/手机号" class="DeInput" />
+          <el-form-item label="" prop="username">
+          <el-input v-model="userInfo.username" type="text"  placeholder="请输入邮箱/手机号" class="DeInput"></el-input>
+          </el-form-item>
         </div>
         <div class="bottom-input">
-          <input v-model="userInfo.password" type="password" placeholder="     请输入密码" class="DeInput" />
+          <el-form-item label="" prop="password">
+            <el-input v-model="userInfo.password" type="password"  placeholder="请输入密码" class="DeInput"></el-input>
+            </el-form-item>
         </div>
         <el-form-item class="login-buttons">
-          <button @click="openRegisterDialog" class="button-re">注册</button>
-          <button type="primary" @click="login()" class="button-la">登录</button>
+          <button class="button-re" @click="openRegisterDialog" >注册</button>
+          <button type="primary" class="button-la" @click="login()">登录</button>
         </el-form-item>
         <div class="oauth-box">
           <span style="color: #cacdd4;padding-top: 10px;">其它方式登录</span>
           <div class="oauth">
             <div class="oauth-bg"><img title="微博" alt="微博"
-                src="//lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/fa758ebd6691cf5931bbbed63230327b.svg"
+                src="~/static/assets/weibo.png"
                 class="oauth-btn"></div>
             <div class="oauth-bg"><img title="微信" alt="微信"
-                src="//lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/e0ff12435b30910520c9a3aac9b90487.svg"
+                src="~/static/assets/weixin.png"
                 class="oauth-btn"></div>
             <div class="oauth-bg"><img title="GitHub" alt="GitHub"
-                src="//lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/547dd8a9450cd7be39ff97c40a23e794.svg"
+                src="~/static/assets/github.png"
                 class="oauth-btn"></div>
           </div>
         </div>
         <div class="special">
-          <span>注册登录即表示同意 <span style="color:#1e80ff;cursor: pointer;">用户协议</span> 和<span
+          <span style="font-size:14px;">注册登录即表示同意 <span style="color:#1e80ff;cursor: pointer;">用户协议</span> 和<span
               style="color:#1e80ff;cursor: pointer;"> 隐私政策</span></span>
         </div>
       </el-form>
@@ -53,12 +57,12 @@ export default {
       // 存储数据的对象
       rules: {
         username: [
-          { required: true, message: '手机号', trigger: 'change' },
-          { pattern: /^1[3-9]\d{9}$/, message: '请输入手机号', trigger: 'change' },
+          { required: true, message: '请输入邮箱/手机号', trigger: 'change' },
+          { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的邮箱/手机号', trigger: 'change' },
         ],
         password: [
-          { required: true, message: '密码', trigger: 'change' },
-          { min: 9, max: 15, message: '长度在9到15', trigger: 'change' },
+          { required: true, message: '请输入密码', trigger: 'change' },
+          { min: 9, max: 15, message: '密码长度在9到15', trigger: 'change' },
         ],
       },
     }
@@ -163,9 +167,13 @@ h2 {
   border-style: none;
   margin-top: 20px;
   margin-right: 40px;
-
+  transition: .3s;
 }
-
+.button-re:hover{
+  background-color: #1e80ffd1;
+  color: #f2f3f5;
+  transition: .3s;
+}
 .button-la {
   display: inline-block;
   line-height: 1;
@@ -188,8 +196,12 @@ h2 {
   border-radius: 1rem;
   border-style: none;
   background-color: #1e80ff;
+  transition: .3s;
 }
-
+.button-la:hover{
+  background-color:#1e80ffc6;
+  transition: .3s;
+}
 .oauth-box {
   width: 20rem;
   height: 3rem;
@@ -232,27 +244,16 @@ h2 {
 }
 
 .top-input {
-
-  padding-top: 30px;
   text-align: center;
-  padding-bottom: 10px;
-  height: 88px;
 }
 
 .bottom-input {
-  padding-top: 20px;
   text-align: center;
-  padding-bottom: 10px;
-  height: 78px;
 }
 
 .DeInput {
   width: 30rem;
-  height: 4rem;
-  color: #cacdd4;
-  background-color: #f1f1f5;
-  border-style: none;
-  border-radius: 1rem;
+  margin-top: 25px;
 }
 
 .login-buttons {
@@ -262,28 +263,22 @@ h2 {
 }
 
 .cencle {
-  text-align: center;
+    text-align: center;
     margin-top: 250px;
     position: fixed;
     top: 50%;
     left: 50%;
+    transform: translateX(-50%) translateY(-25%);
 }
-
-
-/* 注册 */
-a {
-  text-decoration: none;
+::v-deep .el-input__inner {
+  background-color:#f1f1f5;
+  color: #cacdd4;
+  height: 4rem;
+  font-family:"Microsoft YaHei";
+  border-radius: 0.5rem;
 }
-
-a:link {
-  color: black;
-}
-
-a:visited {
-  color: black;
-}
-
-a:hover {
-  color: #1e80ff;
+::v-deep .el-form-item__error {
+  left: 10%;
+  font-family:"Microsoft YaHei";
 }
 </style>
