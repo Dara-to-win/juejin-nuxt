@@ -19,6 +19,9 @@ import {
     SkeletonItem,
     Skeleton,
     Avatar,
+    Tabs,
+    TabPane,
+    Icon,
 } from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en'
  
@@ -42,6 +45,9 @@ const components = [
     SkeletonItem,
     Skeleton,
     Avatar,
+    Tabs,
+    TabPane,
+    Icon,
 ];
  
 const Element = {
