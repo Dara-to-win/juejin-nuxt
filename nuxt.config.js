@@ -12,15 +12,21 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      {  hid: 'icon',rel: 'icon',type: 'image/x-icon', href: '/favicon1.ico' },
     ]
+  },
+  axios: {
+    proxy: true
+  },
+  proxy: {
+    "/api": "http://jj.hanbing777.top/",
   },
   experimental: {
     writeEarlyHints: true,
   },
-  env:{
-    NODE_ENV:process.env.NODE_ENV,
-    NODE_URL:process.env.NODE_URL,
+  env: {
+    NODE_ENV: process.env.NODE_ENV,
+    NODE_URL: process.env.NODE_URL,
   }, // 在组件中用process.env.NODE_ENV区分是生产环境还是开发环境
   router: {
     base: '/'
@@ -35,7 +41,6 @@ export default {
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    'element-ui/lib/theme-chalk/index.css',
     '@/static/css/css.css',
   ],
 
@@ -64,6 +69,18 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    analyze: true,
     transpile: [/^element-ui/],
+    babel: {
+      "plugins": [
+        [
+          "component",
+          {
+            "libraryName": "element-ui",
+            "styleLibraryName": "theme-chalk"
+          }
+        ]
+      ]
+    }
   }
 }

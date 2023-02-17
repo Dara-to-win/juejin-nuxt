@@ -51,7 +51,7 @@
       <!-- 作者榜 -->
       <div v-if="userList" class="authorRank mt10">
         <h3>🎖️作者榜</h3>
-        <div v-for="(author, index) in userList[0].list|| authorInfo" :key="index" class="author">
+        <div v-for="(author, index) in userList[0].list" :key="index" class="author">
           <el-avatar :size="45" fit="fill" :src="author.avatar"></el-avatar>
           <div>
             <h3 class="username">
@@ -105,29 +105,6 @@ export default {
       slideClass: '',
       bottom: '',
       helloInfo: '',
-      authorInfo: [
-        {
-          avatar: require('~/static/assets/avatar1.png'),
-          nickname: 'YeeWang',
-          creationLevel: require('~/static/assets/level6.png'),
-          introduction:
-            '前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端',
-        },
-        {
-          avatar: require('~/static/assets/avatar2.png'),
-          nickname: 'YeeWang',
-          creationLevel: require('~/static/assets/level6.png'),
-          introduction:
-            '前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端',
-        },
-        {
-          avatar: require('~/static/assets/avatar3.png'),
-          nickname: 'YeeWang',
-          creationLevel: require('~/static/assets/level6.png'),
-          introduction:
-            '前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端@Lazada前端',
-        },
-      ],
       // adShow: true,
       // slideShow: false
     }

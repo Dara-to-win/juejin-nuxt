@@ -25,7 +25,7 @@ export default {
       sortOrder: '', // 默认升序排序
     }
     return $axios
-      .post('http://jj.hanbing777.top/api/article/current_list', postData)
+      .post('/api/article/current_list', postData)
       .then((res) => {
         const Atc = res.data.data.list
         return { Atc }
@@ -74,7 +74,7 @@ export default {
       this.postData.current = current
       this.$axios
         .post(
-          'http://jj.hanbing777.top/api/article/current_list',
+          '/api/article/current_list',
           this.postData
         )
         .then((res) => {

@@ -19,7 +19,7 @@ export default {
   methods: {
     getAct(id) {
       this.$axios
-        .get('http://jj.hanbing777.top:80/api/article/current', {
+        .get('/api/article/current', {
           params: { id },
         })
         .then((res) => {
