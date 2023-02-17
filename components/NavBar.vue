@@ -42,7 +42,6 @@
               >
                 <el-link :href="item.url" target="_blank">
                   {{ item.title }}
-                  {{ index }}
                 </el-link>
                 <span class="tablead">{{ item.badge }}</span>
               </el-menu-item>
@@ -55,7 +54,7 @@
                 >
                   <el-link :href="item.url" target="_blank">
                     {{ item.title }}
-                    {{ index }}
+                    <img :src="item.imgUrl" style="width:50px">
                   </el-link>
                 </el-menu-item>
               </el-submenu>
