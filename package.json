@@ -6,9 +6,9 @@
     "node": "<=16"
   },
   "scripts": {
-    "dev": "cross-env NODE_ENV=dev BASE_URL=http://localhost:80 && nuxt --exec babel-node ",
-    "build": "cross-env NODE_ENV=pro BASE_URL=https://diandian210.top && nuxt build ",
-    "start": "cross-env NODE_ENV=pro BASE_URL=https://diandian210.top && nuxt start --exec babel-node ",
+    "dev": "cross-env NODE_ENV=dev  nuxt --exec babel-node ",
+    "build": "cross-env NODE_ENV=pro  nuxt build ",
+    "start": "cross-env NODE_ENV=pro  nuxt start --exec babel-node ",
     "generate": "cross-env NODE_ENV=pro BASE_URL=https://diandian210.top nuxt generate ",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint:prettier": "prettier --check .",
@@ -20,6 +20,7 @@
     "@nuxtjs/proxy": "^2.1.0",
     "babel-cli": "^6.26.0",
     "babel-plugin-component": "^1.1.1",
+    "compression-webpack-plugin": "5.0.1",
     "core-js": "^3.25.3",
     "element-ui": "^2.15.10",
     "less": "^4.1.3",

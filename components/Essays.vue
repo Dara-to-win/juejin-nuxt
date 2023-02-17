@@ -99,6 +99,7 @@ export default {
   beforeDestroy() {
     this.io.disconnect()
     this.$bus.$off('initCurrent')
+    this.$bus.$off('changeActive')
   },
   methods: {
     activate(index,parameter) {
