@@ -6,6 +6,7 @@
     "node": "<=16"
   },
   "scripts": {
+    "analyze": "nuxt build -a",
     "dev": "cross-env NODE_ENV=dev  nuxt --exec babel-node ",
     "build": "cross-env NODE_ENV=pro  nuxt build ",
     "start": "cross-env NODE_ENV=pro  nuxt start --exec babel-node ",
@@ -20,7 +21,6 @@
     "@nuxtjs/proxy": "^2.1.0",
     "babel-cli": "^6.26.0",
     "babel-plugin-component": "^1.1.1",
-    "compression-webpack-plugin": "5.0.1",
     "core-js": "^3.25.3",
     "element-ui": "^2.15.10",
     "less": "^4.1.3",
@@ -31,8 +31,7 @@
     "uuid": "^9.0.0",
     "vue": "^2.7.10",
     "vue-server-renderer": "^2.7.10",
-    "vue-template-compiler": "^2.7.10",
-    "webpack-bundle-analyzer": "^4.8.0"
+    "vue-template-compiler": "^2.7.10"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",

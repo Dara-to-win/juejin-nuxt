@@ -1,4 +1,3 @@
-const CompressionPlugin = require('compression-webpack-plugin');
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -70,7 +69,6 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    analyze: true,
     transpile: [/^element-ui/],
     optimization: {
       splitChunks: {
@@ -78,13 +76,6 @@ export default {
         maxSize: 250000
       }
     },
-    plugins: [
-      new CompressionPlugin({
-        test: /\.js$|\.html$|\.css/, // 匹配文件名
-        threshold: 10240, // 对超过10kb的数据进行压缩
-        deleteOriginalAssets: false // 是否删除原文件
-      })
-    ],  
     babel: {
       "plugins": [
         [
