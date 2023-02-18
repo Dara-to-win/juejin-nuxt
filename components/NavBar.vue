@@ -169,7 +169,7 @@
                     <div class="user-info">
                       <div class="avatar">
                         <img
-                          :src="userAvatar"
+                          :src="userAvatar ||useravatar"
                           alt=""
                           class="lazy avatar"
                           style="
@@ -324,7 +324,7 @@
                   style="width: 40px; height: 40px; margin-right: 10px"
                 >
                   <img
-                    :src="userAvatar"
+                    :src="userAvatar||useravatar"
                     style="
                       width: 100%;
                       height: 100%;
@@ -367,6 +367,9 @@ export default {
        return (JSON.parse(localStorage.getItem('searchList')) || [])}
         else{return []}
       },
+      get useravatar(){
+        return localStorage.getItem('userAvatar')
+      }
     }
   },
   computed: {
@@ -376,7 +379,7 @@ export default {
     },
     userAvatar() {
       return (
-        this.$store.state.upLoadImg.imgSrc || localStorage.getItem('userAvatar')
+        this.$store.state.upLoadImg.imgSrc
       )
     },
     titleList() {

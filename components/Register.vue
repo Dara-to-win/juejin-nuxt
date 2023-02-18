@@ -7,7 +7,8 @@
             action="#"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload">
+            :before-upload="beforeAvatarUpload"
+            >
             <img v-if="img" :src="img" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
@@ -99,6 +100,8 @@ export default {
           if(phonereg.test(this.rulesForm.userAccount)&& 
              passwordreg.test(this.rulesForm.password) &&
              namereg.test(this.rulesForm.nickname)){
+              this.rulesForm.userAccount=this.$encrypt(this.rulesForm.userAccount)
+              this.rulesForm.password=this.$encrypt(this.rulesForm.password)
             this.$store.dispatch('register/register', this.rulesForm)
           }else{
             alert("输入不符合要求")
@@ -114,13 +117,13 @@ export default {
           this.$store.dispatch('upLoadImg/upLoadImg',file.raw)
       },
       beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
+        const isJPG = file.type === 'image/jpeg' || file.type ==='image/png';
         const isLt2M = file.size / 1024 / 1024 < 2;
         if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
+          alert('图片格式不对')
         }
         if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
+          alert('上传头像图片大小不能超过 2MB!');
         }
         return isJPG && isLt2M;
       }

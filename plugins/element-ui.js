@@ -22,6 +22,7 @@ import {
     Tabs,
     TabPane,
     Icon,
+    Upload,
 } from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en'
  
@@ -48,6 +49,7 @@ const components = [
     Tabs,
     TabPane,
     Icon,
+    Upload,
 ];
  
 const Element = {

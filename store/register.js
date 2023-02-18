@@ -1,4 +1,4 @@
-const REGISTER_URL= 'http://jj.hanbing777.top/api/user/register'
+const REGISTER_URL = 'http://jj.hanbing777.top/api/user/register'
 export const state = () => ({
   isRegisterDialogShow: false,
 })
@@ -9,7 +9,7 @@ export const actions = {
     let nickname = value.nickname
     let userAccount = value.userAccount
     let userPassword = value.password
-    let userAvatar=this.state.upLoadImg.imgSrc
+    let userAvatar = this.state.upLoadImg.imgSrc
     //向服务端发送请求，进行登录
     fetch(REGISTER_URL, {
       method: 'post',
@@ -25,15 +25,15 @@ export const actions = {
       }
     }).then(res => res.json())
       .then(data => {
-        if(data.data){
+        if (data.data) {
           alert("注册成功")
           context.commit("REGISTERED")
-        }else(alert(data.description))
-      }).catch((err)=>{ console.log(err)});
+        } else (alert(data.description))
+      }).catch((err) => { console.log(err) });
   }
 }
 
-export const mutations = { 
+export const mutations = {
   OPEN_REGISTER_DIALOG(state) {
     state.isRegisterDialogShow = true
   },

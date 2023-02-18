@@ -50,6 +50,7 @@ export default {
     '@/plugins/throttle&debounce',
     '@/plugins/bus',
     '@/plugins/light',
+    { src: '@/plugins/rsa', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
