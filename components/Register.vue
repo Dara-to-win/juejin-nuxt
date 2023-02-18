@@ -1,7 +1,7 @@
 <template>
   <div class="login-section">
     <div>
-      <el-form ref="ruleForm" label-position="top" label-width="100px" class="demo-ruleForm" :rules="rules" :model="rulesForm" status-icon >
+      <el-form ref="ruleForm" label-position="top" label-width="100px" class="demo-ruleForm" :rules="rules" :model="rulesForm" status-icon @submit.native.prevent>
         <el-upload
             class="avatar-uploader"
             action="#"

@@ -3,7 +3,7 @@
     <!-- :rules="rules" -->
     <div>
       <el-form ref="ruleForm" label-position="top" label-width="100px" class="demo-ruleForm" :rules="rules"
-        :model="userInfo" status-icon>
+        :model="userInfo" status-icon @submit.native.prevent>
         <div class="centerLogo">
           <img src="~/static/assets/logo-text.svg" class="logo-text">
         </div>
