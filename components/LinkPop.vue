@@ -197,7 +197,7 @@ export default {
   background-image: linear-gradient(
     to right,
     rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0.8)
+    @bg-color
   );
 }
 .moreShow {
