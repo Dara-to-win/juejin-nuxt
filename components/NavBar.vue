@@ -417,7 +417,7 @@ export default {
     },
   },
   mounted() {
-    if (this.userAvatar && this.username && localStorage.getItem('userid')) {
+    if (this.useravatar && this.username && localStorage.getItem('userid')) {
       this.$store.state.login.isLogin = true
     } else {
       this.$store.state.login.isLogin = false
@@ -428,8 +428,6 @@ export default {
     )
     this.pageTheme = localStorage.getItem("theme") || "theme-white";
     document.body.setAttribute('class', this.pageTheme);
-    window.addEventListener('resize', this.setNavPadding);
-    this.setNavPadding();
   },
   updated() {},
   destroyed() {
@@ -516,17 +514,6 @@ export default {
         name: 'Search',
         query: { search: item },
       })
-    },
-    setNavPadding(){
-      // console.log('可视宽'+ document.documentElement.clientWidth);
-      // console.log('可视高' + document.documentElement.clientHeight);
-      const width = document.documentElement.clientWidth;
-      const nav = document.querySelector('.nav-container');
-      const paddingWidth = (width - 1400) / 2;
-      if(paddingWidth > 0){
-        nav.style.paddingLeft = paddingWidth + 'px';
-        nav.style.paddingRight = paddingWidth + 'px';
-      }
     },
   },
 }
@@ -831,7 +818,7 @@ export default {
     display: none;
   }
   .search {
-    right: 265px;
+    right: 275px;
   }
   .modeCheck {
           display: none;
