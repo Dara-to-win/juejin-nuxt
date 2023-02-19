@@ -152,9 +152,6 @@
             <input id="modeCheckBox" type="checkbox" :checked="pageTheme=='theme-dark'? true:false" @click="changeTheme">
             <label for="modeCheckBox" class="modeCheck"></label>
 
-            <!-- vip 图标 -->
-            <!-- <img src="@/static/assets/logo-vip.svg" class="vip" /> -->
-
             <!-- 消息图标 -->
             <el-button
               type="text"
@@ -340,7 +337,7 @@
               </el-popover>
               <!-- 登录前 -->
               <button v-if="!isLogin" class="landButton" @click="login()">
-                登录  |  注册
+                登录
               </button>
             </div>
           </el-col>
@@ -635,7 +632,7 @@ export default {
           position: absolute;
           margin-top: 11px;
           line-height: 2rem;
-          right: 240px;
+          right: 178px;
           z-index: 100;
           min-width: 6rem;
           font-size: 1rem;
@@ -776,8 +773,8 @@ export default {
   background-color: #cde1f84f;
   color: #1e80ff;
   margin-right: 10px;
-  width: 102.63px;
-  height: 36px;
+  width: 40px;
+  height: 28px;
   border-radius: 5px;
   border: 1px solid #1e80ff;
   cursor: pointer;
@@ -797,13 +794,13 @@ export default {
   position: absolute;
   background-color: #f2f3f5;
   top: 17px;
-  right: 381px;
+  right: 321px;
   border-radius: 5px;
   transition: 0.3s;
   cursor: pointer;
 }
 .searchChange {
-  right: 242px;
+  right: 181px;
   transition: 0.3s;
   background-color: rgb(217, 236, 255);
 }
@@ -814,10 +811,6 @@ export default {
   width: 100vw;
   background-color: #59575718;
   z-index: 99;
-}
-.vip {
-  margin: 0 10px 0 10px;
-  z-index: 110;
 }
 @media (max-width: 1100px) {
   .input {
@@ -831,9 +824,6 @@ export default {
   .landButton {
     margin-right: 0px;
   }
-  .vip {
-    display: none;
-  }
   .holder {
     width: 0;
   }
@@ -841,8 +831,11 @@ export default {
     display: none;
   }
   .search {
-    right: 275px;
+    right: 265px;
   }
+  .modeCheck {
+          display: none;
+        }
 }
 @media (max-width: 666px) {
   .search {
