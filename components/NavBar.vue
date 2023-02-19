@@ -42,7 +42,6 @@
               >
                 <el-link :href="item.url" target="_blank">
                   {{ item.title }}
-                  {{ index }}
                 </el-link>
                 <span class="tablead">{{ item.badge }}</span>
               </el-menu-item>
@@ -55,7 +54,7 @@
                 >
                   <el-link :href="item.url" target="_blank">
                     {{ item.title }}
-                    {{ index }}
+                    <img :src="item.imgUrl" style="width:50px">
                   </el-link>
                 </el-menu-item>
               </el-submenu>
@@ -174,7 +173,7 @@
                     <div class="user-info">
                       <div class="avatar">
                         <img
-                          :src="userAvatar"
+                          :src="userAvatar ||useravatar"
                           alt=""
                           class="lazy avatar"
                           style="
@@ -329,7 +328,7 @@
                   style="width: 40px; height: 40px; margin-right: 10px"
                 >
                   <img
-                    :src="userAvatar"
+                    :src="userAvatar||useravatar"
                     style="
                       width: 100%;
                       height: 100%;
@@ -373,6 +372,9 @@ export default {
           return (JSON.parse(localStorage.getItem('searchList')) || [])}
         else{return []}
       },
+      get useravatar(){
+        return localStorage.getItem('userAvatar')
+      }
     }
   },
   computed: {
@@ -382,7 +384,7 @@ export default {
     },
     userAvatar() {
       return (
-        this.$store.state.upLoadImg.imgSrc || localStorage.getItem('userAvatar')
+        this.$store.state.upLoadImg.imgSrc
       )
     },
     titleList() {

@@ -222,3 +222,10 @@ body {
  .el-menu--popup{
   min-width: 75px!important;
 }
+.el-button--primary{
+  color:white;
+  background-color:#1e80ff
+}
+.el-button--primary:hover{
+  background-color:#0a72fb
+}
