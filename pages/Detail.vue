@@ -13,8 +13,17 @@ export default {
       Atc: {},
     }
   },
-  mounted() {
-    this.getAct(this.$route.query.article_id)
+  asyncData({$axios,route}) {
+    return $axios.get('http://jj.hanbing777.top/api/article/current', {
+          params:{id:route.query.article_id},
+        })
+        .then((res) => {
+          const Atc=res.data.data
+          return { Atc}
+        })
+        .catch((err) => {
+          console.log(err)
+        })
   },
   methods: {
     getAct(id) {

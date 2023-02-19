@@ -13,83 +13,7 @@
         </div>
         <button class="follow-button">+ 关注</button>
       </div>
-      <div class="markdown-body">
-        <img :src='atcData.snapshot' style="width:100%;">
-        <MarkdownPreview v-if="atcData" :initialValue="atcData.content" style="height: auto" />
-      </div>
-      <!-- <div class="comment-box">评论
-        <div class="comment">
-        </div>
-      </div> -->
-    </div>
-
-    <div class="aside">
-      <!-- 作者信息 -->
-      <div v-show="!readCome" class="author">
-        <div class="user-item">
-          <img :src="atcData.avatar" alt="" class="user-pic" />
-          <div class="user-box">
-            <a class="username">
-              <span class="name">{{ atcData.author }}</span>
-            </a>
-            <div class="user-position" title="">{{}}</div>
-          </div>
-        </div>
-        <div class="operate-btn">
-          <el-button type="primary" class="ui-btn">关注</el-button>
-          <el-button type="primary" plain class="ui-btn-to">私信</el-button>
-        </div>
-        <div class="cut-off"></div>
-        <div class="stat-item">
-          <svg class="zan" xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 25 26">
-            <g fill="none" fill-rule="evenodd" transform="translate(0 .57)">
-              <ellipse cx="12.5" cy="12.57" fill="#E1EFFF" rx="12.5" ry="12.57"></ellipse>
-              <path fill="#7BB9FF"
-                d="M8.596 11.238V19H7.033C6.463 19 6 18.465 6 17.807v-5.282c0-.685.483-1.287 1.033-1.287h1.563zm4.275-4.156A1.284 1.284 0 0 1 14.156 6c.885.016 1.412.722 1.595 1.07.334.638.343 1.687.114 2.361-.207.61-.687 1.412-.687 1.412h3.596c.38 0 .733.178.969.488.239.317.318.728.21 1.102l-1.628 5.645a1.245 1.245 0 0 1-1.192.922h-7.068v-7.889c1.624-.336 2.623-2.866 2.806-4.029z">
-              </path>
-            </g>
-          </svg>
-          <span class="content">获得点赞</span>
-          <span class="count"> &nbsp;{{atcData.collectCount}}</span>
-        </div>
-        <div class="stat-item">
-          <svg width="25" height="25" viewBox="0 0 25 25" class="zan">
-            <g fill="none" fill-rule="evenodd">
-              <circle cx="12.5" cy="12.5" r="12.5" fill="#E1EFFF"></circle>
-              <path fill="#7BB9FF"
-                d="M4 12.5S6.917 7 12.75 7s8.75 5.5 8.75 5.5-2.917 5.5-8.75 5.5S4 12.5 4 12.5zm8.75 2.292c1.208 0 2.188-1.026 2.188-2.292 0-1.266-.98-2.292-2.188-2.292-1.208 0-2.188 1.026-2.188 2.292 0 1.266.98 2.292 2.188 2.292z">
-              </path>
-            </g>
-          </svg>
-          <span class="content">文章被阅读</span>
-          <span class="count"> &nbsp;{{ atcData.viewCount }}</span>
-        </div>
-      </div>
-      <!-- 相关文章 -->
-      <div v-show="!readCome" class="related-entry-sidebar">
-        <div class="related-title">相关文章</div>
-        <div class="block-body">
-          <div class="enter-list">
-            <TenAct></TenAct>
-          </div>
-        </div>
-
-      </div>
-      <!-- 目录 -->
-      <div class="catalog-box" :class="fixed" :style="{ top: top }">
-        <div class="mulu" style="font-size: 18px; font-weight: bold; padding: 16px">
-          目录
-        </div>
-        <hr style="opacity: 25%" />
-        <div v-if="catalogue" class="catalog">
-          <el-tabs v-model="activeName" :tab-position="tabPosition" class="catalogue" @tab-click="handleClick">
-            <el-tab-pane v-for="(item, index) in navList" :key="index" :name="'tab' + index" :class="item.lev"
-              :label="item.name"></el-tab-pane>
-          </el-tabs>
-        </div>
-      </div>
-    </div>
-    <!-- 左侧工具栏 -->
+      <!-- 左侧工具栏 -->
     <div class="article-suspended-panel">
       <svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
         <symbol id="icon-collect" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -214,9 +138,84 @@
         <div class="panel-btn-badge" @mouseover="showHov=true" @mouseout="showHov=false" @click="readCom"><svg class="sprite-icon-zan" >
               <use xlink:href="#icon-immerse" :class="[readCome ? 'frontBox':'laterBox']" ></use>
         </svg></div>
-        
-
     </div>
+      <div class="markdown-body">
+        <img :src='atcData.snapshot' style="width:100%;">
+        <MarkdownPreview v-if="atcData" :initialValue="atcData.content" style="height: auto" />
+      </div>
+      <!-- <div class="comment-box">评论
+        <div class="comment">
+        </div>
+      </div> -->
+    </div>
+
+    <div class="aside">
+      <!-- 作者信息 -->
+      <div v-show="!readCome" class="author">
+        <div class="user-item">
+          <img :src="atcData.avatar" alt="" class="user-pic" />
+          <div class="user-box">
+            <a class="username">
+              <span class="name">{{ atcData.author }}</span>
+            </a>
+            <div class="user-position" title="">{{}}</div>
+          </div>
+        </div>
+        <div class="operate-btn">
+          <el-button type="primary" class="ui-btn">关注</el-button>
+          <el-button type="primary" plain class="ui-btn-to">私信</el-button>
+        </div>
+        <div class="cut-off"></div>
+        <div class="stat-item">
+          <svg class="zan" xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 25 26">
+            <g fill="none" fill-rule="evenodd" transform="translate(0 .57)">
+              <ellipse cx="12.5" cy="12.57" fill="#E1EFFF" rx="12.5" ry="12.57"></ellipse>
+              <path fill="#7BB9FF"
+                d="M8.596 11.238V19H7.033C6.463 19 6 18.465 6 17.807v-5.282c0-.685.483-1.287 1.033-1.287h1.563zm4.275-4.156A1.284 1.284 0 0 1 14.156 6c.885.016 1.412.722 1.595 1.07.334.638.343 1.687.114 2.361-.207.61-.687 1.412-.687 1.412h3.596c.38 0 .733.178.969.488.239.317.318.728.21 1.102l-1.628 5.645a1.245 1.245 0 0 1-1.192.922h-7.068v-7.889c1.624-.336 2.623-2.866 2.806-4.029z">
+              </path>
+            </g>
+          </svg>
+          <span class="content">获得点赞</span>
+          <span class="count"> &nbsp;{{atcData.collectCount}}</span>
+        </div>
+        <div class="stat-item">
+          <svg width="25" height="25" viewBox="0 0 25 25" class="zan">
+            <g fill="none" fill-rule="evenodd">
+              <circle cx="12.5" cy="12.5" r="12.5" fill="#E1EFFF"></circle>
+              <path fill="#7BB9FF"
+                d="M4 12.5S6.917 7 12.75 7s8.75 5.5 8.75 5.5-2.917 5.5-8.75 5.5S4 12.5 4 12.5zm8.75 2.292c1.208 0 2.188-1.026 2.188-2.292 0-1.266-.98-2.292-2.188-2.292-1.208 0-2.188 1.026-2.188 2.292 0 1.266.98 2.292 2.188 2.292z">
+              </path>
+            </g>
+          </svg>
+          <span class="content">文章被阅读</span>
+          <span class="count"> &nbsp;{{ atcData.viewCount }}</span>
+        </div>
+      </div>
+      <!-- 相关文章 -->
+      <div v-show="!readCome" class="related-entry-sidebar">
+        <div class="related-title">相关文章</div>
+        <div class="block-body">
+          <div class="enter-list">
+            <TenAct></TenAct>
+          </div>
+        </div>
+
+      </div>
+      <!-- 目录 -->
+      <div class="catalog-box" :class="fixed" :style="{ top: top }">
+        <div class="mulu" style="font-size: 18px; font-weight: bold; padding: 16px">
+          目录
+        </div>
+        <hr style="opacity: 25%" />
+        <div v-if="catalogue" class="catalog">
+          <el-tabs v-model="activeName" :tab-position="tabPosition" class="catalogue" @tab-click="handleClick">
+            <el-tab-pane v-for="(item, index) in navList" :key="index" :name="'tab' + index" :class="item.lev"
+              :label="item.name"></el-tab-pane>
+          </el-tabs>
+        </div>
+      </div>
+    </div>
+    
 
     <el-backtop :bottom="10" :right="10" :visibility-height="500"></el-backtop>
   </div>
@@ -580,7 +579,7 @@ h6 {
 .article-suspended-panel {
   position: fixed;
   top: 140px;
-  left: 5px;
+  margin-left:-8.5rem;
   z-index: 2;
   display: block;
 
