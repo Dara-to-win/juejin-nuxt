@@ -158,7 +158,7 @@
             <a class="username">
               <span class="name">{{ atcData.author }}</span>
             </a>
-            <div class="user-position" title="">{{}}</div>
+            <div class="user-position" title=""></div>
           </div>
         </div>
         <div class="operate-btn">
@@ -326,8 +326,11 @@ export default {
     selectAllTitle() {
       // 获取h1-6标题
       const title = document.querySelectorAll("h1,h2,h3,h4,h5,h6");
+      const seo = document.querySelector(".seoLogo");
       this.catalogue = true
       this.navList = Array.from(title); // 将获取的title存储到navList数组中
+      // 过滤掉Logo中的h1
+      this.navList = this.navList.filter(item => item !== seo);
       this.navList.forEach((item) => {
         // 遍历navList数组，将每个title存储为item.name
         item.name = item.innerHTML;

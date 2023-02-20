@@ -88,10 +88,11 @@ export default {
       this.moreChange = 'moreChange'
       this.moreTagChange='moreTagChange'
     })
-    window.addEventListener('resize', this.setNavPadding);
+    this.resize=window.addEventListener('resize', this.throttle(this.setNavPadding),200);
     this.setNavPadding();
   },
   destroyed() {
+    window.removeEventListener('resize', this.resize)
     this.$bus.$off('linPopDown')
     this.$bus.$off('linPopUp')
   },
@@ -120,10 +121,9 @@ export default {
     setNavPadding(){
       const width = document.documentElement.clientWidth;
       const nav = document.querySelector('.lk-container');
-      const paddingWidth = (width - 1200) / 2;
-      if(paddingWidth > 0 && width > 1350){
+      const paddingWidth = (width - 980) / 2;
+      if(paddingWidth > 0 && width > 1000){
         nav.style.paddingLeft = paddingWidth + 'px';
-        nav.style.paddingRight = paddingWidth + 'px';
       }
     },
   },
@@ -225,7 +225,7 @@ export default {
   color: @theme-gray;
 }
 .moreTag:hover{
-color:#1e80ff
+  color:#1e80ff
 }
 @media screen and (max-width: 600px) {
   .lk-container {
@@ -236,21 +236,6 @@ color:#1e80ff
 @media screen and (max-width: 960px) {
   .lk-container {
     padding-left: 0 !important;
-  }
-}
-
-@media screen and (max-width: 1100px) {
-  .lk-container {
-    padding-left: 20px;
-  }
-  .more {
-    margin-right: 0px;
-  }
-}
-
-@media screen and (max-width: 1210px) {
-  .lk-container {
-    padding-left: 50px;
   }
 }
 .more-leave-active {

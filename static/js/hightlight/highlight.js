@@ -721,6 +721,11 @@ function initHighlighting() {
 /*
 Attaches highlighting to the page load event.
 */
+function initHighlightingOnLoad() {
+    addEventListener('DOMContentLoaded', initHighlighting, false);
+    addEventListener('load', initHighlighting, false);
+}
+
 function registerLanguage(name, language) {
     var lang = languages[name] = language(hljs);
     restoreLanguageApi(lang);
@@ -753,6 +758,7 @@ hljs.fixMarkup = fixMarkup;
 hljs.highlightBlock = highlightBlock;
 hljs.configure = configure;
 hljs.initHighlighting = initHighlighting;
+hljs.initHighlightingOnLoad = initHighlightingOnLoad;
 hljs.registerLanguage = registerLanguage;
 hljs.listLanguages = listLanguages;
 hljs.getLanguage = getLanguage;
@@ -763,7 +769,7 @@ hljs.inherit = inherit;
 hljs.IDENT_RE = '[a-zA-Z]\\w*';
 hljs.UNDERSCORE_IDENT_RE = '[a-zA-Z_]\\w*';
 hljs.NUMBER_RE = '\\b\\d+(\\.\\d+)?';
-hljs.C_NUMBER_RE = '(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)'; // 0x..., 0..., decimal, float
+hljs.C_NUMBER_RE = '(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)initHighlighting?|\\.\\d+)([eE][-+]?\\d+)?)'; // 0x..., 0..., decimal, float
 hljs.BINARY_NUMBER_RE = '\\b(0b[01]+)'; // 0b...
 hljs.RE_STARTERS_RE = '!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~';
 

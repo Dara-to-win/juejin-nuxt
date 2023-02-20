@@ -4,7 +4,6 @@
     <Essays  :homeDatas="homeDatas" :loading="loading"/>
     <!-- 右区广告区 -->
     <Adv class="ads"/>
-    <el-backtop :bottom="100" :visibility-height="500"></el-backtop>
   </div>
 </template>
 

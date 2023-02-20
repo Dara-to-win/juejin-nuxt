@@ -2,7 +2,7 @@
   <div>
     <!-- <transition name="fade"> -->
     <div class="holder"></div>
-    <div v-show="ad" class="ad main" >
+    <div v-show="advert" class="ad main" >
       <!-- 提示信息 -->
       <div class="tip">
         <div class="left">
@@ -28,7 +28,7 @@
       </div>
       <!-- 广告组件 -->
       <div class="ad" >
-        <div v-for="(ad, index) in ad" :key="index" class="outsideDiv mt10">
+        <div v-for="(ad, index) in advert" :key="index" class="outsideDiv mt10">
           <div v-show="ad.open">
             <a :href="ad.url"><img :src="ad.imgUrl" alt="广告" /> </a>
             <i
@@ -51,7 +51,7 @@
       <!-- 作者榜 -->
       <div v-if="userList" class="authorRank mt10">
         <h3>🎖️作者榜</h3>
-        <div v-for="(author, index) in userList[0].list" :key="index" class="author">
+        <div v-for="(author, index) in userList[0].list.slice(0,3)" :key="index" class="author">
           <el-avatar :size="45" fit="fill" :src="author.avatar"></el-avatar>
           <div>
             <h3 class="username">
@@ -68,10 +68,10 @@
     </div>
     <!-- </transition> -->
     <!-- <transition name="fade"> -->
-    <div v-show="ad" id="slide" :class="slideClass" >
+    <div v-show="advert" id="slide" :class="slideClass" >
       <!-- 广告组件 -->
       <div class="ad" >
-        <div v-for="(ad, index) in ad" :key="index" class="outsideDiv mt10">
+        <div v-for="(ad, index) in advert" :key="index" class="outsideDiv mt10">
           <div v-show="ad.open">
             <a :href="ad.url"><img :src="ad.imgUrl" alt="广告" /> </a>
             <i
@@ -110,7 +110,7 @@ export default {
     }
   },
  computed:{
-  ad(){
+  advert(){
    return this.$store.state.homeConfig.homeConfig.advertisement
   },
   userList(){

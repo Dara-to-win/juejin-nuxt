@@ -6,13 +6,18 @@
       <div class="nav-container">
         <!-- 主导航栏上半部分 - 页面跳转 -->
         <el-row type="flex" class="nav-bar">
-          <img
-            src="@/static/assets/logo-text.svg"
-            class="logo-text"
-            style="width: 107px; cursor: pointer"
-            @click="jumpToIndex()"
-          />
-          <img src="@/static/assets/logo.svg" alt class="logo-img" />
+          <!-- SEO LOGO优化 -->
+          <h1  class="seoLogo">
+            <a href="/" title="稀土掘金首页">
+              <img
+                src="@/static/assets/logo-text.svg"
+                class="logo-text"
+                style="width: 107px; cursor: pointer"
+                
+              />
+              <img src="@/static/assets/logo.svg" alt class="logo-img" />
+            </a>
+            </h1>
           <!-- 主导航栏左半部分，包含链接 -->
           <el-col :span="15" class="left">
             <!-- 屏幕较窄时的下拉链接列表 -->
@@ -83,7 +88,9 @@
                     :style="{ width: searchWidth }">
                     <div class="searchHead">
                       <span>搜索历史</span>
-                      <span class="clear" @click='clearHistory()'> 清空</span>
+                      <div @click='clearHistory()'>
+                      <span class="clear" > 清空</span>
+                      </div>
                     </div>
                     <div
                       v-for="(item, index) in searchArr"
@@ -521,7 +528,6 @@ export default {
 <style scoped lang="less">
 // 导入主题样式
 @import '~/static/css/theme/theme.less';
-@padding-1366: 400px;
 .setTheme();
 .theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color){
 .bg-container {
@@ -539,28 +545,32 @@ export default {
       align-items: center;
       background-color: @bg-color;
       // logo 区域
-      .logo-text {
-        width: 100px;
-        height: 33px;
-        margin-left: 20px;
-      }
-      .logo-img {
-        display: none;
-        width: 31px;
-      }
-      // 媒体查询要写在下面才能生效
-      @media (max-width: 640px) {
+      .seoLogo {
+        font-size: 0px;
         .logo-text {
-          display: none;
-        }
-        .logo-img {
-          display: block;
+          width: 100px;
+          height: 33px;
           margin-left: 20px;
         }
-        .el-dropdown-link {
-          font-size: 13px;
+        .logo-img {
+          display: none;
+          width: 31px;
+        }
+        // 媒体查询要写在下面才能生效
+        @media (max-width: 640px) {
+          .logo-text {
+            display: none;
+          }
+          .logo-img {
+            display: block;
+            margin-left: 20px;
+          }
+          .el-dropdown-link {
+            font-size: 13px;
+          }
         }
       }
+      
       // 导航栏区域
       .left,
       .right {
@@ -670,7 +680,7 @@ export default {
             width: 125px;
           }
         }
-        @media (max-width: 360px) {
+        @media (max-width: 370px) {
           .input {
             display: none;
           }
@@ -728,9 +738,11 @@ export default {
         // border: 1px solid skyblue;
       }
     }
-    // @media (min-width: 1366px) {
-    //   padding: 0 @padding-1366;
-    // }
+    @media (min-width: 1366px) {
+      .nav-bar{
+        margin:0 4vw 0 4vw;
+      }
+    }
   }
 }
 .nav-leave-active {
@@ -822,7 +834,7 @@ export default {
   }
   .modeCheck {
           display: none;
-        }
+  }
 }
 @media (max-width: 666px) {
   .search {
