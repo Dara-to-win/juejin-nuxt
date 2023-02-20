@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'juejin-nuxt',
+    title: '稀土掘金juejin-nuxt',
     htmlAttrs: {
       lang: 'en'
     },
@@ -9,7 +9,16 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { name: 'format-detection', content: 'telephone=no' },
+      // SEO优化 TKD
+      {
+        name: "keywords",
+        content: "掘金,稀土,Vue.js,前端,后端,Kotlin,ReactNative,Python"
+      },
+      {
+        name: "description",
+        content: "掘金是面向全球中文开发者的技术内容分享与交流平台。我们通过技术文章、沸点、课程、直播等产品和服务，打造一个激发开发者创作灵感，激励开发者沉淀分享，陪伴开发者成长的综合类技术社区。"
+      }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

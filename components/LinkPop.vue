@@ -120,7 +120,7 @@ export default {
     setNavPadding(){
       const width = document.documentElement.clientWidth;
       const nav = document.querySelector('.lk-container');
-      const paddingWidth = (width - 1200) / 2;
+      const paddingWidth = (width - 980) / 2;
       if(paddingWidth > 0 && width > 1350){
         nav.style.paddingLeft = paddingWidth + 'px';
         nav.style.paddingRight = paddingWidth + 'px';
