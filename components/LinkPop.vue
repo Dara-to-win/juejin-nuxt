@@ -224,6 +224,9 @@ export default {
   font-size: 14px;
   color: @theme-gray;
 }
+.moreTag:hover{
+color:#1e80ff
+}
 @media screen and (max-width: 600px) {
   .lk-container {
     overflow-x: auto;
