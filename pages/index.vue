@@ -67,7 +67,7 @@ export default {
       }
       this.$axios
         .post(
-          'http://jj.hanbing777.top/api/article/current_list',
+          '/api/article/current_list',
           this.postData
         )
         .then((res) => {

@@ -21,18 +21,24 @@ export default {
       }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { hid: 'icon', rel: 'icon', type: 'image/x-icon', href: '/favicon1.ico' },,
     ],
     bodyAttrs: {
       class: "theme-white"
     }
   },
-  experimental: {
-    writeEarlyHints: false,
+  axios: {
+    proxy: true
   },
-  env:{
-    NODE_ENV:process.env.NODE_ENV,
-    NODE_URL:process.env.NODE_URL,
+  proxy: {
+    "/api": "http://jj.hanbing777.top/",
+  },
+  experimental: {
+    writeEarlyHints: true,
+  },
+  env: {
+    NODE_ENV: process.env.NODE_ENV,
+    NODE_URL: process.env.NODE_URL,
   }, // 在组件中用process.env.NODE_ENV区分是生产环境还是开发环境
   router: {
     base: '/'
@@ -47,7 +53,6 @@ export default {
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    'element-ui/lib/theme-chalk/index.css',
     '@/static/css/css.css',
   ],
 
@@ -57,6 +62,7 @@ export default {
     '@/plugins/throttle&debounce',
     '@/plugins/bus',
     '@/plugins/light',
+    { src: '@/plugins/rsa', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -77,5 +83,22 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: [/^element-ui/],
+    optimization: {
+      splitChunks: {
+        minSize: 10000,
+        maxSize: 250000
+      }
+    },
+    babel: {
+      "plugins": [
+        [
+          "component",
+          {
+            "libraryName": "element-ui",
+            "styleLibraryName": "theme-chalk"
+          },
+        ]
+      ]
+    }
   }
 }

@@ -163,11 +163,12 @@ export default {
 }
 .more {
   position: fixed;
-  width: 30px;
+  width: 60px;
   right: 0px;
   top: 73px;
-  display: none;
   margin-right: 10px;
+  display: flex;
+  flex-direction: row-reverse;
   z-index: 9;
   transition: 0.2s;
 }
@@ -196,7 +197,7 @@ export default {
   background-image: linear-gradient(
     to right,
     rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0.8)
+    @bg-color
   );
 }
 .moreShow {

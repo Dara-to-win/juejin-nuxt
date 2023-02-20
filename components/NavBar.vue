@@ -7,8 +7,8 @@
         <!-- 主导航栏上半部分 - 页面跳转 -->
         <el-row type="flex" class="nav-bar">
           <!-- SEO LOGO优化 -->
-          <h1>
-            <a href="/" class="seoLogo" title="稀土掘金首页">
+          <h1  class="seoLogo">
+            <a href="/" title="稀土掘金首页">
               <img
                 src="@/static/assets/logo-text.svg"
                 class="logo-text"
@@ -59,6 +59,7 @@
                 >
                   <el-link :href="item.url" target="_blank">
                     {{ item.title }}
+                    <img :src="item.imgUrl" style="width:50px">
                   </el-link>
                 </el-menu-item>
               </el-submenu>
@@ -156,9 +157,6 @@
             <input id="modeCheckBox" type="checkbox" :checked="pageTheme=='theme-dark'? true:false" @click="changeTheme">
             <label for="modeCheckBox" class="modeCheck"></label>
 
-            <!-- vip 图标 -->
-            <!-- <img src="@/static/assets/logo-vip.svg" class="vip" /> -->
-
             <!-- 消息图标 -->
             <el-button
               type="text"
@@ -177,7 +175,7 @@
                     <div class="user-info">
                       <div class="avatar">
                         <img
-                          :src="userAvatar"
+                          :src="userAvatar ||useravatar"
                           alt=""
                           class="lazy avatar"
                           style="
@@ -332,7 +330,7 @@
                   style="width: 40px; height: 40px; margin-right: 10px"
                 >
                   <img
-                    :src="userAvatar"
+                    :src="userAvatar||useravatar"
                     style="
                       width: 100%;
                       height: 100%;
@@ -344,7 +342,7 @@
               </el-popover>
               <!-- 登录前 -->
               <button v-if="!isLogin" class="landButton" @click="login()">
-                登录  |  注册
+                登录
               </button>
             </div>
           </el-col>
@@ -376,6 +374,9 @@ export default {
           return (JSON.parse(localStorage.getItem('searchList')) || [])}
         else{return []}
       },
+      get useravatar(){
+        return localStorage.getItem('userAvatar')
+      }
     }
   },
   computed: {
@@ -385,7 +386,7 @@ export default {
     },
     userAvatar() {
       return (
-        this.$store.state.upLoadImg.imgSrc || localStorage.getItem('userAvatar')
+        this.$store.state.upLoadImg.imgSrc
       )
     },
     titleList() {
@@ -421,7 +422,7 @@ export default {
     },
   },
   mounted() {
-    if (this.userAvatar && this.username && localStorage.getItem('userid')) {
+    if (this.useravatar && this.username && localStorage.getItem('userid')) {
       this.$store.state.login.isLogin = true
     } else {
       this.$store.state.login.isLogin = false
@@ -432,8 +433,6 @@ export default {
     )
     this.pageTheme = localStorage.getItem("theme") || "theme-white";
     document.body.setAttribute('class', this.pageTheme);
-    window.addEventListener('resize', this.setNavPadding);
-    this.setNavPadding();
   },
   updated() {},
   destroyed() {
@@ -520,17 +519,6 @@ export default {
         name: 'Search',
         query: { search: item },
       })
-    },
-    setNavPadding(){
-      // console.log('可视宽'+ document.documentElement.clientWidth);
-      // console.log('可视高' + document.documentElement.clientHeight);
-      const width = document.documentElement.clientWidth;
-      const nav = document.querySelector('.nav-container');
-      const paddingWidth = (width - 1400) / 2;
-      if(paddingWidth > 0){
-        nav.style.paddingLeft = paddingWidth + 'px';
-        nav.style.paddingRight = paddingWidth + 'px';
-      }
     },
   },
 }
@@ -640,7 +628,7 @@ export default {
           position: absolute;
           margin-top: 11px;
           line-height: 2rem;
-          right: 240px;
+          right: 178px;
           z-index: 100;
           min-width: 6rem;
           font-size: 1rem;
@@ -781,8 +769,8 @@ export default {
   background-color: #cde1f84f;
   color: #1e80ff;
   margin-right: 10px;
-  width: 102.63px;
-  height: 36px;
+  width: 40px;
+  height: 28px;
   border-radius: 5px;
   border: 1px solid #1e80ff;
   cursor: pointer;
@@ -802,13 +790,13 @@ export default {
   position: absolute;
   background-color: #f2f3f5;
   top: 17px;
-  right: 381px;
+  right: 321px;
   border-radius: 5px;
   transition: 0.3s;
   cursor: pointer;
 }
 .searchChange {
-  right: 242px;
+  right: 181px;
   transition: 0.3s;
   background-color: rgb(217, 236, 255);
 }
@@ -819,10 +807,6 @@ export default {
   width: 100vw;
   background-color: #59575718;
   z-index: 99;
-}
-.vip {
-  margin: 0 10px 0 10px;
-  z-index: 110;
 }
 @media (max-width: 1100px) {
   .input {
@@ -836,9 +820,6 @@ export default {
   .landButton {
     margin-right: 0px;
   }
-  .vip {
-    display: none;
-  }
   .holder {
     width: 0;
   }
@@ -848,6 +829,9 @@ export default {
   .search {
     right: 275px;
   }
+  .modeCheck {
+          display: none;
+        }
 }
 @media (max-width: 666px) {
   .search {

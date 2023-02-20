@@ -14,28 +14,26 @@ export const state = () => ({
 
 export const actions = {
   // 输入登录信息，并发送 ajax 请求判断能否登录
-  login(context) {
-    let userAccount = context.state.userInfo.username
-    let userPassword = context.state.userInfo.password
-      fetch(LOGIN_URL, {
-        // 向服务端发送请求，进行登录
-        method: 'post',
-        body: JSON.stringify({
-          userAccount,
-          userPassword,
-        }),
-        headers: {
-          'Content-type': 'application/json'
-        }
-      }).then(res => res.json()).then(data => {
-          if(data.data){
-            localStorage.setItem('username', data.data.nickname)
-            localStorage.setItem('userAvatar',data.data.avatar)
-            localStorage.setItem('userid',data.data.userid)
-            context.commit('LOGIN')
-            context.commit('CLOSE_LOGIN_DIALOG')
-          }else{alert(data.description)}
-        }).catch((err)=>{ console.log(err)});
+  login(context,{userAccount,userPassword}) {
+    fetch(LOGIN_URL, {
+      // 向服务端发送请求，进行登录
+      method: 'post',
+      body: JSON.stringify({
+        userAccount,
+        userPassword,
+      }),
+      headers: {
+        'Content-type': 'application/json'
+      }
+    }).then(res => res.json()).then(data => {
+      if (data.data) {
+        localStorage.setItem('username', data.data.nickname)
+        localStorage.setItem('userAvatar', data.data.avatar)
+        localStorage.setItem('userid', data.data.userid)
+        context.commit('LOGIN')
+        context.commit('CLOSE_LOGIN_DIALOG')
+      } else { alert(data.description) }
+    }).catch((err) => { console.log(err) });
   }
 };
 export const mutations = {
