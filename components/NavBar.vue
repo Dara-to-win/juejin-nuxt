@@ -88,7 +88,9 @@
                     :style="{ width: searchWidth }">
                     <div class="searchHead">
                       <span>搜索历史</span>
-                      <span class="clear" @click='clearHistory()'> 清空</span>
+                      <div @click='clearHistory()'>
+                      <span class="clear" > 清空</span>
+                      </div>
                     </div>
                     <div
                       v-for="(item, index) in searchArr"
@@ -526,7 +528,6 @@ export default {
 <style scoped lang="less">
 // 导入主题样式
 @import '~/static/css/theme/theme.less';
-@padding-1366: 400px;
 .setTheme();
 .theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color){
 .bg-container {
@@ -679,7 +680,7 @@ export default {
             width: 125px;
           }
         }
-        @media (max-width: 360px) {
+        @media (max-width: 370px) {
           .input {
             display: none;
           }
@@ -737,9 +738,11 @@ export default {
         // border: 1px solid skyblue;
       }
     }
-    // @media (min-width: 1366px) {
-    //   padding: 0 @padding-1366;
-    // }
+    @media (min-width: 1366px) {
+      .nav-bar{
+        margin:0 4vw 0 4vw;
+      }
+    }
   }
 }
 .nav-leave-active {
@@ -831,7 +834,7 @@ export default {
   }
   .modeCheck {
           display: none;
-        }
+  }
 }
 @media (max-width: 666px) {
   .search {

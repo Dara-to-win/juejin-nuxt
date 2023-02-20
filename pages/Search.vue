@@ -63,10 +63,13 @@ export default {
     }
   },
   mounted() {
+    this.setMargin()
     this.$bus.$on('searchAtc',(current) => this.searchAct(this.word,current))
+    this.resize=window.addEventListener('resize', this.throttle(this.setMargin),200);
   },
   beforeDestroy() {
     this.$bus.$off('searchAtc')
+    window.removeEventListener('resize', this.resize)
   },
   methods: {
     searchAct(content,current) {
@@ -84,6 +87,14 @@ export default {
           console.log(err)
         })
     },
+    setMargin(){
+      const width = document.documentElement.clientWidth;
+      const nav = document.querySelector('.essays');
+      const marginWidth = (width - 980) / 2;
+      if(marginWidth > 0 && width > 1000){
+        nav.style.marginLeft = marginWidth + 'px';
+      }
+    }
   },
 }
 </script>
@@ -96,11 +107,10 @@ export default {
   width:100%;
   max-width: 705px;
   overflow: hidden;
-  margin-left: 15vw;
 }
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
 .essays{
-  margin-left:0;
+  margin-left:0!important;
   max-width: 900px;
 }
 }

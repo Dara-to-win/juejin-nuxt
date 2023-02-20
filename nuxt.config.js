@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: '稀土掘金juejin-nuxt',
+    title: '稀土掘金-nuxt',
     htmlAttrs: {
       lang: 'en'
     },
