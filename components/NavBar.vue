@@ -740,7 +740,7 @@ export default {
     }
     @media (min-width: 1366px) {
       .nav-bar{
-        margin:0 4vw 0 4vw;
+        margin:0 6vw 0 5vw;
       }
     }
   }
@@ -830,10 +830,10 @@ export default {
     display: none;
   }
   .search {
-    right: 275px;
+    right: 264px;
   }
-  .modeCheck {
-          display: none;
+  .message-btn {
+     display: none;
   }
 }
 @media (max-width: 666px) {

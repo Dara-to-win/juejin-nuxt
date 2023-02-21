@@ -224,8 +224,12 @@ body {
 }
 .el-button--primary{
   color:white;
-  background-color:#1e80ff
+  background-color:#1e80ff!important;
 }
 .el-button--primary:hover{
-  background-color:#0a72fb
+  background-color:#0a72fb!important;
+}
+.el-button--default{
+  color:#1e80ff!important;
+  background-color: #f4f9ff!important;
 }

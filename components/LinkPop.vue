@@ -14,13 +14,12 @@
     </ul>
     <div class="more" :class="moreChange">
       <!-- 透明渐变效果 -->
-      <div class="holder"></div>
+      <div class="gradient"></div>
       <img
         src="@/static/assets/more.svg"
         style="cursor: pointer; background-color: white"
         @click="more()"
       />
-      <div class="gradient"></div>
     </div>
     <transition name="more">
       <div v-show="moreShow" class="moreShow" :class="moreTagChange">
@@ -166,24 +165,17 @@ export default {
   width: 60px;
   right: 0px;
   top: 73px;
-  margin-right: 10px;
-  display: flex;
-  flex-direction: row-reverse;
+  display: none;
   z-index: 9;
   transition: 0.2s;
 }
 @media screen and (max-width: 600px) {
   .more {
     display: flex;
-    flex-direction: row-reverse;
   }
 }
 .moreChange {
   top: 9px;
-}
-.holder {
-  width: 10px;
-  background-color: @bg-color;
 }
 
 .fixed {

@@ -23,7 +23,7 @@
           <p>点亮你在社区的每一天</p>
         </div>
         <div class="right">
-          <el-button type="primary" plain>去签到</el-button>
+          <el-button  plain>去签到</el-button>
         </div>
       </div>
       <!-- 广告组件 -->

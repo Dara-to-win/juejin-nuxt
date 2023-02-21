@@ -163,7 +163,7 @@
         </div>
         <div class="operate-btn">
           <el-button type="primary" class="ui-btn">关注</el-button>
-          <el-button type="primary" plain class="ui-btn-to">私信</el-button>
+          <el-button plain class="ui-btn">私信</el-button>
         </div>
         <div class="cut-off"></div>
         <div class="stat-item">
