@@ -1,4 +1,4 @@
-const REGISTER_URL = 'http://jj.hanbing777.top/api/user/register'
+const REGISTER_URL = 'https://jj.hanbing777.top/api/user/register'
 export const state = () => ({
   isRegisterDialogShow: false,
 })

@@ -1,4 +1,4 @@
-const LOGIN_URL = 'http://jj.hanbing777.top/api/user/login'
+const LOGIN_URL = 'https://jj.hanbing777.top/api/user/login'
 export const state = () => ({
   // 用户登录时输入的信息
   userInfo: {
