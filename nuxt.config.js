@@ -31,7 +31,7 @@ export default {
     proxy: true
   },
   proxy: {
-    "/api": "http://jj.hanbing777.top/",
+    "/api": "https://jj.hanbing777.top/",
   },
   experimental: {
     writeEarlyHints: true,

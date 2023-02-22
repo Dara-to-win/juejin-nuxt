@@ -14,7 +14,7 @@ export default {
     }
   },
   asyncData({$axios,route}) {
-    return $axios.get('http://jj.hanbing777.top/api/article/current', {
+    return $axios.get('https://jj.hanbing777.top/api/article/current', {
           params:{id:route.query.article_id},
         })
         .then((res) => {
