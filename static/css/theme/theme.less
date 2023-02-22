@@ -1,15 +1,15 @@
 @themes: theme-white, theme-dark;
-@theme-white-gray: #666;
+@theme-white-gray: #9ea6b0;
 @theme-dark-gray: #fff;
 @theme-white-bg-color: #fff;
-@theme-dark-bg-color: #80848f;
+@theme-dark-bg-color: #272727;
 @theme-white-font-color: #000;
-@theme-dark-font-color: #fff;
+@theme-dark-font-color: #e3e3e3;
 @theme-white-tip-background-color: #fff;
-@theme-dark-tip-background-color: #666;
+@theme-dark-tip-background-color: #e3e3e3;
 @theme-white-tip-font-color: #000;
 @theme-dark-tip-font-color: #fff;
-@theme-white-hover-color: rgba(30, 128, 255, 0.2);
+@theme-white-hover-color: rgba(30, 128, 255, 0.1);
 @theme-dark-hover-color: #ccc;
 
 // .setTheme() {
@@ -34,6 +34,7 @@
     @tip-background-color: '@{value}-tip-background-color';
     @tip-font-color: '@{value}-tip-font-color';
     @hover-color: '@{value}-hover-color';
+
     body.@{value} {
       .theme(@@bg-color, @@font-color, @@tip-background-color, @@tip-font-color, @@theme-gray, @@hover-color);
     }
