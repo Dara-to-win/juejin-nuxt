@@ -31,7 +31,7 @@ export default {
     },
     methods:{
      async getHome(){
-      await this.$axios.get('http://jj.hanbing777.top/api/article/getHomeConfig').then((res) => {
+      await this.$axios.get('https://jj.hanbing777.top/api/article/getHomeConfig').then((res) => {
         this.$store.state.homeConfig.homeConfig = res.data.data
         }).catch((err)=>{ console.log(err)});
       }
