@@ -31,7 +31,7 @@ export default {
         sortOrder: '', // 默认升序排序
       }
       this.$axios
-        .post('http://jj.hanbing777.top/api/article/current_list', postData)
+        .post('https://jj.hanbing777.top/api/article/current_list', postData)
         .then((res) => {
           this.tenAtc = res.data.data.list
         })
