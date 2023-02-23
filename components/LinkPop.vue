@@ -15,11 +15,18 @@
     <div class="more" :class="moreChange">
       <!-- 透明渐变效果 -->
       <div class="gradient"></div>
-      <img
+      <!-- <img
         src="@/static/assets/more.svg"
         style="cursor: pointer; background-color: white"
         @click="more()"
-      />
+      /> -->
+      <div class="moreBtn">
+        <svg width="30" height="30" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" @click="more()">
+          <path d="M7.94971 11.9497H39.9497" stroke="#4a4a4a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7.94971 23.9497H39.9497" stroke="#4a4a4a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7.94971 35.9497H39.9497" stroke="#4a4a4a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
     </div>
     <transition name="more">
       <div v-show="moreShow" class="moreShow" :class="moreTagChange">
@@ -133,7 +140,7 @@ export default {
 // 导入主题样式
 @import '~/static/css/theme/theme.less';
 .setTheme();
-.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color){
+.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo){
 .lk-container {
   position: fixed;
   top: 64px;
@@ -168,6 +175,19 @@ export default {
   display: none;
   z-index: 9;
   transition: 0.2s;
+  .moreBtn {
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    svg {
+      border: 1px solid #e3e3e3;
+      path {
+        // background-color: #fff !important;
+        stroke: #2f2f2f;
+        cursor: pointer;
+      }
+    }
+  }
 }
 @media screen and (max-width: 600px) {
   .more {

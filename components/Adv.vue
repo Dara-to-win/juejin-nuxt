@@ -181,7 +181,7 @@ export default {
 <style lang="less" scoped>
   @import '~/static/css/theme/theme.less';
   .setTheme();
-  .theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color) {
+  .theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo) {
     .ad {
       margin-top: 15px;
     }
@@ -212,6 +212,12 @@ export default {
     }
     .tip .right {
       flex: 1;
+      .el-button--default {
+        background-color: @login-bg;
+        color: @login-color;
+        border: 1px solid @login-color;
+      }
+      
     }
     .tip .right .el-button {
       /* margin-left: 15px; */

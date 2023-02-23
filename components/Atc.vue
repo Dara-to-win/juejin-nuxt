@@ -161,7 +161,7 @@
             <a class="username">
               <span class="name">{{ atcData.author }}</span>
             </a>
-            <div class="user-position" title=""></div>
+            <div class="user-position" title="">description</div>
           </div>
         </div>
         <div class="operate-btn">
@@ -362,7 +362,7 @@ export default {
 @import '~/static/css/theme/theme.less';
 .setTheme();
 
-.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color) {
+.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo) {
   * {
     font-weight: bold;
   }
@@ -375,6 +375,9 @@ export default {
     overflow-x: hidden;
     color: #333;
   }
+  .el-tabs__item {
+    color: @font-color;
+  } 
 
   h1,
   h2,
@@ -387,6 +390,7 @@ export default {
 
 
   .article-title {
+    color: @font-color;
     font-size: 32px;
     margin-bottom: 20px;
   }
@@ -405,7 +409,8 @@ export default {
   .author-name {
     font-size: 16px;
     cursor: pointer;
-    font-weight: normal
+    font-weight: normal;
+    color: @font-color;
   }
 
   .meta-box {
@@ -475,8 +480,8 @@ export default {
 
   .author {
     border-radius: 4px;
-    background: #fff;
     padding: 1.667rem;
+    background-color: @bg-color;
   }
 
   .user-item {
@@ -486,6 +491,7 @@ export default {
     display: flex;
     align-items: center;
     margin-bottom: 17px;
+    color: @font-color;
   }
 
   .user-pic {
@@ -504,6 +510,7 @@ export default {
   .username {
     display: flex;
     align-items: center;
+    color: @font-color;
   }
 
   .name {
@@ -516,12 +523,13 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: @font-color;
   }
 
   .user-position {
     margin-top: 4px;
     font-size: 1.167rem;
-    color: #515767;
+    color: @font-color;
     font-weight: 400;
     line-height: 22px;
     white-space: nowrap;
@@ -593,13 +601,13 @@ export default {
 
   .content {
     font-size: 1.167rem;
-    color: #252933;
+    color: @font-color;
     font-weight: 400;
   }
 
   .count {
     font-size: 1.167rem;
-    color: #252933;
+    color: @font-color;
     font-weight: 400;
   }
 
@@ -666,7 +674,7 @@ export default {
   .related-entry-sidebar {
     margin-top: 20px;
     margin-bottom: 20px;
-    background-color: #fff;
+    background-color: @bg-color;
     box-shadow: none;
     border-radius: 4px;
     position: relative;
@@ -677,7 +685,7 @@ export default {
     margin: 0 1.667rem;
     font-size: 16px;
     line-height: 2rem;
-    color: #1d2129;
+    color: @font-color;
     font-weight: 500;
     border-bottom: 1px solid #e4e6eb;
   }
@@ -789,6 +797,7 @@ export default {
   .mulu {
     background-color: @bg-color;
     border-radius: 5px;
+    color: @theme-gray;
   }
 
   .catalog {
@@ -796,7 +805,7 @@ export default {
     background-color: @bg-color;
     overflow: hidden;
     border-radius: 5px;
-
+    color: @font-color;
   }
 
   .container {
@@ -810,6 +819,11 @@ export default {
   .catalogue {
     float: left;
     height: 380px;
+    color: @font-color;
+  }
+  
+  .el-tabs__item .el-tabs__item.is-active {
+    color: @font-color!important;
   }
 
   .el-tab-pane {

@@ -34,12 +34,16 @@ export default {
 </script>
 
 <style scoped lang="less">
+// 导入主题样式
+@import '~/static/css/theme/theme.less';
+.setTheme();
+.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo){
 .lh-container {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   overflow-y: hidden;
-  background-color: #f2f3f6;
+  background-color: @lowerhalf;
   // .ads {
   // }
   @media screen and (max-width: 1000px) {
@@ -47,5 +51,6 @@ export default {
       display: none;
     }
   }
+}
 }
 </style>

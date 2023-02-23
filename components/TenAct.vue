@@ -51,20 +51,26 @@ export default {
 </script>
 
 <style scoped lang='less'>
+// 导入主题样式
+@import '~/static/css/theme/theme.less';
+.setTheme();
+.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo){
 .tenAct{
     padding: 0.667rem 1.667rem;
     cursor: pointer;
 }
 .like{
-    color: #909090;
+    color: @theme-gray;
     font-size: 1.167rem;
 }
 .title{
     font-size: 1.167rem;
+    color: @font-color;
 }
 .tenAct:hover{
     .title{
         color: #1171ee;
     }
+}
 }
 </style>
