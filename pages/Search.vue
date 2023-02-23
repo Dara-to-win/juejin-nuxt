@@ -104,7 +104,7 @@ export default {
 .setTheme();
 .theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo){
 .root{
-  background-color:@search;
+  background-color:@lowerhalf;
 }
 .holder {
   height: 105px;
