@@ -88,7 +88,7 @@ export default {
 // 导入主题样式
 @import '~/static/css/theme/theme.less';
 .setTheme();
-.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color){
+.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo){
 // 最外部容器，控制位置
 .e-container {
   // 网格布局

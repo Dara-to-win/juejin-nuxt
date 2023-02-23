@@ -1,7 +1,10 @@
 @margin: 8px 0;
 @line-height: 22px;
-
+@import '~/static/css/theme/theme.less';
+.setTheme();
+.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo){
 .markdown {
+    background-color: @bg-color;
     overflow: hidden;
     position: relative;
     margin: 0;
@@ -21,6 +24,7 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        
     }
 
     &.fullscreen {
@@ -929,4 +933,5 @@ ul.shift {
         display: flex;
         opacity: 1;
     }
+}
 }

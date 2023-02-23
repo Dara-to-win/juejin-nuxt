@@ -1,4 +1,14 @@
 @themes: theme-white, theme-dark;
+@theme-white-logo: #323232;
+@theme-dark-logo: #fff;
+@theme-white-lowerhalf: #f2f3f6;
+@theme-dark-lowerhalf: #121212;
+@theme-white-login-color: #1e80ff;
+@theme-dark-login-color: #e3e3e3;
+@theme-white-login-bg: #cde1f84f;
+@theme-dark-login-bg: transparent;
+@theme-white-search: #fff;
+@theme-dark-search: #2f2f2f;
 @theme-white-gray: #9ea6b0;
 @theme-dark-gray: #fff;
 @theme-white-bg-color: #fff;
@@ -28,6 +38,11 @@
 // }
 .setTheme() {
   each(@themes, {
+    @logo: '@{value}-logo';
+    @lowerhalf: '@{value}-lowerhalf';
+    @login-bg: '@{value}-login-bg';
+    @login-color: '@{value}-login-color';
+    @search: '@{value}-search';
     @theme-gray: '@{value}-gray';
     @bg-color: '@{value}-bg-color';
     @font-color: '@{value}-font-color';
@@ -36,7 +51,7 @@
     @hover-color: '@{value}-hover-color';
 
     body.@{value} {
-      .theme(@@bg-color, @@font-color, @@tip-background-color, @@tip-font-color, @@theme-gray, @@hover-color);
+      .theme(@@bg-color, @@font-color, @@tip-background-color, @@tip-font-color, @@theme-gray, @@hover-color, @@search, @@login-bg, @@login-color, @@lowerhalf, @@logo);
     }
   })
 }

@@ -144,7 +144,7 @@
       </div>
       <div class="markdown-body">
         <img :src='atcData.snapshot' style="width:100%;">
-        <MarkdownPreview v-if="atcData" :initialValue="atcData.content" style="height: auto" />
+        <MarkdownPreview v-if="atcData" :initialValue="atcData.content" style="height: auto" :theme="theme"/>
       </div>
       <!-- <div class="comment-box">评论
         <div class="comment">
@@ -161,7 +161,7 @@
             <a class="username">
               <span class="name">{{ atcData.author }}</span>
             </a>
-            <div class="user-position" title=""></div>
+            <div class="user-position" title="">description</div>
           </div>
         </div>
         <div class="operate-btn">
@@ -210,8 +210,8 @@
           目录
         </div>
         <hr style="opacity: 25%" />
-        <div v-if="catalogue" class="catalog">
-          <el-tabs v-model="activeName" :tab-position="tabPosition" class="catalogue" @tab-click="handleClick">
+        <div  class="catalog">
+          <el-tabs v-model="activeName"  :tab-position="tabPosition" class="catalogue" @tab-click="handleClick">
             <el-tab-pane v-for="(item, index) in navList" :key="index" :name="'tab' + index" :class="item.lev"
               :label="item.name"></el-tab-pane>
           </el-tabs>
@@ -248,7 +248,9 @@ export default {
       showCode: false,
       readCome: false,
       showHover: false,
-      showHov: false
+      showHov: false,
+      dark:"dark",
+      theme:''
     };
   },
   mounted() {
@@ -270,6 +272,11 @@ export default {
         this.fixed = ''
       }
     })
+     this.$bus.$on('changeTheme', () => {
+      if(localStorage.getItem("theme")==='theme-white'){
+        this.theme = 'light'
+      }else{this.theme='dark'}
+     })
     this.$nextTick(() => {
       setTimeout(() => {
         const navs = document.querySelectorAll(".el-tabs__item");
@@ -296,6 +303,7 @@ export default {
   },
   destroyed() {
     this.$bus.$off('scrolNumberChange')
+    window.removeEventListener('storage', this.storage)
   },
   methods: {
     handleClick(tab) {
@@ -304,16 +312,13 @@ export default {
     jump(index) {
       const jump = document.querySelectorAll("h1,h2,h3,h4,h5,h6");
       //  获取需要滚动的距离
-      const total = jump[index].offsetTop - 100;
+      const total = jump[+index+1].offsetTop - 80;
       //  Chrome
       document.body.scrollTop = total;
       //  Firefox
       document.documentElement.scrollTop = total;
       //  Safari
       window.pageYOffset = total;
-      //  $('html, body').animate({
-      //  'scrollTop': total
-      //  }, 400);
     },
     loadScroll() {
       const self = this;
@@ -330,7 +335,9 @@ export default {
       // 获取h1-6标题
       const title = document.querySelectorAll("h1,h2,h3,h4,h5,h6");
       const seo = document.querySelector(".seoLogo");
-      this.catalogue = true
+      if(title.length!==0){
+        this.catalogue = true
+      }
       this.navList = Array.from(title); // 将获取的title存储到navList数组中
       // 过滤掉Logo中的h1
       this.navList = this.navList.filter(item => item !== seo);
@@ -362,7 +369,7 @@ export default {
 @import '~/static/css/theme/theme.less';
 .setTheme();
 
-.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color) {
+.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo) {
   * {
     font-weight: bold;
   }
@@ -373,8 +380,11 @@ export default {
     font-weight: 400;
     font-size: 16px;
     overflow-x: hidden;
-    color: #333;
+    color: @font-color;
   }
+  .el-tabs__item {
+    color: @font-color;
+  } 
 
   h1,
   h2,
@@ -387,6 +397,7 @@ export default {
 
 
   .article-title {
+    color: @font-color;
     font-size: 32px;
     margin-bottom: 20px;
   }
@@ -405,7 +416,8 @@ export default {
   .author-name {
     font-size: 16px;
     cursor: pointer;
-    font-weight: normal
+    font-weight: normal;
+    color: @font-color;
   }
 
   .meta-box {
@@ -475,8 +487,8 @@ export default {
 
   .author {
     border-radius: 4px;
-    background: #fff;
     padding: 1.667rem;
+    background-color: @bg-color;
   }
 
   .user-item {
@@ -486,6 +498,7 @@ export default {
     display: flex;
     align-items: center;
     margin-bottom: 17px;
+    color: @font-color;
   }
 
   .user-pic {
@@ -504,6 +517,7 @@ export default {
   .username {
     display: flex;
     align-items: center;
+    color: @font-color;
   }
 
   .name {
@@ -516,12 +530,13 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: @font-color;
   }
 
   .user-position {
     margin-top: 4px;
     font-size: 1.167rem;
-    color: #515767;
+    color: @font-color;
     font-weight: 400;
     line-height: 22px;
     white-space: nowrap;
@@ -593,13 +608,13 @@ export default {
 
   .content {
     font-size: 1.167rem;
-    color: #252933;
+    color: @font-color;
     font-weight: 400;
   }
 
   .count {
     font-size: 1.167rem;
-    color: #252933;
+    color: @font-color;
     font-weight: 400;
   }
 
@@ -666,7 +681,7 @@ export default {
   .related-entry-sidebar {
     margin-top: 20px;
     margin-bottom: 20px;
-    background-color: #fff;
+    background-color: @bg-color;
     box-shadow: none;
     border-radius: 4px;
     position: relative;
@@ -677,7 +692,7 @@ export default {
     margin: 0 1.667rem;
     font-size: 16px;
     line-height: 2rem;
-    color: #1d2129;
+    color: @font-color;
     font-weight: 500;
     border-bottom: 1px solid #e4e6eb;
   }
@@ -789,6 +804,7 @@ export default {
   .mulu {
     background-color: @bg-color;
     border-radius: 5px;
+    color: @theme-gray;
   }
 
   .catalog {
@@ -796,7 +812,7 @@ export default {
     background-color: @bg-color;
     overflow: hidden;
     border-radius: 5px;
-
+    color: @font-color;
   }
 
   .container {
@@ -810,6 +826,11 @@ export default {
   .catalogue {
     float: left;
     height: 380px;
+    color: @font-color;
+  }
+  
+  .el-tabs__item .el-tabs__item.is-active {
+    color: @font-color!important;
   }
 
   .el-tab-pane {
