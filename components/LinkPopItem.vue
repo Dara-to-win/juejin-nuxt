@@ -50,6 +50,9 @@ export default {
 </script>
 
 <style scoped lang="less">
+@import '~/static/css/theme/theme.less';
+.setTheme();
+.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo){
 // 每个按钮
 li {
   justify-content: center;
@@ -70,7 +73,7 @@ li {
     top: 42px;
     left: 10px;
     width: 300px;
-    background-color: white;
+    background-color:@search;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 2%;
     // border: 1px solid pink;
@@ -98,7 +101,7 @@ li {
         margin-bottom: 6px;
         font-size: 13px;
         color: #71777c;
-        background-color: #f4f5f5;
+        background-color:#f4f5f5;
         border-radius: 14px;
         
         &:hover {
@@ -117,5 +120,5 @@ li {
 }
 .fade-enter, .fade-leave-to  {
   opacity: 0;
-}
+}}
 </style>

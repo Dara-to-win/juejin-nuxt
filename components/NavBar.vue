@@ -629,7 +629,7 @@ export default {
             font-size: 16px;
             padding: 0 10px;
             transition: none !important;
-            color: @theme-gray;
+            color: @tip-font-color;
             &.is-active {
               color: #1e80ff;
               border-bottom: none;

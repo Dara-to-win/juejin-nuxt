@@ -164,7 +164,7 @@ export default {
     background-color: @bg-color;
     list-style: none;
     font-size: 14px;
-    color: @theme-gray;
+    color: @tip-font-color;
   }
 }
 .more {
