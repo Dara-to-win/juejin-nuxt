@@ -153,7 +153,7 @@ export default {
   padding-top: 0;
   line-height: 36px;
   z-index: 5;
-  transition: 0.2s;
+  transition:top 0.2s;
   ul {
     display: flex;
     justify-content: flex-start;

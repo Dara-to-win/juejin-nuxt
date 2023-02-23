@@ -60,7 +60,7 @@ export default {
     cursor: pointer;
 }
 .like{
-    color: @theme-gray;
+    color: #9ea6b0;
     font-size: 1.167rem;
 }
 .title{

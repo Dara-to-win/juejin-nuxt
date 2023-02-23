@@ -218,7 +218,7 @@
                     </div>
                     <!-- <<<<<<< Updated upstream -->
                     <a href="" class="progress-list">
-                      <div class="jscore" style="background-color: #fff">
+                      <div class="jscore" >
                         <div class="js-level">
                           掘友等级
                           <span>JY.4</span>
@@ -394,7 +394,7 @@ export default {
       },
       get useravatar(){
         return localStorage.getItem('userAvatar')
-      }
+      },
     }
   },
   computed: {
@@ -451,10 +451,18 @@ export default {
     )
     this.pageTheme = localStorage.getItem("theme") || "theme-white";
     document.body.setAttribute('class', this.pageTheme);
+    this.storage=window.addEventListener("storage", (e) =>{
+        if(e.key ==="theme"){
+          this.pageTheme=e.newValue;
+          document.body.setAttribute('class',e.newValue);
+          this.$bus.$emit('changeTheme')
+        }
+    });
   },
   updated() {},
   destroyed() {
     window.removeEventListener('scroll', this.scroll)
+    window.removeEventListener('storage', this.storage)
   },
   methods: {
     ...mapMutations({
@@ -469,9 +477,9 @@ export default {
           this.pageTheme = 'theme-white';
       }
       document.body.setAttribute('class', this.pageTheme);
-
       // 将主题信息保存到localStorage中
       localStorage.setItem("theme", this.pageTheme);
+      this.$bus.$emit('changeTheme')
     },
     scrollToTop() {
       this.scrolNumber =

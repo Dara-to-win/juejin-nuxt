@@ -136,6 +136,4 @@
     @import "~/static/css/index";
     @import "~/static/css/light";
     @import "~/static/css/dark";
-    @import "~/static/css/one-dark";
-    @import "~/static/css/github";
 </style> 

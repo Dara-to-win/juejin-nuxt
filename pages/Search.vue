@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="root">
     <div class="holder"></div>
     <LinkPop :label='label' />
     <div class="essays">
@@ -99,7 +99,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+@import '~/static/css/theme/theme.less';
+.setTheme();
+.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo){
+.root{
+  background-color:@search;
+}
 .holder {
   height: 105px;
 }
@@ -112,6 +118,7 @@ export default {
 .essays{
   margin-left:0!important;
   max-width: 900px;
+}
 }
 }
 </style>
