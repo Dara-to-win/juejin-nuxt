@@ -303,6 +303,7 @@ export default {
   },
   destroyed() {
     this.$bus.$off('scrolNumberChange')
+    this.$bus.$off('changeTheme')
     window.removeEventListener('storage', this.storage)
   },
   methods: {
