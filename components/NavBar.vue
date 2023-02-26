@@ -746,7 +746,7 @@ export default {
         }
         .modeCheck::after {
             content: "";
-            background: url("~/static/assets/sun.png") no-repeat center;
+            background: url("~/static/assets/igw-f-moon.png") no-repeat center;
             background-size: 25px 25px;
             display: block;
             width: 25px;
@@ -754,7 +754,7 @@ export default {
         }
         #modeCheckBox:checked + .modeCheck::after {
             content: "";
-            background: url("~/static/assets/moon.png") no-repeat center;
+            background: url("~/static/assets/igw-f-sun.png") no-repeat center;
             background-size: 25px 25px;
             display: block;
             width: 25px;
