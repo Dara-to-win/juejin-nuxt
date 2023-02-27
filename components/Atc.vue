@@ -277,6 +277,9 @@ export default {
         this.theme = 'light'
       }else{this.theme='dark'}
      })
+     if(localStorage.getItem("theme")==='theme-white'){
+        this.theme = 'light'
+      }else{this.theme='dark'}
     this.$nextTick(() => {
       setTimeout(() => {
         const navs = document.querySelectorAll(".el-tabs__item");
