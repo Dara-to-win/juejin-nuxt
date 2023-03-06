@@ -44,14 +44,14 @@ export default {
 
 <style scoped lang="less">
 // 导入主题样式
-@import '~/static/css/theme/theme.less';
-.setTheme();
-.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo){
+@import '~/static/css/theme/var.less';
+// @import '~/static/css/theme/theme.less';
+// .setTheme();
+// .theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo){
 .holder {
   height: 64px;
 }
 .detail {
   background-color: @lowerhalf;
-}
 }
 </style>

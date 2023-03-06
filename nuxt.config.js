@@ -55,6 +55,7 @@ export default {
   css: [
     '@/static/css/css.less',
     '@/static/css/dark.less',
+    '@/static/css/theme/var.less'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins

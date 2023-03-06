@@ -50,9 +50,10 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import '~/static/css/theme/theme.less';
-.setTheme();
-.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo){
+@import '~/static/css/theme/var.less';
+// @import '~/static/css/theme/theme.less';
+// .setTheme();
+// .theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo){
 // 每个按钮
 li {
   justify-content: center;
@@ -120,5 +121,5 @@ li {
 }
 .fade-enter, .fade-leave-to  {
   opacity: 0;
-}}
+}
 </style>

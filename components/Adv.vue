@@ -179,9 +179,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  @import '~/static/css/theme/theme.less';
-  .setTheme();
-  .theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo) {
+@import '~/static/css/theme/var.less';
+  // @import '~/static/css/theme/theme.less';
+  // .setTheme();
+  // .theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo) {
     .ad {
       margin-top: 15px;
     }
@@ -336,5 +337,4 @@ export default {
     .holder {
       width: 240px;
     }
-  }
 </style>
