@@ -100,9 +100,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '~/static/css/theme/theme.less';
-.setTheme();
-.theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo){
+@import '~/static/css/theme/var.less';
+// @import '~/static/css/theme/theme.less';
+// .setTheme();
+// .theme(@bg-color, @font-color, @tip-background-color, @tip-font-color, @theme-gray, @hover-color, @search, @login-bg, @login-color, @lowerhalf, @logo){
 .root{
   background-color:@lowerhalf;
 }
@@ -118,7 +119,6 @@ export default {
 .essays{
   margin-left:0!important;
   max-width: 900px;
-}
 }
 }
 </style>

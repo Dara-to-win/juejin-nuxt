@@ -22,20 +22,20 @@
 @theme-white-hover-color: rgba(30, 128, 255, 0.1);
 @theme-dark-hover-color: #ccc;
 
-// .setTheme() {
-//   .loop(@i) when (@i < length(@themes)+1){
-//     @theme: extract(@themes, @i);
-//     @bg-color: '@{theme}-bg-color';
-//     @font-color: '@{theme}-font-color';
-//     @tip-background-color: '@{theme}-tip-background-color';
-//     @tip-font-color: '@{theme}-tip-font-color';
-//     body.@{theme}{
-//       .theme(@@bg-color, @@font-color, @@tip-background-color, @@tip-font-color);
-//     }
-//     .loop(@i+1);
-//   }
-//   .loop(1);
-// }
+// // .setTheme() {
+// //   .loop(@i) when (@i < length(@themes)+1){
+// //     @theme: extract(@themes, @i);
+// //     @bg-color: '@{theme}-bg-color';
+// //     @font-color: '@{theme}-font-color';
+// //     @tip-background-color: '@{theme}-tip-background-color';
+// //     @tip-font-color: '@{theme}-tip-font-color';
+// //     body.@{theme}{
+// //       .theme(@@bg-color, @@font-color, @@tip-background-color, @@tip-font-color);
+// //     }
+// //     .loop(@i+1);
+// //   }
+// //   .loop(1);
+// // }
 .setTheme() {
   each(@themes, {
     @logo: '@{value}-logo';
@@ -54,4 +54,30 @@
       .theme(@@bg-color, @@font-color, @@tip-background-color, @@tip-font-color, @@theme-gray, @@hover-color, @@search, @@login-bg, @@login-color, @@lowerhalf, @@logo);
     }
   })
+}
+.theme-white {
+  --logo: #323232;
+  --lowerhalf: #f2f3f6;
+  --login-color: #1e80ff;
+  --login-bg: #cde1f84f;
+  --search: #fff;
+  --gray: #9ea6b0;
+  --bg-color: #fff;
+  --font-color: #000;
+  --tip-background-color: #fff;
+  --tip-font-color: #71777c;
+  --hover-color: rgba(30, 128, 255, 0.1);
+}
+.theme-dark {
+  --logo: #fff;
+  --lowerhalf: #121212;
+  --login-color: #e3e3e3;
+  --login-bg: transparent;
+  --search: #2f2f2f;
+  --gray: #fff;
+  --bg-color: #272727;
+  --font-color: #e3e3e3;
+  --tip-background-color: #e3e3e3;
+  --tip-font-color: #e3e3e3;
+  --hover-color: #ccc;
 }
