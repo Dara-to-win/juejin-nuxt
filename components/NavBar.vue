@@ -827,7 +827,7 @@ export default {
   position: absolute;
   background-color: #f2f3f5;
   top: 17px;
-  right: 321px;
+  right: 325px;
   border-radius: 5px;
   transition: 0.3s;
   cursor: pointer;
@@ -864,7 +864,7 @@ export default {
     display: none;
   }
   .search {
-    right: 264px;
+    right: 255px;
   }
   .message-btn {
      display: none;
